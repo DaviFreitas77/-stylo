@@ -1,0 +1,98 @@
+.img-destaque{
+    width: 40%;
+}
+.container-destaque{
+ display: flex;
+ flex-direction: column;
+ margin-top: 50px;
+ padding:15px;
+}
+.destaque{
+    display: flex;
+}
+.roupa-colecao-destaque{
+    width:100%;
+
+}
+.colecao-destaque{
+    display: flex;
+    gap: 10px;
+}
+.card-roupa{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #DFDFDF;
+    height: 100%;
+}
+.card-roupa:hover{
+    opacity: .9;
+}
+.nome-roupa{
+    margin-top: 20px;
+    font-size: 1rem;
+    text-align: center;
+
+}
+.preco-roupa{
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 16px;
+}
+.titulo-sesssao{
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 50px;
+}
+.swiper{
+    width: 100%;
+
+}
+
+
+.swiper-pagination .swiper-pagination-bullet-active {
+    background-color: #000 !important; /* Cor ativa */
+    
+    
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #000 !important; /* Cor personalizada para as setas */
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 24px !important; /* Ajusta o tamanho das setas */
+}
+
+
+@media (max-width:768px){
+    .titulo-sesssao{
+        font-size: 2rem;
+    }
+   
+
+}
+@media (max-width:468px){
+    .img-destaque{
+        display: none;
+    }
+    .titulo-sesssao{
+        font-size: 2rem;
+    }
+    .swiper-pagination {
+        display: none;
+    }
+    .card-roupa{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background-color: #DFDFDF;
+        height: 40vh;
+    }
+    
+}

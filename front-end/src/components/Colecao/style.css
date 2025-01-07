@@ -1,0 +1,11 @@
+.container-colecao{
+    display: flex;
+
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.img-colecao{
+    width:50%;
+}

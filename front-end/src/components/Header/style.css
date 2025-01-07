@@ -25,3 +25,9 @@
 .icon{
     cursor: pointer;
 }
+
+@media (max-width:768px){
+    .div-input{
+        display: none;
+    }
+}
