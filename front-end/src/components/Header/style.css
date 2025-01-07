@@ -1,0 +1,27 @@
+.container-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 25px;
+    align-items: center;
+}
+.icons-header{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+#input-search{
+    border: none;
+    font-size: 18px;
+}
+#input-search:focus{
+    outline: none;
+}
+.div-input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.icon{
+    cursor: pointer;
+}

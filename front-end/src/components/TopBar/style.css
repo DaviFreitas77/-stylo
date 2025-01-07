@@ -1,0 +1,9 @@
+.container-topBar{
+    background-color: black;
+    text-align: center;
+    padding: 8px;
+}
+.text{
+    color: #ffff;
+    font-size: 18px;
+}
