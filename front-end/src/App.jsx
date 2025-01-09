@@ -10,14 +10,16 @@ function App() {
 
 
   return (
-    <>
-    <TopBar/>
+    <div >
+  <TopBar/>
       <Header />
       <HeroBanner/>
       <Colecao/>
       <Destaque/>
       <DestaqueEstacao/>
-    </>
+  
+    </div>
+  
   )
 }
 
