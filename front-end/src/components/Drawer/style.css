@@ -43,6 +43,11 @@ position: fixed;
 .card-drawer{
 width: 40%;
 
+
+}
+.card-drawer:hover{
+    opacity: .8;
+    cursor: pointer;
 }
 .card-drawer div{
 
@@ -57,7 +62,7 @@ width: 40%;
     display: flex;
     gap: 10px;
     justify-content: space-evenly;
-    margin-top: 50px;
+    margin-top: 20px;
     padding: 20px;
     flex-wrap: wrap;
     
@@ -67,18 +72,17 @@ width: 40%;
     overflow-y: auto;
     max-height: 80%;
      scrollbar-color: #000 #e0e0e0; /* Cor da barra de rolagem e do fundo da pista */
-    /*width: 100%;
-    padding: 10px;
-    background-color: white;
-    box-sizing: border-box;
-    border-radius: 8px; */
+   
 }
 
 
 
 
-/* Para Firefox */
+
 .container-card-drawer {
     scrollbar-width: thin;  
     scrollbar-color: #000 #fff;
 }
+
+
+

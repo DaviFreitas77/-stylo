@@ -31,3 +31,8 @@
         display: none;
     }
 }
+@media (max-width:468px){
+   .iconUser, .iconFavorito{
+    display: none;
+   }
+}
