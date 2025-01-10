@@ -3,6 +3,7 @@
     justify-content: space-between;
     padding: 25px;
     align-items: center;
+
 }
 .icons-header{
     display: flex;
@@ -22,17 +23,37 @@
     align-items: center;
     gap: 10px;
 }
-.icon{
+.icon, .span-entrar{
     cursor: pointer;
 }
+.iconMenu{
+    display: none;
+}
+.container-drawerMobile{
+    display: none;
+}
+
 
 @media (max-width:768px){
     .div-input{
         display: none;
     }
+    .iconMenu{
+        display: block;
+    }
+    div.div-entrar {
+        display: none !important;
+    }
+    .container-drawerMobile{
+        display: block;
+    }
 }
 @media (max-width:468px){
-   .iconUser, .iconFavorito{
-    display: none;
-   }
+    .container-header{
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        align-items: center;
+    
+    }
 }
