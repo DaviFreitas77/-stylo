@@ -7,11 +7,13 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useNavigate } from "react-router-dom";
 
 
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
 export default function Destaque() {
+    const navigate = useNavigate()
     return (
         <div className="container-destaque">
             <h1 className="titulo-sesssao">Novidades em Alta</h1>

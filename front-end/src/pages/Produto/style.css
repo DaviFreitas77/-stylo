@@ -1,0 +1,57 @@
+.container-icons-cores{
+    display: flex;
+    gap: 10px;
+}
+.section-info-produto{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+ 
+}
+.img-produto{
+    max-width: 500px;
+}
+.details-produto{
+
+    max-width: 400px;
+    width: 100%;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+
+    padding-top: 80px;
+
+}
+.container-cores{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+.subtitulo{
+    font-size: 20px;
+}
+.nome-produto{
+    font-size: 35px;
+}
+.preco-produto{
+    font-size: 22px;
+    color: gray;
+
+}
+.input-select{
+    background-color: #dfdfdf;
+    width: 50%;
+    padding: 5px;
+
+}
+.input-select:focus{
+    outline: none;
+}
+.container-tamanho{
+
+display: flex;
+flex-direction: column;
+gap: 10px;
+
+}
