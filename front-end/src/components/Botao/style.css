@@ -1,7 +1,6 @@
 .botao {
    background-color: #000;
    color: #fff;
-   max-width: 350px;
    width: 100%;
    padding: 12px;
    border-radius: 4px;
@@ -9,6 +8,7 @@
 
 .container-botao {
    width: 100%;
+   padding-right:10px ;
 
 }
 

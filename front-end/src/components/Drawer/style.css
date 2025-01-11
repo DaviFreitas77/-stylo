@@ -29,7 +29,7 @@ position: fixed;
 }
 .input{
     width: 100%;
-    font-size: 18px;
+    font-size: 18px !important;
 }
 .input:focus{
  
