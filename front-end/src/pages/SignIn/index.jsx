@@ -23,9 +23,9 @@ export default function SignIn() {
                         />
                     </div>
                     <span className="span-signIn">Esqueci minha senha</span>
-                    <Botao
-                        text="Entrar"
-                    />
+                    <button className="btn-signIn">
+                        Entrar
+                    </button>
                 <button className="btn-criarConta">
                     Criar conta
                 </button>
@@ -40,9 +40,9 @@ export default function SignIn() {
                         />
 
                     </div>
-                    <Botao
-                        text="Prosseguir"
-                    />
+                    <button className="btn-signIn">
+                        Prosseguir
+                    </button>
                 </div>
             </section>
             <section className="entrar-google">

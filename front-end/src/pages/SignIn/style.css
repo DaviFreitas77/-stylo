@@ -56,7 +56,14 @@
     font-weight: bold;
     display: none;
 }
-
+.btn-signIn{
+    background-color: black;
+    color: white;
+    max-width: 350px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+}
  
 
 @media (max-width:768px){
@@ -83,5 +90,13 @@
      .btn-criarConta{
         display: block;
      }
+     .btn-signIn{
+        background-color: black;
+        color: white;
+        max-width: 700px;
+        width: 100%;
+        padding: 12px;
+        border-radius: 4px;
+    }
     
 }
