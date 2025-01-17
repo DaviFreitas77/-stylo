@@ -22,17 +22,19 @@ class produtoController extends Controller
     
         $produto->save();
         
-        if($request->destaque){
-
+        if ($request->destaque) {
+            echo($produto->id_produto); 
+        
             DB::table('tb_produto_destaque')->insert([
-                'fk_produto' => $produto->id_produto,
-              
+                'fk_produto' => $produto->id_produto, 
             ]);
-           
-
         }
-       
-       
+
+        if($request->destaque_estacao){
+            DB::table('tb_produto_destaque_estacao')->insert([
+                'fk_produto' => $produto->id_produto, 
+            ]);
+        }
     
         return response()->json([
             'message' => 'Produto Cadastrado com sucesso'
@@ -44,6 +46,23 @@ public function getProduto(){
     $produto = Produto::all();
 
     return response()->json($produto);
+}
+
+public function getProdutoDestaque(){
+    $produtosDestaque = DB::table('tb_produto_destaque')
+    ->join('tb_produto', 'tb_produto_destaque.fk_produto', '=', 'tb_produto.id_produto')
+    ->get();
+
+return response()->json($produtosDestaque);
+
+}
+
+public function getDestaqueEstacao(){
+    $produtos = DB::table('tb_produto_destaque_estacao')
+    ->join('tb_produto','tb_produto_destaque_estacao.fk_produto', '=', 'tb_produto.id_produto')
+    ->get();
+
+    return response()->json($produtos);
 }
     
 }

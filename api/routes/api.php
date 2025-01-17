@@ -14,6 +14,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/criarUsuario',[usuarioController::class,('criarUsuario')]);
 Route::post('/criarCategoria',[categoriaController::class,('criarCategoria')]);
 Route::post('/criarSubCategoria',[subCategoriaController::class,('criarSubCategoria')]);
+Route::post('/criarProduto',[produtoController::class,('criarProduto')]);
 
 
 
@@ -22,3 +23,6 @@ Route::post('/criarSubCategoria',[subCategoriaController::class,('criarSubCatego
 Route::get('/getCategorias',[categoriaController::class,('getCategorias')]);
 Route::get('/getSubCategorias',[subCategoriaController::class,('getSubCategorias')]);
 Route::get('/getProduto',[produtoController::class,('getProduto')]);
+
+Route::get('/getDestaque',[produtoController::class,('getProdutoDestaque')]);
+Route::get('/destaqueEstacao',[produtoController::class,('getDestaqueEstacao')]);

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id_produto');
             $table->string('nome_produto');
             $table->string('desc_produto');
-            $table->decimal('preco_produto', 10, 3);
+            $table->decimal('preco_produto', 10,2);
             $table->string('imagem_produto');
             $table->string('cor_produto');
             $table->unsignedInteger('fk_subCategoria');
