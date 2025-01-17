@@ -15,10 +15,12 @@ return new class extends Migration
             $table->increments('id_produto');
             $table->string('nome_produto');
             $table->string('desc_produto');
-            $table->decimal('preco_produto', 10, 2);
+            $table->decimal('preco_produto', 10, 3);
             $table->string('imagem_produto');
             $table->string('cor_produto');
             $table->unsignedInteger('fk_subCategoria');
+            $table->boolean('destaque');
+            $table->boolean('destaque_estacao');
 
             $table->foreign('fk_subCategoria')->references('id_subCategoria')->on('tb_subCategoria');
         });
