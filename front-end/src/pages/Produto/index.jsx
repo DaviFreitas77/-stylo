@@ -18,9 +18,7 @@ export default function Produto() {
             <section className="section-info-produto">
                 <div className="div-img-produto">
                     <img className="img-produto" src={item.imagem_produto} alt="" />
-                    <img className="img-produto" src={item.imagem_produto} alt="" />
-                    <img className="img-produto" src={item.imagem_produto} alt="" />
-                    <img className="img-produto" src={item.imagem_produto} alt="" />
+                   
               </div>
 
                 <div className="details-produto">

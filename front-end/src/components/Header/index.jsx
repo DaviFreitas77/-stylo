@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import './style.css'
 import { ImUser } from "react-icons/im";
 import { MdFavorite } from "react-icons/md";
@@ -7,11 +7,13 @@ import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom"
 import DrawerSeacrch from "../Drawer";
 import DrawerMobile from "../DrawerMobile";
+import { Context } from "../../Contexto/provider";
 export default function Header() {
 
     const [showDrawer, setShowDrawer] = useState(false)
     const [showDrawerMobile, setShowDrawerMobile] = useState(false)
-
+    const { nomeUsuario } = useContext(Context)
+    console.log(nomeUsuario)
     return (
         <div className="container-header">
             <DrawerMobile />
@@ -28,10 +30,18 @@ export default function Header() {
             </div>
             <h2>Logo</h2>
             <div className="icons-header">
-                <div className="d-flex gap-2 mr-5 div-entrar">
-                    <ImUser className="icon iconUser" size={25} />
-                    <Link className="span-entrar" to={'Login'}>Entrar</Link>
-                </div>
+                    {nomeUsuario ?(
+                        <div className="d-flex gap-2 mr-5 div-entrar">
+                        <ImUser className="icon iconUser" size={25} />
+                        <Link className="span-entrar" to={'Login'}>{nomeUsuario}</Link>
+                    </div>
+                    ):(
+                        <div className="d-flex gap-2 mr-5 div-entrar">
+                        <ImUser className="icon iconUser" size={25} />
+                        <Link className="span-entrar" to={'Login'}>Entrar</Link>
+                    </div>
+                    )}
+              
                 <MdFavorite className="icon iconFavorito" size={25} />
                 <HiMiniShoppingCart className="icon " size={25} />
 
