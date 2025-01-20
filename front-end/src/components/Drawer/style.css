@@ -1,18 +1,18 @@
-.closeDrawer{
+.closeDrawer {
     width: -100%;
-   
+
 }
-    
-.openDrawer{
+
+.openDrawer {
     display: flex;
     justify-content: space-between;
     padding: 10px;
 }
 
-.container-drawer{
+.container-drawer {
     position: absolute;
-background-color: #fff;
-position: fixed;
+    background-color: #fff;
+    position: fixed;
     left: 0;
     top: 0;
     height: 100vh;
@@ -21,58 +21,69 @@ position: fixed;
 
 }
 
-.div-input-drawer{
+.div-input-drawer {
     display: flex;
     align-items: center;
     gap: 10px;
     width: 100%;
 }
-.input{
+
+.input {
     width: 100%;
     font-size: 18px !important;
 }
-.input:focus{
- 
-        outline: none;
-    
-}
-.img-roupa-drawer{
-    width: 100%;
+
+.input:focus {
+
+    outline: none;
 
 }
-.card-drawer{
-width: 40%;
+
+.img-roupa-drawer {
+    width: 60%;
+
+}
+
+.card-drawer {
+    width: 40%;
+
 
 
 }
-.card-drawer:hover{
+
+.card-drawer:hover {
     opacity: .8;
     cursor: pointer;
 }
-.card-drawer div{
+
+.card-drawer div {
 
     background-color: #dfdfdf;
     display: flex;
     justify-content: center;
 }
+
 .nome-card {
     font-size: 20px;
 }
-.container-card-drawer{
+
+.container-card-drawer {
     display: flex;
     gap: 10px;
-    justify-content: space-evenly;
-    margin-top: 20px;
-    padding: 20px;
+    margin-top: 5px;
+
     flex-wrap: wrap;
-    
+    justify-content: center;
+
 
 }
+
 .container-card-drawer {
     overflow-y: auto;
     max-height: 80%;
-     scrollbar-color: #000 #e0e0e0; /* Cor da barra de rolagem e do fundo da pista */
-   
+    scrollbar-color: #000 #e0e0e0;
+    /* Cor da barra de rolagem e do fundo da pista */
+
 }
 
 
@@ -80,9 +91,6 @@ width: 40%;
 
 
 .container-card-drawer {
-    scrollbar-width: thin;  
+    scrollbar-width: thin;
     scrollbar-color: #000 #fff;
 }
-
-
-

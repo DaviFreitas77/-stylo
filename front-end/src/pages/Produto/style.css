@@ -103,3 +103,14 @@ gap: 10px;
         justify-content: center;
     }
 }
+@media (max-width:468px) {
+   
+     .section-info-produto{
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         padding: 10px;
+      
+     }
+    
+}

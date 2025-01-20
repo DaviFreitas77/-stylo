@@ -32,14 +32,25 @@
 .container-drawerMobile{
     display: none;
 }
-
+.iconsMobile{
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    align-items: center;
+}
+.iconSearch{
+    display: none;
+}
 
 @media (max-width:768px){
     .div-input{
         display: none;
     }
-    .iconMenu{
+    .iconMenu, .iconSearch{
         display: block;
+    }
+    .iconFavorito{
+        display: none;
     }
     div.div-entrar {
         display: none !important;

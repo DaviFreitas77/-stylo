@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './style.css';
 
 import 'swiper/css';
@@ -8,14 +8,20 @@ import 'swiper/css/scrollbar';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useNavigate } from "react-router-dom";
 
+
+
+
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+
 
 export default function Destaque() {
     const [produtoDestaque, setProdutoDestaque] = useState([]);
+
     const navigate = useNavigate();
 
     useEffect(() => {
         const produtoDestaque = async () => {
+     
             try {
                 const response = await fetch('http://127.0.0.1:8000/api/getDestaque', {
                     method: 'GET',
@@ -23,15 +29,17 @@ export default function Destaque() {
 
                 const data = await response.json();
                 setProdutoDestaque(data);
-      
+
             } catch (error) {
                 console.log(error);
-            }
+            } 
         };
         produtoDestaque();
     }, []);
 
+
     return (
+
         <div className="container-destaque">
             <h1 className="titulo-sesssao">Novidades em Alta</h1>
             <div className="destaque">
@@ -63,13 +71,13 @@ export default function Destaque() {
                             return (
                                 <SwiperSlide key={index}>
                                     <button
-                                    onClick={() => {
-                                        navigate('/produto', { state: { item } });
-                                    }}
-                                    className="card-roupa">
+                                        onClick={() => {
+                                            navigate('/produto', { state: { item } });
+                                        }}
+                                        className="card-roupa">
                                         <img
                                             className="roupa-colecao-destaque"
-                                            src={item.imagem_produto || "/img/vestido.png"}  
+                                            src={item.imagem_produto || "/img/vestido.png"}
                                             alt={item.nome_produto}
                                         />
                                         <p className="nome-roupa">{item.nome_produto}</p>

@@ -6,8 +6,12 @@ import HeroBanner from '../../components/HeroBanner'
 import Destaque from '../../components/RoupaDestaque'
 import Colecao from '../../components/Colecao'
 import DestaqueEstacao from '../../components/DestaqueEstacao'
+import { useContext } from 'react'
+import { Context } from '../../Contexto/provider'
+
 
 function Home() {
+
   return (
     <div >
       <TopBar />
@@ -16,8 +20,8 @@ function Home() {
       <Colecao />
       <Destaque />
       <DestaqueEstacao />
-
     </div>
+
 
   )
 }
