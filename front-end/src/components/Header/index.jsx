@@ -15,7 +15,7 @@ export default function Header() {
     const [showDrawer, setShowDrawer] = useState(false)
     const [showDrawerMobile, setShowDrawerMobile] = useState(false)
     const { nomeUsuario } = useContext(Context)
-    console.log(nomeUsuario)
+    
     return (
         <div className="container-header">
             <DrawerMobile />

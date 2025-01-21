@@ -15,6 +15,7 @@ Route::post('/criarUsuario',[usuarioController::class,('criarUsuario')]);
 Route::post('/criarCategoria',[categoriaController::class,('criarCategoria')]);
 Route::post('/criarSubCategoria',[subCategoriaController::class,('criarSubCategoria')]);
 Route::post('/criarProduto',[produtoController::class,('criarProduto')]);
+Route::post('/login',[usuarioController::class,('login')]);
 
 
 

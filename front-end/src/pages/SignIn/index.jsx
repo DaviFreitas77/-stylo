@@ -1,11 +1,47 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import './style.css'
-import Input from "../../components/Input";
 import Botao from "../../components/Botao";
 import { FcGoogle } from "react-icons/fc";
+import InputMask  from 'react-input-mask'
+import { Context } from "../../Contexto/provider";
+import { Navigate, useNavigate } from "react-router-dom";
 export default function SignIn() {
+    const [cpf, setCpf] = useState('')
+    const [senha, setSenha] = useState('')
+    const [email, setEmail] = useState('')
+    const {setNomeUsuario} = useContext(Context)
+    const Navigate = useNavigate();
 
-    
+
+    const login = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    cpf_usuario: cpf,
+                    senha_usuario: senha
+                })
+            })
+
+        
+            if(response.ok){
+                const data = await response.json();
+                const usuario = data[0];
+                setNomeUsuario(usuario.nome_usuario)
+            
+                Navigate('/')
+            }
+        
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+
 
     return (
         <div className="container-signIn">
@@ -16,30 +52,46 @@ export default function SignIn() {
                 <div className="div-signIn">
                     <h3 className="h3-sigIn">Já sou cliente</h3>
                     <div>
-                        <Input
-                            placeholder='CPF'
-                            type='number'
+                        <InputMask 
+                            mask="999.999.999-99"
+                            className="input"
+                            type="text"
+                            placeholder="CPF"
+                            onChange={(txt) => setCpf(txt.target.value)}
+                            value={cpf}
                         />
-                        <Input
-                            placeholder='Senha'
+                           
+                 
+
+                        <input
+                            className="input"
                             type="password"
+                            placeholder="Senha"
+                            onChange={(txt) => setSenha(txt.target.value)}
+                            value={senha}
                         />
                     </div>
                     <span className="span-signIn">Esqueci minha senha</span>
-                    <button className="btn-signIn">
+                    <button
+                        onClick={login}
+                        className="btn-signIn">
                         Entrar
                     </button>
-                <button className="btn-criarConta">
-                    Criar conta
-                </button>
+                    <button className="btn-criarConta">
+                        Criar conta
+                    </button>
                 </div>
 
                 <div className="div-signIn div-signUp">
                     <h3 className="h3-sigIn">Criar conta</h3>
                     <div>
-                        <Input
+                        <input
+                            className="input"
                             placeholder='Email'
                             type='text'
+                            onChange={(txt) => setEmail(txt.target.value)}
+                            value={email}
+
                         />
 
                     </div>
@@ -50,7 +102,7 @@ export default function SignIn() {
             </section>
             <section className="entrar-google">
                 <button className="btn-entrar-google">
-                    <FcGoogle size={25}/>
+                    <FcGoogle size={25} />
                     Entrar com o google
                 </button>
             </section>

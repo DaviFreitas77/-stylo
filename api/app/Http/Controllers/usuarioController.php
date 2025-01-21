@@ -7,6 +7,7 @@ use App\Models\Usuario;
 use App\Models\VerificarEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class usuarioController extends Controller
 {
@@ -52,17 +53,23 @@ class usuarioController extends Controller
         // $verificar = new VerificarEmail;
         // $verificar->id_usuario = $usuario->id_usuario;
         // $verificar->token = $token;
-        // $verificar->save();
+        // $verificar->save();  
 
         // Mail::to($usuario->email_usuario)->send(new EmailVerificationMail($token));  
 
     }
 
     public function login(Request $request)
+    
     {
         $usuario = Usuario::where('cpf_usuario', $request->cpf_usuario)->first();
 
         if ($usuario && $request->senha_usuario === $usuario->senha_usuario) {
+
+
+            
+            Session::put('nome_usuario', 'a');
+            
             return response()->json([
                 'message' => 'Login como usuário bem-sucedido.',
                 $usuario
