@@ -1,70 +1,84 @@
-.container-header{
+.container-header {
     display: flex;
     justify-content: space-between;
     padding: 25px;
     align-items: center;
 
 }
-.icons-header{
+
+.icons-header {
     display: flex;
     flex-direction: row;
     gap: 20px;
 }
-#input-search{
+
+#input-search {
     border: none;
     font-size: 18px;
 }
-#input-search:focus{
+
+#input-search:focus {
     outline: none;
 }
-.div-input{
+
+.div-input {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
-.icon, .span-entrar{
+
+.icon,
+.span-entrar {
     cursor: pointer;
 }
-.iconMenu{
-    display: none;
-}
-.container-drawerMobile{
-    display: none;
-}
-.iconsMobile{
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    align-items: center;
-}
-.iconSearch{
+
+.iconMenu {
     display: none;
 }
 
-@media (max-width:768px){
-    .div-input{
+.container-drawerMobile {
+    display: none;
+}
+
+.iconsMobile {
+    display: flex;
+    gap: 15px;
+}
+
+.iconSearch {
+    display: none;
+}
+
+@media (max-width:768px) {
+    .div-input {
         display: none;
     }
-    .iconMenu, .iconSearch{
+
+    .iconMenu,
+    .iconSearch {
         display: block;
     }
-    .iconFavorito{
+
+    .iconFavorito {
         display: none;
     }
+
     div.div-entrar {
         display: none !important;
     }
-    .container-drawerMobile{
+
+    .container-drawerMobile {
         display: block;
     }
 }
-@media (max-width:468px){
-    .container-header{
+
+@media (max-width:468px) {
+    .container-header {
         display: flex;
         justify-content: space-between;
         padding: 10px;
         align-items: center;
-    
+
     }
 }

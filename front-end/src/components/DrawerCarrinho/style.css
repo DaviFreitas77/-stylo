@@ -1,0 +1,10 @@
+#offcanvasRight {
+    width: 50%;
+}
+
+
+@media(max-width:468px){
+    #offcanvasRight {
+        width: 100%;
+    }
+}
