@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\categoriaController;
+use App\Http\Controllers\pesquisaController;
 use App\Http\Controllers\produtoController;
 use App\Http\Controllers\subCategoriaController;
 use App\Http\Controllers\usuarioController;
@@ -28,3 +29,4 @@ Route::get('/produto',[produtoController::class,('getProduto')]);
 Route::get('/getDestaque',[produtoController::class,('getProdutoDestaque')]);
 Route::get('/destaqueEstacao',[produtoController::class,('getDestaqueEstacao')]);
 Route::get('/interesseUsuario',[produtoController::class,('getInteresseUsuario')]);
+Route::get('/pesquisa',[pesquisaController::class,('pesquisa')]);

@@ -16,7 +16,7 @@
     left: 0;
     top: 0;
     height: 100vh;
-    width: 50%;
+    width: 43%;
     z-index: 999;
 
 }
@@ -26,29 +26,28 @@
     align-items: center;
     gap: 10px;
     width: 100%;
+    
 }
 
-.input {
-    width: 100%;
+.inputSearch {
+    width: 50%;
     font-size: 18px !important;
+    border: 1px solid #dfdfdf;
+    padding:5px;
 }
 
-.input:focus {
-
+.inputSearch:focus {
     outline: none;
-
 }
 
 .img-roupa-drawer {
-    width: 60%;
+    width: 70%;
 
 }
 
 .card-drawer {
-    width: 40%;
-
-
-
+    width: 45%;
+    margin-top: 30px;
 }
 
 .card-drawer:hover {
@@ -57,7 +56,6 @@
 }
 
 .card-drawer div {
-
     background-color: #dfdfdf;
     display: flex;
     justify-content: center;
@@ -69,11 +67,13 @@
 
 .container-card-drawer {
     display: flex;
-    gap: 10px;
-    margin-top: 5px;
-
+    justify-content: space-evenly;
     flex-wrap: wrap;
-    justify-content: center;
+    
+    gap: 10px;
+
+
+
 
 
 }
