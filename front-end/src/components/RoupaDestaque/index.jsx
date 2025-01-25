@@ -21,7 +21,7 @@ export default function Destaque() {
 
     useEffect(() => {
         const produtoDestaque = async () => {
-     
+
             try {
                 const response = await fetch('http://127.0.0.1:8000/api/getDestaque', {
                     method: 'GET',
@@ -32,7 +32,7 @@ export default function Destaque() {
 
             } catch (error) {
                 console.log(error);
-            } 
+            }
         };
         produtoDestaque();
     }, []);
@@ -72,7 +72,7 @@ export default function Destaque() {
                                 <SwiperSlide key={index}>
                                     <button
                                         onClick={() => {
-                                            navigate('/produto', { state: { item } });
+                                            navigate(`/produto/${item.id_produto}`);
                                         }}
                                         className="card-roupa">
                                         <img

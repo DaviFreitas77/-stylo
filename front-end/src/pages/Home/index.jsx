@@ -15,7 +15,6 @@ function Home() {
   return (
     <div >
       <TopBar />
-      <Header />
       <HeroBanner />
       <Colecao />
       <Destaque />

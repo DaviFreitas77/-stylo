@@ -37,18 +37,18 @@ export default function Header() {
             <div className="icons-header">
                 {(nome !== null && nome !== '') ? (
                     <div className="d-flex gap-2 mr-5 div-entrar">
-                        <ImUser className="icon iconUser" size={25} />
-                        <Link className="span-entrar" >{nome}</Link>
+                        <p>Olá {nome}</p>
+                       
                     </div>
                 ) : (
                     <div className="d-flex gap-2 mr-5 div-entrar">
-                        <ImUser className="icon iconUser" size={25} />
+                        <ImUser className="icon iconUser" size={30} />
                         <Link className="span-entrar" to={'/Login'}>Entrar</Link>
                     </div>
                 )}
                 <div className="iconsMobile">
-                    <FaSearch className="icon iconSearch" size={22} />
-                    <MdFavorite className="icon iconFavorito" size={25} />
+                    <FaSearch className="icon iconSearch" size={25} />
+                    <MdFavorite className="icon iconFavorito" size={30} />
                  
                     <DrawerCarrinho/>
                 </div>

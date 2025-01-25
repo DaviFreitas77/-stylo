@@ -9,10 +9,11 @@ export const AppRoute = () => {
     return (
         <Provider>
             <BrowserRouter>
+            <Header />
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/Login' element={<SignIn />} />
-                    <Route path='/produto' element={<Produto />} />
+                    <Route path='/produto/:id_produto' element={<Produto />} />
                 </Routes>
 
             </BrowserRouter>

@@ -23,7 +23,8 @@ Route::post('/login',[usuarioController::class,('login')]);
 
 Route::get('/getCategorias',[categoriaController::class,('getCategorias')]);
 Route::get('/getSubCategorias',[subCategoriaController::class,('getSubCategorias')]);
-Route::get('/getProduto',[produtoController::class,('getProduto')]);
+Route::get('/produto',[produtoController::class,('getProduto')]);
 
 Route::get('/getDestaque',[produtoController::class,('getProdutoDestaque')]);
 Route::get('/destaqueEstacao',[produtoController::class,('getDestaqueEstacao')]);
+Route::get('/interesseUsuario',[produtoController::class,('getInteresseUsuario')]);

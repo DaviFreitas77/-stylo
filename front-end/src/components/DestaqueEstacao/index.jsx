@@ -90,12 +90,14 @@ export default function DestaqueEstacao() {
                         <div className="container-cards">
                         {produto.map((item, index) => {
                             return (
-                                <SwiperSlide>
+                                <SwiperSlide
+                                key={index}
+                                >
                                     <button
                                         onClick={() => {
-                                            navigate('/produto', { state: { item } });
+                                            navigate(`/produto/${item.id_produto}`);
                                         }}
-                                        key={index}
+                                      
                                         className="card-estacao">
                                         <div >
                                             <img className="img-card-estacao" src={item.imagem_produto} alt="" />
