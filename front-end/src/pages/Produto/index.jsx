@@ -14,15 +14,34 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/LoadingAnimation";
+import { useDispatch } from "react-redux";
 
 export default function Produto() {
+    const dispatch = useDispatch();
     const [subCategoria, setSubCateogira] = useState();
     const [produto, setProduto] = useState([])
     const [roupa, setRoupa] = useState([])
+    const [tamanho, setTamanho] = useState([])
+    const [selectTamanho, setSelectTamanho] = useState('')
     const navigate = useNavigate()
     const { id_produto } = useParams();
 
     useEffect(() => {
+
+        const tamanho = async () => {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/tamanho?id_produto=${id_produto}`, {
+                    method: 'GET'
+                });
+                const data = await response.json();
+                setTamanho(data)
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+
         const fetchProduto = async () => {
             try {
                 const response = await fetch(`http://127.0.0.1:8000/api/produto?id_produto=${id_produto}`, {
@@ -52,7 +71,25 @@ export default function Produto() {
         }
         fetchProduto()
         getInteresseUsuario()
+        tamanho()
     }, [id_produto, subCategoria])
+
+
+    function handleAdd(item) {
+        if (!selectTamanho) {
+            alert('Por favor, selecione um tamanho antes de adicionar ao carrinho.');
+            return;
+        }
+    
+        dispatch({
+            type: 'ADD_CARRINHO',
+            item: {
+                ...item,
+                tamanho: selectTamanho, 
+            },
+        });
+    }
+
     return (
         <div className="container-produto">
             {roupa.map((item, index) => (
@@ -82,18 +119,26 @@ export default function Produto() {
 
                         <div className="container-tamanho">
                             <h4 className="subtitulo">Tamanho</h4>
-                            <select className="input-select" name="" id="">
+
+                            <select
+                               value={selectTamanho}
+                            onChange={(e)=>setSelectTamanho(e.target.value)}
+                            className="input-select" name="" id="">
                                 <option value="" disabled>
-                                    Selecione um tamanho
+                                   selecione
                                 </option>
-                                <option value="opcao1">M</option>
-                                <option value="opcao2">G</option>
-                                <option value="opcao3">GG</option>
+                                {tamanho.map((item, index) => (
+                                    <option key={index} value={item.desc_tamanho}>{item.desc_tamanho}</option>
+                                ))}
+
+
                             </select>
 
                         </div>
 
-                        <button className="botao">
+                        <button
+                            onClick={() => handleAdd(item)}
+                            className="botao">
                             Adicionar ao carrinho
                         </button>
                         <button className="botao" style={{ backgroundColor: 'white', border: '1px solid black', color: "black" }}>

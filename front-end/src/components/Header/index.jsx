@@ -9,6 +9,8 @@ import DrawerSeacrch from "../Drawer";
 import { FaSearch } from "react-icons/fa";
 import DrawerCarrinho from "../DrawerCarrinho";
 
+
+
 import DrawerMobile from "../DrawerMobile";
 import { Context } from "../../Contexto/provider";
 export default function Header() {

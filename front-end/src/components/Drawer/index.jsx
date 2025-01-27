@@ -3,17 +3,16 @@ import './style.css';
 import { IoCloseSharp } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { IoMicOutline } from "react-icons/io5";
+import { MdOutlineMicOff } from "react-icons/md";
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 export default function DrawerSearch({ showDrawer, setShowDrawer }) {
-
     const [termo, setTermo] = useState('')
     const [produto, setProduto] = useState([])
     const navigate = useNavigate()
 
+    const pesquisa = async (valor) => {
 
-
-    const pesquisa = async (e) => {
-        const valor = e.target.value;
-        setTermo(valor)
 
         if (valor.length > 0) {
             try {
@@ -21,6 +20,7 @@ export default function DrawerSearch({ showDrawer, setShowDrawer }) {
 
                 const data = await response.json();
                 setProduto(data)
+            
 
             } catch (error) {
                 console.log(error)
@@ -28,28 +28,62 @@ export default function DrawerSearch({ showDrawer, setShowDrawer }) {
         }
     }
 
+    const handleInputChange = (e) => {
+        pesquisa(e.target.value)
+        setTermo(e.target.value)
+    }
+
+    const voiceSearch = (transcript) => {
+        pesquisa(transcript)
+        resetTranscript();
+
+    }
+    const {
+        transcript,
+        listening,
+        resetTranscript,
+        browserSupportsSpeechRecognition
+    } = useSpeechRecognition();
+
     return (
         <div className="container-drawer">
             <div className={showDrawer ? 'openDrawer' : 'closeDrawer'}>
                 <div className="div-input-drawer">
-                    <IoSearch size={25} />
+
                     <input
                         className="inputSearch"
-                        type="search"
+                        type="text"
                         placeholder="ex:camiseta"
-                        value={termo}
-                        onChange={pesquisa}
+                        value={termo ? termo : transcript}
+                        onChange={handleInputChange}
 
                     />
+
+                    <button
+                        className="icon iconMic"
+                        onClick={SpeechRecognition.startListening}>
+                        {listening ? (
+                            <IoMicOutline size={20} />
+                        ) : (
+                            <MdOutlineMicOff size={20} />
+                        )}
+                    </button>
+
                 </div>
+                {transcript ? (
+                    <button onClick={() => voiceSearch(transcript)}>
+                        <IoSearch size={25} />
+                    </button>
+                ) : null}
                 <button onClick={() => setShowDrawer(false)}> <IoCloseSharp size={35} /></button>
+
             </div>
             <section className="container-card-drawer">
                 {produto.length > 0 ? produto.map((item, index) => (
-                    <button 
-                    onClick={()=>navigate(`/produto/${item.id_produto}`)}
-                    key={index}
-                    className="card-drawer">
+                    <button
+                        onClick={() => navigate(`/produto/${item.id_produto}`)}
+                        key={index}
+                        className="card-drawer">
                         <div >
                             <img className="img-roupa-drawer" src={item.imagem_produto} alt="" />
                         </div>
