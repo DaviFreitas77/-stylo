@@ -22,11 +22,40 @@ export default function Produto() {
     const [produto, setProduto] = useState([])
     const [roupa, setRoupa] = useState([])
     const [tamanho, setTamanho] = useState([])
+    const [cor, setCor] = useState([])
     const [selectTamanho, setSelectTamanho] = useState('')
+    const [selectCor, setSelectCor] = useState('')
     const navigate = useNavigate()
     const { id_produto } = useParams();
 
+
+
+    const traducaoCores = {
+        preto: "black",
+        vermelho: "red",
+        azul: "blue",
+        branco: "white",
+        amarelo: "yellow",
+        verde: "green"
+    };
+
+    function pressCor(item) {
+        setSelectCor(item)
+    }
+
     useEffect(() => {
+        const cor = async () => {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/cor?id_produto=${id_produto}`, {
+                    method: 'GET'
+                });
+
+                const data = await response.json();
+                setCor(data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
 
         const tamanho = async () => {
             try {
@@ -72,20 +101,22 @@ export default function Produto() {
         fetchProduto()
         getInteresseUsuario()
         tamanho()
+        cor()
     }, [id_produto, subCategoria])
 
 
     function handleAdd(item) {
-        if (!selectTamanho) {
-            alert('Por favor, selecione um tamanho antes de adicionar ao carrinho.');
+        if (!selectTamanho || !selectCor) {
+            alert('Por favor, selecione tamanho e cor antes de adicionar ao carrinho.');
             return;
         }
-    
+
         dispatch({
             type: 'ADD_CARRINHO',
             item: {
                 ...item,
-                tamanho: selectTamanho, 
+                tamanho: selectTamanho,
+                cor:selectCor
             },
         });
     }
@@ -105,10 +136,18 @@ export default function Produto() {
                         <div className="container-cores">
                             <h3 className="subtitulo">Cores</h3>
                             <div className="container-icons-cores">
-                                <FaCircle color="black" size={30} />
-                                <FaCircle color="black" size={30} />
-                                <FaCircle color="black" size={30} />
-                                <FaCircle color="black" size={30} />
+
+                                {cor.map((item, index) => (
+                                    <button
+                                        onClick={() => pressCor(item.desc_cor)}
+                                        style={item.desc_cor === selectCor ? { opacity: '.2' } : {}}
+                                        key={index}>
+                                        <FaCircle color={traducaoCores[item.desc_cor]} size={30} />
+                                    </button>
+
+                                ))}
+
+
                             </div>
                         </div>
 
@@ -121,11 +160,11 @@ export default function Produto() {
                             <h4 className="subtitulo">Tamanho</h4>
 
                             <select
-                               value={selectTamanho}
-                            onChange={(e)=>setSelectTamanho(e.target.value)}
-                            className="input-select" name="" id="">
+                                value={selectTamanho}
+                                onChange={(e) => setSelectTamanho(e.target.value)}
+                                className="input-select" name="" id="">
                                 <option value="" disabled>
-                                   selecione
+                                    selecione
                                 </option>
                                 {tamanho.map((item, index) => (
                                     <option key={index} value={item.desc_tamanho}>{item.desc_tamanho}</option>

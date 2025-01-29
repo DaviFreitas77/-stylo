@@ -3,9 +3,26 @@ import './style.css';
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { useSelector } from "react-redux";
 import { CiBookmarkRemove } from "react-icons/ci";
-
+import { IoAddCircleOutline } from "react-icons/io5";
+import { useDispatch } from "react-redux";
 export default function DrawerCarrinho() {
+    const dispatch = useDispatch(); 
     const produtos = useSelector(state => state.carrinho)
+
+
+    function increment (item){
+        dispatch({
+            type:'INCREMENT_CARRINHO',
+            item
+        });
+    }
+
+    function decrement (item){
+        dispatch({
+            type:'DECREMENT_CARRINHO',
+            item
+        })
+    }
 
     return (
         <div>
@@ -34,14 +51,26 @@ export default function DrawerCarrinho() {
                                         <p>{produtos.nome_produto}</p>
                                         <p>{produtos.tamanho}/Preto</p>
                                     </div>
-                                        <p>Qtd: {produtos.Qtd}</p>
+                                    <div className="container-quantidade-buttons">
+                                        <button onClick={()=>decrement(produtos)}>
+                                            <IoAddCircleOutline size={22} />
+                                        </button>
+                                        <p>{produtos.Qtd}</p>
+                                        <button onClick={() => increment(produtos)}>
+                                        <IoAddCircleOutline size={22} />
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="btn_remove_and_preco">
                                     <CiBookmarkRemove size={30} />
-                                    <span className="price-carrinho">
-                                        R$ {produtos.preco_produto}
-                                  
-                                    </span>
+                                    <div className="container-precos">
+                                        <span className="last-price">
+                                            R$ {produtos.preco_produto}
+                                        </span>
+                                        <span className="price-carrinho">
+                                            R$ {produtos.preco_produto}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
