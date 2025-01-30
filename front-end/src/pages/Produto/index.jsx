@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './style.css'
 import Header from '../../components/Header'
 import Botao from '../../components/Botao'
@@ -15,6 +15,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/LoadingAnimation";
 import { useDispatch } from "react-redux";
+import { Context } from "../../Contexto/provider";
 
 export default function Produto() {
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function Produto() {
     const [selectCor, setSelectCor] = useState('')
     const navigate = useNavigate()
     const { id_produto } = useParams();
-
+    const { idUsuario } = useContext(Context)
 
 
     const traducaoCores = {
@@ -105,7 +106,7 @@ export default function Produto() {
     }, [id_produto, subCategoria])
 
 
-    function handleAdd(item) {
+    const handleAdd = async (item) => {
         if (!selectTamanho || !selectCor) {
             alert('Por favor, selecione tamanho e cor antes de adicionar ao carrinho.');
             return;
@@ -116,10 +117,42 @@ export default function Produto() {
             item: {
                 ...item,
                 tamanho: selectTamanho,
-                cor:selectCor
+                cor: selectCor
             },
         });
+
+        try {
+            const carrinho = await fetch(`http://127.0.0.1:8000/api/carrinho?id_usuario=${idUsuario}`, {
+                method: 'GET'
+            })
+                ;
+
+            const dataCarrinho = await carrinho.json();
+            const id_carrinho = dataCarrinho.id;
+
+
+
+
+
+
+
+            const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id_carrinho: id_carrinho,
+                    id_produto: item.id_produto,
+                })
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
     }
+
+
 
     return (
         <div className="container-produto">

@@ -47,29 +47,16 @@ class usuarioController extends Controller
 
         $usuario->save();
         return response()->json(['message' => 'Usuário criado com sucesso!'], 201);
-
-        // $token = rand(100000, 999999);
-
-        // $verificar = new VerificarEmail;
-        // $verificar->id_usuario = $usuario->id_usuario;
-        // $verificar->token = $token;
-        // $verificar->save();  
-
-        // Mail::to($usuario->email_usuario)->send(new EmailVerificationMail($token));  
-
     }
 
     public function login(Request $request)
-    
     {
+
         $usuario = Usuario::where('cpf_usuario', $request->cpf_usuario)->first();
 
         if ($usuario && $request->senha_usuario === $usuario->senha_usuario) {
 
 
-            
-            Session::put('nome_usuario', 'a');
-            
             return response()->json([
                 'message' => 'Login como usuário bem-sucedido.',
                 $usuario

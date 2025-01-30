@@ -49,7 +49,7 @@ export default function DrawerCarrinho() {
                                 <div className="container-quantidade">
                                     <div>
                                         <p>{produtos.nome_produto}</p>
-                                        <p>{produtos.tamanho}/Preto</p>
+                                        <p>{produtos.tamanho}/{produtos.cor}</p>
                                     </div>
                                     <div className="container-quantidade-buttons">
                                         <button onClick={()=>decrement(produtos)}>

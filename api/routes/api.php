@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\carrinhoController;
 use App\Http\Controllers\categoriaController;
 use App\Http\Controllers\corController;
 use App\Http\Controllers\pesquisaController;
@@ -19,6 +20,7 @@ Route::post('/criarCategoria',[categoriaController::class,('criarCategoria')]);
 Route::post('/criarSubCategoria',[subCategoriaController::class,('criarSubCategoria')]);
 Route::post('/criarProduto',[produtoController::class,('criarProduto')]);
 Route::post('/login',[usuarioController::class,('login')]);
+Route::post('/addCarrinho',[carrinhoController::class,('addCarrinho')]);
 
 
 
@@ -34,3 +36,4 @@ Route::get('/interesseUsuario',[produtoController::class,('getInteresseUsuario')
 Route::get('/pesquisa',[pesquisaController::class,('pesquisa')]);
 Route::get('/tamanho',[TamanhoController::class,('produtoTamanho')]);
 Route::get('/cor',[corController::class,('getCor')]);
+Route::get('/carrinho',[carrinhoController::class,('getCarrinho')]);

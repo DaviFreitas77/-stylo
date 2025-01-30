@@ -9,7 +9,7 @@ export default function SignIn() {
     const [cpf, setCpf] = useState('')
     const [senha, setSenha] = useState('')
     const [email, setEmail] = useState('')
-    const {setNomeUsuario,nomeUsuario} = useContext(Context)
+    const {setNomeUsuario,setIdUsuario,} = useContext(Context)
     const Navigate = useNavigate();
 
 
@@ -32,6 +32,8 @@ export default function SignIn() {
                 const usuario = data[0];
                 setNomeUsuario(usuario.nome_usuario)
                 localStorage.setItem("nome", usuario.nome_usuario);
+                localStorage.setItem('id_usuario',usuario.id_usuario)
+                setIdUsuario(usuario.id_usuario)
                 Navigate('/')
             }
         

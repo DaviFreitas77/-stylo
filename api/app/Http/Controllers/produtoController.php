@@ -16,7 +16,6 @@ class produtoController extends Controller
         $produto->desc_produto = $request->desc_produto;
         $produto->preco_produto = $request->preco_produto;
         $produto->imagem_produto = $request->imagem_produto;
-        $produto->cor_produto = $request->cor_produto;
         $produto->fk_subCategoria = $request->fk_subCategoria;
         $produto->destaque = $request->destaque;
         $produto->destaque_estacao = $request->destaque_estacao;
