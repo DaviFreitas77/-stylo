@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('fk_produto');
             $table->unsignedInteger('fk_carrinho');
             $table->decimal('preco_itens',10,2);
-            $table->integer('quantidade_itens');
+            $table->integer('quantidade');
             $table->foreign('fk_produto')->references('id_produto')->on('tb_produto');
             $table->foreign('fk_carrinho')->references('id_carrinho')->on('tb_carrinho');
 

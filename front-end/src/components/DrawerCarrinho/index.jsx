@@ -1,28 +1,80 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './style.css';
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { useSelector } from "react-redux";
 import { CiBookmarkRemove } from "react-icons/ci";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
+import { Context } from "../../Contexto/provider";
 export default function DrawerCarrinho() {
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
     const produtos = useSelector(state => state.carrinho)
+    const { itensCarrinho, setItensCarrinho, idCarrinho } = useContext(Context)
+    const nome = localStorage.getItem("nome");
+    const idUsuario = localStorage.getItem("id_usuario");
+    const [quantidade, setQuantidade] = useState(1);
 
 
-    function increment (item){
+    // console.log(idCarrinho)
+
+    const increment = async (item) => {
         dispatch({
-            type:'INCREMENT_CARRINHO',
+            type: 'INCREMENT_CARRINHO',
             item
         });
+        console.log(item)
+
+        // try {
+        //     const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
+        //         method: 'POST',
+        //         header: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             id_produto: item.id_produto,
+        //             quantidade: quantidade,
+        //             id_carrinho: 10
+
+        //         })
+        //     })
+        //     const data = await response.json();
+        //     console.log(data)
+
+        // } catch (error) {
+        //     console.log(error)
+        // }
     }
 
-    function decrement (item){
+    function decrement(item) {
         dispatch({
-            type:'DECREMENT_CARRINHO',
+            type: 'DECREMENT_CARRINHO',
             item
         })
     }
+
+
+    useEffect(() => {
+        const fetchCarrinho = async () => {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/carrinho?id_usuario=${idUsuario}`, {
+                    method: 'GET'
+                })
+                const data = await response.json();
+
+                setItensCarrinho(data.itens)
+                dispatch({
+                    type: 'LOAD_CARRINHO',
+                    payload: data.itens
+                });
+            } catch (error) {
+                console.log(error)
+            }
+
+
+
+        }
+        fetchCarrinho()
+    }, [])
 
     return (
         <div>
@@ -30,7 +82,15 @@ export default function DrawerCarrinho() {
                 <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                     <HiMiniShoppingCart className="icon " size={30} />
                 </button>
-                <span className="quantidade-carrinho">{produtos.length}</span>
+                {nome ? (
+
+                    <span className="quantidade-carrinho">{itensCarrinho.length}</span>
+
+                ) : (
+
+                    <span className="quantidade-carrinho">{produtos.length}</span>
+                )}
+
             </div>
 
 
@@ -40,6 +100,8 @@ export default function DrawerCarrinho() {
                     <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <section className="section-carrinho">
+
+
                     {produtos.map(produtos => (
                         <div
                             className="card-produto-carrinho"
@@ -49,15 +111,20 @@ export default function DrawerCarrinho() {
                                 <div className="container-quantidade">
                                     <div>
                                         <p>{produtos.nome_produto}</p>
-                                        <p>{produtos.tamanho}/{produtos.cor}</p>
+                                        {produtos.desc_cor ? (
+                                            <p>{produtos.desc_tamanho}/{produtos.desc_cor}</p>
+                                        ) : (
+                                            <p>{produtos.tamanho}/{produtos.cor}</p>
+                                        )}
+
                                     </div>
                                     <div className="container-quantidade-buttons">
-                                        <button onClick={()=>decrement(produtos)}>
+                                        <button onClick={() => decrement(produtos)}>
                                             <IoAddCircleOutline size={22} />
                                         </button>
-                                        <p>{produtos.Qtd}</p>
+                                        <p>{produtos.quantidade}</p>
                                         <button onClick={() => increment(produtos)}>
-                                        <IoAddCircleOutline size={22} />
+                                            <IoAddCircleOutline size={22} />
                                         </button>
                                     </div>
                                 </div>
@@ -76,6 +143,8 @@ export default function DrawerCarrinho() {
                         </div>
 
                     ))}
+
+
                 </section>
 
             </div>

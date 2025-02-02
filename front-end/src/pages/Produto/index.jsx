@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/LoadingAnimation";
 import { useDispatch } from "react-redux";
 import { Context } from "../../Contexto/provider";
+import { data } from "autoprefixer";
 
 export default function Produto() {
     const dispatch = useDispatch();
@@ -23,12 +24,14 @@ export default function Produto() {
     const [produto, setProduto] = useState([])
     const [roupa, setRoupa] = useState([])
     const [tamanho, setTamanho] = useState([])
+    const [quantidade, setQuantidade] = useState(1);
+    const { setItensCarrinho,setIdCarrinho,idCarrinho } = useContext(Context)
     const [cor, setCor] = useState([])
     const [selectTamanho, setSelectTamanho] = useState('')
     const [selectCor, setSelectCor] = useState('')
     const navigate = useNavigate()
     const { id_produto } = useParams();
-    const { idUsuario } = useContext(Context)
+    const idUsuario = localStorage.getItem("id_usuario");
 
 
     const traducaoCores = {
@@ -44,7 +47,20 @@ export default function Produto() {
         setSelectCor(item)
     }
 
+
     useEffect(() => {
+
+        const fetchIdCarrinho = async () => {
+            const carrinho = await fetch(`http://127.0.0.1:8000/api/carrinho?id_usuario=${idUsuario}`, {
+                method: 'GET'
+            });
+
+            const dataCarrinho = await carrinho.json();
+            setIdCarrinho(dataCarrinho.carrinho.id_carrinho);
+        }
+
+
+
         const cor = async () => {
             try {
                 const response = await fetch(`http://127.0.0.1:8000/api/cor?id_produto=${id_produto}`, {
@@ -93,7 +109,7 @@ export default function Produto() {
                     const response = await fetch(`http://127.0.0.1:8000/api/interesseUsuario?subCategoria=${subCategoria}`);
                     const data = await response.json();
                     setProduto(data);
-                    console.log(data);
+
                 } catch (error) {
                     console.error('Erro:', error);
                 }
@@ -101,51 +117,56 @@ export default function Produto() {
         }
         fetchProduto()
         getInteresseUsuario()
+        fetchIdCarrinho()
         tamanho()
         cor()
     }, [id_produto, subCategoria])
 
 
     const handleAdd = async (item) => {
+
         if (!selectTamanho || !selectCor) {
             alert('Por favor, selecione tamanho e cor antes de adicionar ao carrinho.');
             return;
         }
 
-        dispatch({
-            type: 'ADD_CARRINHO',
-            item: {
-                ...item,
-                tamanho: selectTamanho,
-                cor: selectCor
-            },
-        });
+        // dispatch({
+        //     type: 'ADD_CARRINHO',
+        //     item: {
+        //         ...item,
+        //         tamanho: selectTamanho,
+        //         cor: selectCor,
+        //         quantidade:quantidade
+        //     },
+        // });
 
         try {
-            const carrinho = await fetch(`http://127.0.0.1:8000/api/carrinho?id_usuario=${idUsuario}`, {
-                method: 'GET'
-            })
-                ;
-
-            const dataCarrinho = await carrinho.json();
-            const id_carrinho = dataCarrinho.id;
-
-
-
-
-
-
-
             const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    id_carrinho: id_carrinho,
+                    id_carrinho: idCarrinho,
                     id_produto: item.id_produto,
-                })
+                    quantidade: quantidade
+                }),
             })
+            if (response.ok) {
+
+                dispatch({
+                    type: 'LOAD_CARRINHO',
+                    payload: {
+                        ...item,
+                        tamanho: selectTamanho,
+                        cor: selectCor,
+                    },
+                });
+                console.log('Produto adicionado ao carrinho com sucesso!');
+            } else {
+                const errorData = await response.json();
+                console.error('Erro ao adicionar item ao carrinho:', errorData);
+            }
         } catch (error) {
             console.log(error)
         }

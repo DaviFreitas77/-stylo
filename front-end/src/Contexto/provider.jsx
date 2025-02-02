@@ -4,12 +4,13 @@ export const Context = createContext();
 
 export const Provider = ({children})=>{
     const [nomeUsuario,setNomeUsuario] = useState('');
-    const [idUsuario,setIdUsuario] = useState('')
+    const [itensCarrinho,setItensCarrinho] = useState([])
+    const [idCarrinho,setIdCarrinho] = useState('')
     const [url,setUrl] = useState('')
 
     
     return(
-        <Context.Provider value={{ nomeUsuario, setNomeUsuario,url,setUrl,setIdUsuario,idUsuario}}>
+        <Context.Provider value={{ nomeUsuario, setNomeUsuario,url,setUrl,setItensCarrinho,itensCarrinho,idCarrinho,setIdCarrinho}}>
         {children}
       </Context.Provider>
     )
