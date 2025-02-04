@@ -1,9 +1,16 @@
 #offcanvasRight {
     width: 40%;
     padding: 15px;
+    overflow-y: auto;
+    max-height: 100%;
+    scrollbar-color: #000 #e0e0e0;
+ 
+
+   
 }
 .offcanvas-header {
     padding: 0px;
+    
 }
 
 .icon_carrinho{

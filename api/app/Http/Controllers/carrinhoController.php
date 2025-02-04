@@ -63,7 +63,7 @@ class carrinhoController extends Controller
                 ->join('tb_tamanho', 'tb_relacao_tamanho.fk_tamanho', '=', 'tb_tamanho.id_tamanho')
                 ->join('tb_relacao_cor', 'tb_produto.id_produto', '=', 'tb_relacao_cor.fk_item')
                 ->join('tb_cor', 'tb_relacao_cor.fk_cor', '=', 'tb_cor.id_cor')
-                ->select('id_produto','tb_produto.nome_produto', 'imagem_produto', 'preco_produto', 'tb_tamanho.desc_tamanho', 'tb_cor.desc_cor', 'quantidade')
+                ->select('id_produto', 'tb_produto.nome_produto', 'imagem_produto', 'preco_produto', 'tb_tamanho.desc_tamanho', 'tb_cor.desc_cor', 'quantidade')
                 ->get();
             return response()->json([
                 'itens' => $item,

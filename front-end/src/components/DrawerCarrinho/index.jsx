@@ -19,7 +19,7 @@ export default function DrawerCarrinho() {
 
         dispatch({
             type: 'INCREMENT_CARRINHO',
-            item    
+            item
         });
         try {
             const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
@@ -100,12 +100,10 @@ export default function DrawerCarrinho() {
                     <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <section className="section-carrinho">
-
-
-                    {produtos.map(produtos => (
+                    {produtos.map((produtos, index) => (
                         <div
                             className="card-produto-carrinho"
-                            key={produtos.id_produto}>
+                            key={index}>
                             <img className="image_carrinho" src={produtos.imagem_produto} alt="" />
                             <div className="nome_produto_and_remove">
                                 <div className="container-quantidade">
@@ -141,8 +139,8 @@ export default function DrawerCarrinho() {
                                 </div>
                             </div>
                         </div>
-
                     ))}
+
 
 
                 </section>

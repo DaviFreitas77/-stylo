@@ -35,7 +35,7 @@ export default function Produto() {
 
 
 
-    
+
 
     const traducaoCores = {
         preto: "black",
@@ -145,16 +145,6 @@ export default function Produto() {
                 }),
             })
             if (response.ok) {
-
-                dispatch({
-                    type: 'LOAD_CARRINHO',
-                    payload: {
-                        ...item,
-                        tamanho: selectTamanho,
-                        cor: selectCor,
-                        quantidade: quantidade
-                    },
-                });
                 console.log('Produto adicionado ao carrinho com sucesso!');
             } else {
                 const errorData = await response.json();
