@@ -25,14 +25,17 @@ export default function Produto() {
     const [roupa, setRoupa] = useState([])
     const [tamanho, setTamanho] = useState([])
     const [quantidade, setQuantidade] = useState(1);
-    const { setItensCarrinho,setIdCarrinho,idCarrinho } = useContext(Context)
+    const { setItensCarrinho, setIdCarrinho, idCarrinho } = useContext(Context)
     const [cor, setCor] = useState([])
     const [selectTamanho, setSelectTamanho] = useState('')
     const [selectCor, setSelectCor] = useState('')
     const navigate = useNavigate()
     const { id_produto } = useParams();
-    const idUsuario = localStorage.getItem("id_usuario");
 
+
+
+
+    
 
     const traducaoCores = {
         preto: "black",
@@ -49,17 +52,6 @@ export default function Produto() {
 
 
     useEffect(() => {
-
-        const fetchIdCarrinho = async () => {
-            const carrinho = await fetch(`http://127.0.0.1:8000/api/carrinho?id_usuario=${idUsuario}`, {
-                method: 'GET'
-            });
-
-            const dataCarrinho = await carrinho.json();
-            setIdCarrinho(dataCarrinho.carrinho.id_carrinho);
-        }
-
-
 
         const cor = async () => {
             try {
@@ -117,7 +109,7 @@ export default function Produto() {
         }
         fetchProduto()
         getInteresseUsuario()
-        fetchIdCarrinho()
+
         tamanho()
         cor()
     }, [id_produto, subCategoria])
@@ -130,15 +122,15 @@ export default function Produto() {
             return;
         }
 
-        // dispatch({
-        //     type: 'ADD_CARRINHO',
-        //     item: {
-        //         ...item,
-        //         tamanho: selectTamanho,
-        //         cor: selectCor,
-        //         quantidade:quantidade
-        //     },
-        // });
+        dispatch({
+            type: 'ADD_CARRINHO',
+            item: {
+                ...item,
+                tamanho: selectTamanho,
+                cor: selectCor,
+                quantidade: quantidade
+            },
+        });
 
         try {
             const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
@@ -160,6 +152,7 @@ export default function Produto() {
                         ...item,
                         tamanho: selectTamanho,
                         cor: selectCor,
+                        quantidade: quantidade
                     },
                 });
                 console.log('Produto adicionado ao carrinho com sucesso!');

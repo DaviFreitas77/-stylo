@@ -45,7 +45,7 @@ class produtoController extends Controller
     {
         $id = $request->id_produto;
         $produto = Produto::where('id_produto', $id)
-            ->select('id_produto','nome_produto', 'desc_produto', 'preco_produto', 'imagem_produto','fk_subcategoria', 'destaque', 'destaque_estacao')
+            ->select('id_produto', 'nome_produto', 'desc_produto', 'preco_produto', 'imagem_produto', 'fk_subcategoria', 'destaque', 'destaque_estacao')
             ->get();
 
         return response()->json($produto);

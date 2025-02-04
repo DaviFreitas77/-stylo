@@ -12,37 +12,36 @@ export default function DrawerCarrinho() {
     const { itensCarrinho, setItensCarrinho, idCarrinho } = useContext(Context)
     const nome = localStorage.getItem("nome");
     const idUsuario = localStorage.getItem("id_usuario");
-    const [quantidade, setQuantidade] = useState(1);
 
 
-    // console.log(idCarrinho)
 
     const increment = async (item) => {
+
         dispatch({
             type: 'INCREMENT_CARRINHO',
-            item
+            item    
         });
-        console.log(item)
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id_produto: item.id_produto,
+                    quantidade: 1,
+                    id_carrinho: idCarrinho
 
-        // try {
-        //     const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
-        //         method: 'POST',
-        //         header: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({
-        //             id_produto: item.id_produto,
-        //             quantidade: quantidade,
-        //             id_carrinho: 10
+                })
+            })
+            const data = await response.json();
+            console.log(data)
 
-        //         })
-        //     })
-        //     const data = await response.json();
-        //     console.log(data)
 
-        // } catch (error) {
-        //     console.log(error)
-        // }
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     function decrement(item) {
@@ -62,6 +61,7 @@ export default function DrawerCarrinho() {
                 const data = await response.json();
 
                 setItensCarrinho(data.itens)
+                console.log(data.itens)
                 dispatch({
                     type: 'LOAD_CARRINHO',
                     payload: data.itens

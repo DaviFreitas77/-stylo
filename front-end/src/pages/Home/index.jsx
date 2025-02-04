@@ -11,7 +11,8 @@ import { Context } from '../../Contexto/provider'
 
 
 function Home() {
- 
+  
+
 
   return (
     <div >

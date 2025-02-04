@@ -5,11 +5,11 @@ export default function carrinho(state = [], action) {
             return produce(state, draft => {
                 const index = draft.findIndex(item => item.id_produto === action.item.id_produto);
                 if (index >= 0) {
-                    draft[index].Qtd += 1;
+                    draft[index].quantidade += 1;
                 } else {
                     draft.push({
                         ...action.item,
-                        Qtd: +1
+                        quantidade: 1
                     })
 
                 }
@@ -39,5 +39,6 @@ export default function carrinho(state = [], action) {
         default:
             return state;
     }
+    return [];
 
 }
