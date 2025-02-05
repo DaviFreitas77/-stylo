@@ -32,11 +32,6 @@ export default function Produto() {
     const navigate = useNavigate()
     const { id_produto } = useParams();
 
-
-
-
-
-
     const traducaoCores = {
         preto: "black",
         vermelho: "red",
@@ -114,24 +109,13 @@ export default function Produto() {
         cor()
     }, [id_produto, subCategoria])
 
-
+    console.log(idCarrinho)
     const handleAdd = async (item) => {
 
         if (!selectTamanho || !selectCor) {
             alert('Por favor, selecione tamanho e cor antes de adicionar ao carrinho.');
             return;
         }
-
-        dispatch({
-            type: 'ADD_CARRINHO',
-            item: {
-                ...item,
-                tamanho: selectTamanho,
-                cor: selectCor,
-                quantidade: quantidade
-            },
-        });
-
         try {
             const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
                 method: 'POST',
@@ -146,12 +130,24 @@ export default function Produto() {
             })
             if (response.ok) {
                 console.log('Produto adicionado ao carrinho com sucesso!');
+
+                dispatch({
+                    type: 'ADD_CARRINHO',
+                    item: {
+                        ...item,
+                        tamanho: selectTamanho,
+                        cor: selectCor,
+                        quantidade: quantidade
+                    },
+                });
             } else {
                 const errorData = await response.json();
                 console.error('Erro ao adicionar item ao carrinho:', errorData);
+
             }
         } catch (error) {
             console.log(error)
+
         }
 
     }
@@ -189,7 +185,7 @@ export default function Produto() {
                         </div>
 
                         <div className="prices">
-                            <p className="last-price">{`de R$${item.preco_produto}`}</p>
+                            <p className="last-price">{`de R$${item.preco_antigo_produto}`}</p>
                             <p className="price-produto">{`R$ ${item.preco_produto}`}</p>
                         </div>
 

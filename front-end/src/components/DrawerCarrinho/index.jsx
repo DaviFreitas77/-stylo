@@ -9,11 +9,9 @@ import { Context } from "../../Contexto/provider";
 export default function DrawerCarrinho() {
     const dispatch = useDispatch();
     const produtos = useSelector(state => state.carrinho)
-    const { itensCarrinho, setItensCarrinho, idCarrinho } = useContext(Context)
+    const { idCarrinho } = useContext(Context)
     const nome = localStorage.getItem("nome");
     const idUsuario = localStorage.getItem("id_usuario");
-
-
 
     const increment = async (item) => {
 
@@ -60,7 +58,6 @@ export default function DrawerCarrinho() {
                 })
                 const data = await response.json();
 
-                setItensCarrinho(data.itens)
                 console.log(data.itens)
                 dispatch({
                     type: 'LOAD_CARRINHO',
@@ -84,7 +81,7 @@ export default function DrawerCarrinho() {
                 </button>
                 {nome ? (
 
-                    <span className="quantidade-carrinho">{itensCarrinho.length}</span>
+                    <span className="quantidade-carrinho">{produtos.length}</span>
 
                 ) : (
 

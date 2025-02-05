@@ -5,6 +5,7 @@ use App\Http\Controllers\categoriaController;
 use App\Http\Controllers\corController;
 use App\Http\Controllers\pesquisaController;
 use App\Http\Controllers\produtoController;
+use App\Http\Controllers\RelacaoTamanhoController;
 use App\Http\Controllers\subCategoriaController;
 use App\Http\Controllers\TamanhoController;
 use App\Http\Controllers\usuarioController;
@@ -21,6 +22,7 @@ Route::post('/criarSubCategoria',[subCategoriaController::class,('criarSubCatego
 Route::post('/criarProduto',[produtoController::class,('criarProduto')]);
 Route::post('/login',[usuarioController::class,('login')]);
 Route::post('/addCarrinho',[carrinhoController::class,('addCarrinho')]);
+Route::post('/addRelacaoTamanho',[RelacaoTamanhoController::class,('relacaoTamanho')]);
 
 
 
@@ -35,5 +37,7 @@ Route::get('/destaqueEstacao',[produtoController::class,('getDestaqueEstacao')])
 Route::get('/interesseUsuario',[produtoController::class,('getInteresseUsuario')]);
 Route::get('/pesquisa',[pesquisaController::class,('pesquisa')]);
 Route::get('/tamanho',[TamanhoController::class,('produtoTamanho')]);
+Route::get('/gettamanho',[TamanhoController::class,('tamanho')]);
 Route::get('/cor',[corController::class,('getCor')]);
+Route::get('/getcor',[corController::class,('cor')]);
 Route::get('/carrinho',[carrinhoController::class,('getCarrinho')]);

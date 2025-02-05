@@ -6,6 +6,7 @@ use App\Models\Produto;
 use App\Models\ProdutoDestaque;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\Echo_;
 
 class produtoController extends Controller
 {
@@ -14,6 +15,7 @@ class produtoController extends Controller
         $produto = new Produto;
         $produto->nome_produto = $request->nome_produto;
         $produto->desc_produto = $request->desc_produto;
+        $produto->preco_antigo_produto = $request->preco_antigo;
         $produto->preco_produto = $request->preco_produto;
         $produto->imagem_produto = $request->imagem_produto;
         $produto->fk_subCategoria = $request->fk_subCategoria;
@@ -21,14 +23,35 @@ class produtoController extends Controller
         $produto->destaque_estacao = $request->destaque_estacao;
 
         $produto->save();
+        $tamanhosString = $request->tamanhos;
+        $cores = $request->cores;
+        // $tamanhosArray = json_decode($tamanhosString, true);
+        
+
+        if ($produto->id_produto) {
+                foreach ($tamanhosString as $tamanho) {
+                    DB::table('tb_relacao_tamanho')->insert([
+                        'fk_item' => $produto->id_produto,
+                        'fk_tamanho' => $tamanho,
+                    ]);
+                }
+        }
+
+        if ($produto->id_produto) {
+            foreach ($cores as $cor) {
+                DB::table('tb_relacao_cor')->insert([
+                    'fk_item' => $produto->id_produto,
+                    'fk_cor' => $cor,
+                ]);
+            }
+    }
 
         if ($request->destaque) {
-            echo ($produto->id_produto);
-
             DB::table('tb_produto_destaque')->insert([
                 'fk_produto' => $produto->id_produto,
             ]);
         }
+
 
         if ($request->destaque_estacao) {
             DB::table('tb_produto_destaque_estacao')->insert([
@@ -45,7 +68,7 @@ class produtoController extends Controller
     {
         $id = $request->id_produto;
         $produto = Produto::where('id_produto', $id)
-            ->select('id_produto', 'nome_produto', 'desc_produto', 'preco_produto', 'imagem_produto', 'fk_subcategoria', 'destaque', 'destaque_estacao')
+            ->select('id_produto', 'nome_produto', 'desc_produto', 'preco_produto', 'imagem_produto', 'fk_subcategoria', 'destaque', 'destaque_estacao','preco_antigo_produto')
             ->get();
 
         return response()->json($produto);

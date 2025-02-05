@@ -4,13 +4,13 @@ import Botao from "../../components/Botao";
 import { FcGoogle } from "react-icons/fc";
 import InputMask  from 'react-input-mask'
 import { Context } from "../../Contexto/provider";
-import { Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 export default function SignIn() {
     const [cpf, setCpf] = useState('')
     const [senha, setSenha] = useState('')
     const [email, setEmail] = useState('')
-    const {setNomeUsuario,setIdUsuario,} = useContext(Context)
-    const Navigate = useNavigate();
+    const {setNomeUsuario} = useContext(Context)
+    const navigate = useNavigate();
 
 
     const login = async () => {
@@ -33,8 +33,7 @@ export default function SignIn() {
                 setNomeUsuario(usuario.nome_usuario)
                 localStorage.setItem("nome", usuario.nome_usuario);
                 localStorage.setItem('id_usuario',usuario.id_usuario)
-                setIdUsuario(usuario.id_usuario)
-                Navigate('/')
+                navigate('/')
             }
         
         } catch (error) {

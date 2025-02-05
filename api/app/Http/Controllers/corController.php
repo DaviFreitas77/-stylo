@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,5 +19,11 @@ class corController extends Controller
 
         return response()->json($cor);
 
+    }
+
+    public function cor(){
+        $cor = Cor::all();
+
+        return response()->json($cor);
     }
 }

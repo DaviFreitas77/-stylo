@@ -7,6 +7,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import Header from './components/Header';
 import { Provider } from './Contexto/provider';
 import store from './store';
+import CriarProduto from './pages/Admin/Create';
 export const AppRoute = () => {
     return (
         <ReduxProvider store={store}>
@@ -17,6 +18,9 @@ export const AppRoute = () => {
                         <Route path='/' element={<Home />} />
                         <Route path='/Login' element={<SignIn />} />
                         <Route path='/produto/:id_produto' element={<Produto />} />
+                        <Route path='/criarProduto' element={<CriarProduto/>} />
+                      
+                      
                     </Routes>
 
                 </BrowserRouter>
