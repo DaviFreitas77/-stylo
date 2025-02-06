@@ -48,12 +48,9 @@ export default function Produto() {
         setIdCor(item.id_relacao_cor)
     }
 
-    function pressTamanho(item){
-        setSelectTamanho(item.desc_tamanho)
-        setIdTamanho(item)
-    }
 
-  
+    console.log(selectTamanho)
+    console.log(idTamanho)
   
     useEffect(() => {
 
@@ -119,7 +116,7 @@ export default function Produto() {
     }, [id_produto, subCategoria])
 
 
-    const handleAdd = async (item) => {
+    const handleAdd = async (item,id) => {
 
         if (!selectTamanho && !selectCor) {
             alert('Por favor, selecione tamanho e cor antes de adicionar ao carrinho.');
@@ -206,8 +203,16 @@ export default function Produto() {
                             <h4 className="subtitulo">Tamanho</h4>
 
                             <select
-                                value={selectTamanho}
-                                onChange={(e) => pressTamanho(e.target.value)}
+                                
+                                onChange={(e) => {
+                                    const selectedItem = tamanho.find(item => item.fk_tamanho === parseInt(e.target.value));
+                                    if (selectedItem) {
+                                        console.log(selectedItem)
+                                        setSelectTamanho(selectedItem.desc_tamanho); // Atualiza o estado com o desc_tamanho
+                                        setIdTamanho(selectedItem.fk_tamanho); // Atualiza o id do tamanho
+                                    }
+                                }}
+                            
                                 className="input-select" name="" id="">
                                 <option value="" disabled>
                                     selecione
