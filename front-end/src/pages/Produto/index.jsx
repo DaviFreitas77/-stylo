@@ -25,10 +25,12 @@ export default function Produto() {
     const [roupa, setRoupa] = useState([])
     const [tamanho, setTamanho] = useState([])
     const [quantidade, setQuantidade] = useState(1);
-    const { setItensCarrinho, setIdCarrinho, idCarrinho } = useContext(Context)
+    const {idCarrinho } = useContext(Context)
     const [cor, setCor] = useState([])
     const [selectTamanho, setSelectTamanho] = useState('')
     const [selectCor, setSelectCor] = useState('')
+    const [idCor, setIdCor] = useState('')
+    const [idTamanho, setIdTamanho] = useState('')
     const navigate = useNavigate()
     const { id_produto } = useParams();
 
@@ -42,10 +44,17 @@ export default function Produto() {
     };
 
     function pressCor(item) {
-        setSelectCor(item)
+        setSelectCor(item.desc_cor)
+        setIdCor(item.id_relacao_cor)
     }
 
+    function pressTamanho(item){
+        setSelectTamanho(item.desc_tamanho)
+        setIdTamanho(item)
+    }
 
+  
+  
     useEffect(() => {
 
         const cor = async () => {
@@ -109,10 +118,10 @@ export default function Produto() {
         cor()
     }, [id_produto, subCategoria])
 
-    console.log(idCarrinho)
+
     const handleAdd = async (item) => {
 
-        if (!selectTamanho || !selectCor) {
+        if (!selectTamanho && !selectCor) {
             alert('Por favor, selecione tamanho e cor antes de adicionar ao carrinho.');
             return;
         }
@@ -125,17 +134,23 @@ export default function Produto() {
                 body: JSON.stringify({
                     id_carrinho: idCarrinho,
                     id_produto: item.id_produto,
-                    quantidade: quantidade
+                    quantidade: quantidade,
+                    id_cor:idCor,
+                    id_tamanho:idTamanho
+                    
+
                 }),
             })
             if (response.ok) {
                 console.log('Produto adicionado ao carrinho com sucesso!');
+          
+                console.log(selectTamanho)
 
                 dispatch({
                     type: 'ADD_CARRINHO',
                     item: {
                         ...item,
-                        tamanho: selectTamanho,
+                        tamanho:selectTamanho,
                         cor: selectCor,
                         quantidade: quantidade
                     },
@@ -151,8 +166,6 @@ export default function Produto() {
         }
 
     }
-
-
 
     return (
         <div className="container-produto">
@@ -172,7 +185,7 @@ export default function Produto() {
 
                                 {cor.map((item, index) => (
                                     <button
-                                        onClick={() => pressCor(item.desc_cor)}
+                                        onClick={() => pressCor(item)}
                                         style={item.desc_cor === selectCor ? { opacity: '.2' } : {}}
                                         key={index}>
                                         <FaCircle color={traducaoCores[item.desc_cor]} size={30} />
@@ -194,13 +207,13 @@ export default function Produto() {
 
                             <select
                                 value={selectTamanho}
-                                onChange={(e) => setSelectTamanho(e.target.value)}
+                                onChange={(e) => pressTamanho(e.target.value)}
                                 className="input-select" name="" id="">
                                 <option value="" disabled>
                                     selecione
                                 </option>
                                 {tamanho.map((item, index) => (
-                                    <option key={index} value={item.desc_tamanho}>{item.desc_tamanho}</option>
+                                    <option key={index} value={item.fk_tamanho}>{item.desc_tamanho}</option>
                                 ))}
 
 

@@ -8,7 +8,7 @@ class CarrinhoItens extends Model
 {
     protected $table = 'tb_carrinho_itens';
     protected $primaryKey ='id_carrinho_itens';
-    protected $fillable = ['fk_produto','fk_carrinho','quantidade','preco_itens'];
+    protected $fillable = ['fk_produto','fk_carrinho','quantidade','fk_cor','fk_tamanho','preco_itens'];
 
     public $timestamps = false;
 }

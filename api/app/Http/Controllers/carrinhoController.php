@@ -37,6 +37,10 @@ class carrinhoController extends Controller
         $item->fk_produto = $request->id_produto;
         $item->fk_carrinho = $request->id_carrinho;
         $item->quantidade = $request->quantidade;
+        $item->fk_cor = $request->id_cor;
+        $item->fk_tamanho = $request->id_tamanho;
+
+        $item->preco_itens = $request->preco_itens;
         $item->save();
 
         return response()->json([
@@ -58,13 +62,13 @@ class carrinhoController extends Controller
             return response()->json($carrinho);
         } else {
             $item = CarrinhoItens::where('fk_carrinho', $carrinho->id_carrinho)
-                ->join('tb_produto', 'tb_carrinho_itens.fk_produto', '=', 'tb_produto.id_produto')
-                ->join('tb_relacao_tamanho', 'tb_produto.id_produto', '=', 'tb_relacao_tamanho.fk_item')
-                ->join('tb_tamanho', 'tb_relacao_tamanho.fk_tamanho', '=', 'tb_tamanho.id_tamanho')
-                ->join('tb_relacao_cor', 'tb_produto.id_produto', '=', 'tb_relacao_cor.fk_item')
-                ->join('tb_cor', 'tb_relacao_cor.fk_cor', '=', 'tb_cor.id_cor')
-                ->select('id_produto', 'tb_produto.nome_produto', 'imagem_produto', 'preco_produto', 'tb_tamanho.desc_tamanho', 'tb_cor.desc_cor', 'quantidade')
-                ->get();
+            ->join('tb_produto', 'tb_carrinho_itens.fk_produto', '=', 'tb_produto.id_produto')
+            ->join('tb_relacao_cor', 'tb_carrinho_itens.fk_cor', '=', 'tb_relacao_cor.id_relacao_cor')
+            ->join('tb_cor', 'tb_relacao_cor.fk_cor', '=', 'tb_cor.id_cor') 
+            ->join('tb_relacao_tamanho','tb_carrinho_itens.fk_produto', '=', 'tb_relacao_tamanho.id_relacao_tamanho')
+            ->join('tb_tamanho','tb_relacao_tamanho.fk_tamanho','tb_tamanho.id_tamanho')
+            ->select('tb_produto.nome_produto', 'imagem_produto', 'preco_produto', 'quantidade', 'tb_cor.desc_cor','tb_tamanho.desc_tamanho')
+            ->get();
             return response()->json([
                 'itens' => $item,
                 'carrinho' => $carrinho

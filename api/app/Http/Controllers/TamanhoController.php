@@ -16,7 +16,7 @@ class TamanhoController extends Controller
         $tamanho = DB::table('tb_relacao_tamanho')
             ->join('tb_tamanho', 'tb_relacao_tamanho.fk_tamanho', '=', 'tb_tamanho.id_tamanho')
             ->where('tb_relacao_tamanho.fk_item', $id_produto)
-            ->select('tb_tamanho.desc_tamanho')
+            ->select('fk_tamanho','tb_tamanho.desc_tamanho')
             ->get();
 
         return response()->json($tamanho);
