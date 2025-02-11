@@ -25,7 +25,7 @@ export default function Produto() {
     const [roupa, setRoupa] = useState([])
     const [tamanho, setTamanho] = useState([])
     const [quantidade, setQuantidade] = useState(1);
-    const {idCarrinho } = useContext(Context)
+    const { idCarrinho } = useContext(Context)
     const [cor, setCor] = useState([])
     const [selectTamanho, setSelectTamanho] = useState('')
     const [selectCor, setSelectCor] = useState('')
@@ -45,13 +45,13 @@ export default function Produto() {
 
     function pressCor(item) {
         setSelectCor(item.desc_cor)
-        setIdCor(item.id_relacao_cor)
+        setIdCor(item.fk_cor)
     }
 
 
-    console.log(selectTamanho)
-    console.log(idTamanho)
-  
+
+
+
     useEffect(() => {
 
         const cor = async () => {
@@ -62,6 +62,7 @@ export default function Produto() {
 
                 const data = await response.json();
                 setCor(data)
+                console.log(data)
             } catch (error) {
                 console.log(error)
             }
@@ -115,39 +116,42 @@ export default function Produto() {
         cor()
     }, [id_produto, subCategoria])
 
+console.log(idCor)
+    const handleAdd = async (item) => {
 
-    const handleAdd = async (item,id) => {
-
-        if (!selectTamanho && !selectCor) {
+        if (!selectTamanho && !selectCor && !idCor) {
             alert('Por favor, selecione tamanho e cor antes de adicionar ao carrinho.');
             return;
         }
+
+
         try {
             const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
+
                 body: JSON.stringify({
                     id_carrinho: idCarrinho,
                     id_produto: item.id_produto,
                     quantidade: quantidade,
-                    id_cor:idCor,
-                    id_tamanho:idTamanho
-                    
+                    id_cor: idCor,
+                    id_tamanho: idTamanho
+
 
                 }),
             })
             if (response.ok) {
                 console.log('Produto adicionado ao carrinho com sucesso!');
-          
+
                 console.log(selectTamanho)
 
                 dispatch({
                     type: 'ADD_CARRINHO',
                     item: {
                         ...item,
-                        tamanho:selectTamanho,
+                        tamanho: selectTamanho,
                         cor: selectCor,
                         quantidade: quantidade
                     },
@@ -203,7 +207,7 @@ export default function Produto() {
                             <h4 className="subtitulo">Tamanho</h4>
 
                             <select
-                                
+
                                 onChange={(e) => {
                                     const selectedItem = tamanho.find(item => item.fk_tamanho === parseInt(e.target.value));
                                     if (selectedItem) {
@@ -212,7 +216,7 @@ export default function Produto() {
                                         setIdTamanho(selectedItem.fk_tamanho); // Atualiza o id do tamanho
                                     }
                                 }}
-                            
+
                                 className="input-select" name="" id="">
                                 <option value="" disabled>
                                     selecione

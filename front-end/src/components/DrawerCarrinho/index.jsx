@@ -14,11 +14,11 @@ export default function DrawerCarrinho() {
     const idUsuario = localStorage.getItem("id_usuario");
 
     const increment = async (item) => {
-
         dispatch({
             type: 'INCREMENT_CARRINHO',
             item
         });
+
         try {
             const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
                 method: 'POST',
@@ -28,7 +28,10 @@ export default function DrawerCarrinho() {
                 body: JSON.stringify({
                     id_produto: item.id_produto,
                     quantidade: 1,
-                    id_carrinho: idCarrinho
+                    id_carrinho: 66,
+                    id_cor: item.id_cor,
+                    id_tamanho: item.id_tamanho
+
 
                 })
             })

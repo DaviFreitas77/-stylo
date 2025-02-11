@@ -14,7 +14,7 @@ class corController extends Controller
         $cor = DB::table('tb_relacao_cor')
         ->join('tb_cor','tb_relacao_cor.fk_cor', '=' ,'tb_cor.id_cor')
         ->where('tb_relacao_cor.fk_item',$id_produto)
-        ->select('id_relacao_cor','tb_cor.desc_cor')
+        ->select('id_relacao_cor','tb_cor.desc_cor','fk_cor')
         ->get();
 
         return response()->json($cor);

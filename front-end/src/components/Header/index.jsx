@@ -13,21 +13,9 @@ import DrawerMobile from "../DrawerMobile";
 import { Context } from "../../Contexto/provider";
 export default function Header() {
 
-    const idUsuario = localStorage.getItem("id_usuario");
-    const { setIdCarrinho } = useContext(Context)
 
-    useEffect(() => {
-        const fetchIdCarrinho = async () => {
-            const carrinho = await fetch(`http://127.0.0.1:8000/api/carrinho?id_usuario=${idUsuario}`, {
-                method: 'GET'
-            });
 
-            const dataCarrinho = await carrinho.json();
-            setIdCarrinho(dataCarrinho.carrinho.id_carrinho);
-
-        }
-        fetchIdCarrinho();
-    }, [])
+  
 
     const [showDrawer, setShowDrawer] = useState(false)
     const [showDrawerMobile, setShowDrawerMobile] = useState(false)

@@ -25,16 +25,15 @@ class produtoController extends Controller
         $produto->save();
         $tamanhosString = $request->tamanhos;
         $cores = $request->cores;
-        // $tamanhosArray = json_decode($tamanhosString, true);
-        
+
 
         if ($produto->id_produto) {
-                foreach ($tamanhosString as $tamanho) {
-                    DB::table('tb_relacao_tamanho')->insert([
-                        'fk_item' => $produto->id_produto,
-                        'fk_tamanho' => $tamanho,
-                    ]);
-                }
+            foreach ($tamanhosString as $tamanho) {
+                DB::table('tb_relacao_tamanho')->insert([
+                    'fk_item' => $produto->id_produto,
+                    'fk_tamanho' => $tamanho,
+                ]);
+            }
         }
 
         if ($produto->id_produto) {
@@ -44,7 +43,7 @@ class produtoController extends Controller
                     'fk_cor' => $cor,
                 ]);
             }
-    }
+        }
 
         if ($request->destaque) {
             DB::table('tb_produto_destaque')->insert([
@@ -68,7 +67,7 @@ class produtoController extends Controller
     {
         $id = $request->id_produto;
         $produto = Produto::where('id_produto', $id)
-            ->select('id_produto', 'nome_produto', 'desc_produto', 'preco_produto', 'imagem_produto', 'fk_subcategoria', 'destaque', 'destaque_estacao','preco_antigo_produto')
+            ->select('id_produto', 'nome_produto', 'desc_produto', 'preco_produto', 'imagem_produto', 'fk_subcategoria', 'destaque', 'destaque_estacao', 'preco_antigo_produto')
             ->get();
 
         return response()->json($produto);
