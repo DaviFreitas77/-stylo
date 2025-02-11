@@ -28,9 +28,10 @@ export default function DrawerCarrinho() {
                 body: JSON.stringify({
                     id_produto: item.id_produto,
                     quantidade: 1,
-                    id_carrinho: 66,
+                    id_carrinho: idCarrinho,
                     id_cor: item.id_cor,
-                    id_tamanho: item.id_tamanho
+                    id_tamanho: item.id_tamanho,
+                    preco_produto:item.preco_produto
 
 
                 })
@@ -141,6 +142,14 @@ export default function DrawerCarrinho() {
                         </div>
                     ))}
 
+                    {produtos.length > 0 ? (
+                        <p>
+                            Total: R$
+                            {produtos.reduce((total, produto) => {
+                                return total + (produto.preco_produto * produto.quantidade);
+                            }, 0).toFixed(2)} {/* Formatar para 2 casas decimais */}
+                        </p>
+                    ):null}
 
 
                 </section>

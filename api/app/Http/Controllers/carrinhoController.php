@@ -25,6 +25,8 @@ class carrinhoController extends Controller
         if ($itemExiste) {
             // Atualiza a quantidade se o item já existir
             $itemExiste->quantidade += $request->quantidade;
+            $itemExiste->preco_itens = $request->preco_produto * $itemExiste->quantidade;
+
             $itemExiste->save();
 
             return response()->json([
@@ -41,8 +43,7 @@ class carrinhoController extends Controller
         $item->quantidade = $request->quantidade;
         $item->fk_cor = $request->id_cor;
         $item->fk_tamanho = $request->id_tamanho;
-
-        $item->preco_itens = $request->preco_itens;
+        $item->preco_itens = $request->preco_produto;
         $item->save();
 
         return response()->json([
@@ -73,7 +74,7 @@ class carrinhoController extends Controller
                 ->join('tb_relacao_tamanho', 'tb_carrinho_itens.fk_tamanho', '=', 'tb_relacao_tamanho.id_relacao_tamanho')
 
                 ->join('tb_tamanho', 'tb_relacao_tamanho.fk_tamanho', '=', 'tb_tamanho.id_tamanho')
-                ->select('id_produto', 'tb_produto.nome_produto', 'imagem_produto', 'preco_produto', 'quantidade', 'tb_cor.desc_cor', 'tb_carrinho_itens.fk_tamanho', 'id_cor', 'id_tamanho')
+                ->select('id_produto', 'tb_produto.nome_produto', 'imagem_produto', 'preco_produto', 'quantidade', 'tb_cor.desc_cor', 'tb_carrinho_itens.fk_tamanho', 'id_cor', 'id_tamanho', 'tb_tamanho.desc_tamanho')
                 ->get();
             return response()->json([
                 'itens' => $item,

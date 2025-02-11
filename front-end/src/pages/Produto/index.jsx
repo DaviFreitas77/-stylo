@@ -116,7 +116,7 @@ export default function Produto() {
         cor()
     }, [id_produto, subCategoria])
 
-console.log(idCor)
+    console.log(idCor)
     const handleAdd = async (item) => {
 
         if (!selectTamanho && !selectCor && !idCor) {
@@ -137,7 +137,8 @@ console.log(idCor)
                     id_produto: item.id_produto,
                     quantidade: quantidade,
                     id_cor: idCor,
-                    id_tamanho: idTamanho
+                    id_tamanho: idTamanho,
+                    preco_produto:item.preco_produto
 
 
                 }),
@@ -145,15 +146,15 @@ console.log(idCor)
             if (response.ok) {
                 console.log('Produto adicionado ao carrinho com sucesso!');
 
-                console.log(selectTamanho)
-
+                
                 dispatch({
                     type: 'ADD_CARRINHO',
                     item: {
                         ...item,
                         tamanho: selectTamanho,
                         cor: selectCor,
-                        quantidade: quantidade
+                        quantidade: quantidade,
+                        preco: item.preco_produto
                     },
                 });
             } else {
