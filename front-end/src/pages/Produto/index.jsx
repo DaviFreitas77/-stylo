@@ -63,7 +63,7 @@ export default function Produto() {
 
                 const data = await response.json();
                 setCor(data)
-    
+
             } catch (error) {
                 console.log(error)
             }
@@ -76,7 +76,7 @@ export default function Produto() {
                 });
                 const data = await response.json();
                 setTamanho(data)
-     
+
 
             } catch (error) {
                 console.log(error)
@@ -135,13 +135,13 @@ export default function Produto() {
                 },
 
                 body: JSON.stringify({
-                    id_usuario:idUsuario ,
+                    id_usuario: idUsuario,
                     id_carrinho: idCarrinho,
                     id_produto: item.id_produto,
                     quantidade: quantidade,
                     id_cor: idCor,
                     id_tamanho: idTamanho,
-                    preco_produto:item.preco_produto
+                    preco_produto: item.preco_produto
 
 
                 }),
@@ -149,7 +149,7 @@ export default function Produto() {
             if (response.ok) {
                 console.log('Produto adicionado ao carrinho com sucesso!');
 
-                    console.log(item)
+                console.log(item)
                 dispatch({
                     type: 'ADD_CARRINHO',
                     item: {
@@ -216,8 +216,8 @@ export default function Produto() {
                                     const selectedItem = tamanho.find(item => item.fk_tamanho === parseInt(e.target.value));
                                     if (selectedItem) {
                                         console.log(selectedItem)
-                                        setSelectTamanho(selectedItem.desc_tamanho); 
-                                        setIdTamanho(selectedItem.fk_tamanho); 
+                                        setSelectTamanho(selectedItem.desc_tamanho);
+                                        setIdTamanho(selectedItem.fk_tamanho);
                                     }
                                 }}
 

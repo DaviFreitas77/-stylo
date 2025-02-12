@@ -19,7 +19,11 @@ Route::get('/user', function (Request $request) {
 Route::post('/criarUsuario',[usuarioController::class,('criarUsuario')]);
 Route::post('/criarCategoria',[categoriaController::class,('criarCategoria')]);
 Route::post('/criarSubCategoria',[subCategoriaController::class,('criarSubCategoria')]);
-Route::post('/criarProduto',[produtoController::class,('criarProduto')]);
+
+Route::middleware('auth:sanctum')->post('/criarProduto', [ProdutoController::class, 'criarProduto']);
+
+
+
 Route::post('/login',[usuarioController::class,('login')]);
 Route::post('/addCarrinho',[carrinhoController::class,('addCarrinho')]);
 Route::post('/addRelacaoTamanho',[RelacaoTamanhoController::class,('relacaoTamanho')]);

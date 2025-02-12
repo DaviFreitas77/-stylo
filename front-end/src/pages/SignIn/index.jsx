@@ -2,14 +2,14 @@ import React, { useContext, useState } from "react";
 import './style.css'
 import Botao from "../../components/Botao";
 import { FcGoogle } from "react-icons/fc";
-import InputMask  from 'react-input-mask'
+import InputMask from 'react-input-mask'
 import { Context } from "../../Contexto/provider";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export default function SignIn() {
     const [cpf, setCpf] = useState('')
     const [senha, setSenha] = useState('')
     const [email, setEmail] = useState('')
-    const {setNomeUsuario} = useContext(Context)
+    const { setNomeUsuario, setToken } = useContext(Context)
     const navigate = useNavigate();
 
 
@@ -21,21 +21,36 @@ export default function SignIn() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    cpf_usuario: cpf,
-                    senha_usuario: senha
+                    cpf: cpf,
+                    senha: senha
                 })
             })
 
-        
-            if(response.ok){
-                const data = await response.json();
+
+
+            const data = await response.json();
+
+            if (data.message === 'usuario') {
+
                 const usuario = data[0];
                 setNomeUsuario(usuario.nome_usuario)
                 localStorage.setItem("nome", usuario.nome_usuario);
-                localStorage.setItem('id_usuario',usuario.id_usuario)
+                localStorage.setItem('id_usuario', usuario.id_usuario)
                 navigate('/')
             }
-        
+
+            if (data.message === 'adm') {
+
+                const usuario = data.adm; 
+                setNomeUsuario(usuario.nome_Adm);
+                localStorage.setItem("nome", usuario.nome_adm);
+                localStorage.setItem('id_adm', usuario.id_adm);
+                setToken(data.token); 
+                navigate('/criarProduto');
+            }
+
+
+
         } catch (error) {
             console.log(error)
         }
@@ -53,7 +68,7 @@ export default function SignIn() {
                 <div className="div-signIn">
                     <h3 className="h3-sigIn">Já sou cliente</h3>
                     <div>
-                        <InputMask 
+                        <InputMask
                             mask="999.999.999-99"
                             className="input"
                             type="text"
@@ -61,8 +76,8 @@ export default function SignIn() {
                             onChange={(txt) => setCpf(txt.target.value)}
                             value={cpf}
                         />
-                           
-                 
+
+
 
                         <input
                             className="input"

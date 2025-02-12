@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Mail\EmailVerificationMail;
+use App\Models\ADM;
 use App\Models\Usuario;
 use App\Models\VerificarEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use laravel\Sanctum\HasApiTokens;
 
 class usuarioController extends Controller
 {
@@ -49,18 +51,29 @@ class usuarioController extends Controller
         return response()->json(['message' => 'Usuário criado com sucesso!'], 201);
     }
 
+
     public function login(Request $request)
     {
 
-        $usuario = Usuario::where('cpf_usuario', $request->cpf_usuario)->first();
+        $usuario = Usuario::where('cpf_usuario', $request->cpf)->first();
 
-        if ($usuario && $request->senha_usuario === $usuario->senha_usuario) {
+        $adm = ADM::where('cpf_adm', $request->cpf)->first();
 
-
+        if ($usuario && $request->senha === $usuario->senha_usuario) {
             return response()->json([
-                'message' => 'Login como usuário bem-sucedido.',
+                'message' => 'usuario',
                 $usuario
             ], 200);
+        }
+
+        if ($adm && $request->senha === $adm->senha_adm) {
+
+            $token = $adm->createToken('admToken')->plainTextToken;
+            return response()->json([
+                'message' => 'adm',
+                'adm' => $adm,
+                'token' => $token
+            ], 201);
         }
 
         return response()->json([

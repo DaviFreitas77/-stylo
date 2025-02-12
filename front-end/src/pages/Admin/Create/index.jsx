@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './style.css'
 import { FaCircle } from "react-icons/fa";
+import { Context } from "../../../Contexto/provider";
 export default function CriarProduto() {
 
     const [nome, setNome] = useState('')
@@ -17,8 +18,9 @@ export default function CriarProduto() {
     const [estacao, setEstacao] = useState('')
     const [arrayCor,setArrayCor] = useState([])
     const [corSelecionado,setCorSelecionado] = useState([])
+    const {token} = useContext(Context)
 
-    
+    console.log(token)
     const traducaoCores = {
         preto: "black",
         vermelho: "red",
@@ -37,7 +39,7 @@ export default function CriarProduto() {
         }
     }
 
-console.log(corSelecionado)
+
     const toggleTamanho = (tamanho) => {
         if (tamanhosSelecionados.includes(tamanho)) {
             setTamanhosSelecionados(tamanhosSelecionados.filter(item => item !== tamanho))
@@ -103,12 +105,15 @@ console.log(corSelecionado)
     }, [])
 
 
+    console.log(token)
+
     const cadastrarProduto = async () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/criarProduto', {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization':`Bearer ${token}`
                 },
                 body: JSON.stringify({
                     nome_produto: nome,

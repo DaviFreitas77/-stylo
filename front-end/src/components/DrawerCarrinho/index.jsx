@@ -9,7 +9,7 @@ import { Context } from "../../Contexto/provider";
 export default function DrawerCarrinho() {
     const dispatch = useDispatch();
     const produtos = useSelector(state => state.carrinho)
-    const { idCarrinho } = useContext(Context)
+    const { idCarrinho,nomeUsuario } = useContext(Context)
     const nome = localStorage.getItem("nome");
     const idUsuario = localStorage.getItem("id_usuario");
 
@@ -71,12 +71,9 @@ export default function DrawerCarrinho() {
             } catch (error) {
                 console.log(error)
             }
-
-
-
         }
         fetchCarrinho()
-    }, [])
+    }, [nomeUsuario])
 
     return (
         <div>

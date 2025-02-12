@@ -7,6 +7,7 @@ export const Provider = ({ children }) => {
   const [itensCarrinho, setItensCarrinho] = useState([])
   const [idCarrinho, setIdCarrinho] = useState('')
   const [url, setUrl] = useState('')
+  const [token,setToken] = useState('')
   const idUsuario = localStorage.getItem("id_usuario");
   
 
@@ -26,7 +27,7 @@ export const Provider = ({ children }) => {
   return (
 
 
-    <Context.Provider value={{ nomeUsuario, setNomeUsuario, url, setUrl, setItensCarrinho, itensCarrinho, idCarrinho, setIdCarrinho }}>
+    <Context.Provider value={{ nomeUsuario, setNomeUsuario, url, setUrl, setItensCarrinho, itensCarrinho, idCarrinho, setIdCarrinho,setToken,token }}>
       {children}
     </Context.Provider>
   )

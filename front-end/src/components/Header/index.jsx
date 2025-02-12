@@ -4,7 +4,7 @@ import { ImUser } from "react-icons/im";
 import { MdFavorite } from "react-icons/md";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { CiSearch } from "react-icons/ci";
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import DrawerSeacrch from "../Drawer";
 import { FaSearch } from "react-icons/fa";
 import DrawerCarrinho from "../DrawerCarrinho";
@@ -13,15 +13,24 @@ import DrawerMobile from "../DrawerMobile";
 import { Context } from "../../Contexto/provider";
 export default function Header() {
 
-
-
-  
-
     const [showDrawer, setShowDrawer] = useState(false)
     const [showDrawerMobile, setShowDrawerMobile] = useState(false)
     const [drawerCarrinho, setDrawerCarrinho] = useState(false)
-    const { nomeUsuario } = useContext(Context)
+    const { nomeUsuario, setNomeUsuario } = useContext(Context)
     const nome = localStorage.getItem("nome");
+
+
+    const { setToken } = useContext(Context)
+
+
+    const sair = () => {
+        setToken('')
+        localStorage.removeItem('nome');
+        localStorage.removeItem('id_adm');
+        localStorage.removeItem('id_usuario');
+        setNomeUsuario('')
+        Navigate('/')
+    }
 
     return (
         <div className="container-header">
@@ -38,18 +47,34 @@ export default function Header() {
                     type="search" name="" id="input-search" placeholder="ex: Camiseta" />
             </div>
             <h2>Logo</h2>
-            <div className="icons-header">
-                {(nome !== null && nome !== '') ? (
-                    <div className="d-flex gap-2 mr-5 div-entrar">
-                        <p>Olá {nome}</p>
 
-                    </div>
-                ) : (
-                    <div className="d-flex gap-2 mr-5 div-entrar">
-                        <ImUser className="icon iconUser" size={30} />
-                        <Link className="span-entrar" to={'/Login'}>Entrar</Link>
-                    </div>
-                )}
+            <div className="icons-header">
+                <div class="dropdown">
+                    <a class=" d-flex justify-content-center align-items-center dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {(nome !== null && nome !== '') ? (
+                            <div className="d-flex gap-2 mr-5 div-entrar">
+                                <p>{nome}</p>
+
+                            </div>
+                        ) : (
+                            <div className="d-flex gap-2 mr-5 div-entrar">
+                                <ImUser className="icon iconUser" size={30} />
+                                <Link className="span-entrar" to={'/Login'}>Entrar</Link>
+                            </div>
+                        )}
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        {nome !== null ? (
+
+                            <button onClick={sair}><a class="dropdown-item" >Sair</a></button>
+
+                        ) : (
+
+                            <button onClick={sair}><a class="dropdown-item"><Link className="span-entrar" to={'/Login'}>Entrar</Link></a></button>
+                        )}
+                    </ul>
+                </div>
                 <div className="iconsMobile">
                     <FaSearch className="icon iconSearch" size={25} />
                     <MdFavorite className="icon iconFavorito" size={30} />
