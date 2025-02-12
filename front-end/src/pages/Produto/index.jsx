@@ -32,6 +32,7 @@ export default function Produto() {
     const [idCor, setIdCor] = useState('')
     const [idTamanho, setIdTamanho] = useState('')
     const navigate = useNavigate()
+    const idUsuario = localStorage.getItem("id_usuario");
     const { id_produto } = useParams();
 
     const traducaoCores = {
@@ -62,7 +63,7 @@ export default function Produto() {
 
                 const data = await response.json();
                 setCor(data)
-                console.log(data)
+    
             } catch (error) {
                 console.log(error)
             }
@@ -75,6 +76,7 @@ export default function Produto() {
                 });
                 const data = await response.json();
                 setTamanho(data)
+     
 
             } catch (error) {
                 console.log(error)
@@ -116,7 +118,7 @@ export default function Produto() {
         cor()
     }, [id_produto, subCategoria])
 
-    console.log(idCor)
+
     const handleAdd = async (item) => {
 
         if (!selectTamanho && !selectCor && !idCor) {
@@ -133,6 +135,7 @@ export default function Produto() {
                 },
 
                 body: JSON.stringify({
+                    id_usuario:idUsuario ,
                     id_carrinho: idCarrinho,
                     id_produto: item.id_produto,
                     quantidade: quantidade,
@@ -146,7 +149,7 @@ export default function Produto() {
             if (response.ok) {
                 console.log('Produto adicionado ao carrinho com sucesso!');
 
-                
+                    console.log(item)
                 dispatch({
                     type: 'ADD_CARRINHO',
                     item: {
@@ -213,8 +216,8 @@ export default function Produto() {
                                     const selectedItem = tamanho.find(item => item.fk_tamanho === parseInt(e.target.value));
                                     if (selectedItem) {
                                         console.log(selectedItem)
-                                        setSelectTamanho(selectedItem.desc_tamanho); // Atualiza o estado com o desc_tamanho
-                                        setIdTamanho(selectedItem.fk_tamanho); // Atualiza o id do tamanho
+                                        setSelectTamanho(selectedItem.desc_tamanho); 
+                                        setIdTamanho(selectedItem.fk_tamanho); 
                                     }
                                 }}
 

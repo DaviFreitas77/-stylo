@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Carrinho extends Model
 {
     protected $table = 'tb_carrinho';
-    protected $fillable = ['id_usuario'];
+    protected $primaryKey = 'id_carrinho';
+    protected $fillable = ['fk_usuario','total_carrinho'];
 
     public $timestamps = false;
 }

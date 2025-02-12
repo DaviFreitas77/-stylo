@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tb_carrinho', function (Blueprint $table) {
             $table->increments('id_carrinho');
             $table->unsignedInteger('fk_usuario');
+            $table->decimal('total_carrinho', 10, 2);
             $table->foreign('fk_usuario')->references('id_usuario')->on('tb_usuario');
         });
     }

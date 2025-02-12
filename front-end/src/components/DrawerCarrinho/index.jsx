@@ -31,7 +31,8 @@ export default function DrawerCarrinho() {
                     id_carrinho: idCarrinho,
                     id_cor: item.id_cor,
                     id_tamanho: item.id_tamanho,
-                    preco_produto:item.preco_produto
+                    preco_produto: item.preco_produto,
+                    id_usuario:idUsuario
 
 
                 })
@@ -149,7 +150,7 @@ export default function DrawerCarrinho() {
                                 return total + (produto.preco_produto * produto.quantidade);
                             }, 0).toFixed(2)} {/* Formatar para 2 casas decimais */}
                         </p>
-                    ):null}
+                    ) : null}
 
 
                 </section>
