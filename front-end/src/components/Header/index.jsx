@@ -25,10 +25,11 @@ export default function Header() {
 
     const sair = () => {
         setToken('')
+        setNomeUsuario('')
         localStorage.removeItem('nome');
         localStorage.removeItem('id_adm');
         localStorage.removeItem('id_usuario');
-        setNomeUsuario('')
+        localStorage.removeItem('token')
         Navigate('/')
     }
 

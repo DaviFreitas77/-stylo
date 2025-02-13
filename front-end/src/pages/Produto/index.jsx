@@ -25,7 +25,7 @@ export default function Produto() {
     const [roupa, setRoupa] = useState([])
     const [tamanho, setTamanho] = useState([])
     const [quantidade, setQuantidade] = useState(1);
-    const { idCarrinho } = useContext(Context)
+    const { idCarrinho,token } = useContext(Context)
     const [cor, setCor] = useState([])
     const [selectTamanho, setSelectTamanho] = useState('')
     const [selectCor, setSelectCor] = useState('')
@@ -48,10 +48,7 @@ export default function Produto() {
         setSelectCor(item.desc_cor)
         setIdCor(item.fk_cor)
     }
-
-
-
-
+    console.log(token)
 
     useEffect(() => {
 
@@ -126,7 +123,9 @@ export default function Produto() {
             return;
         }
 
-
+        if(!idUsuario){
+            alert('ente com sua conta para adicionar um produto ao carrinho')
+        }
         try {
             const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
                 method: 'POST',

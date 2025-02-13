@@ -10,12 +10,13 @@ import Header from './components/Header';
 import { Context, Provider } from './Contexto/provider';
 import store from './store';
 import CriarProduto from './pages/Admin/Create';
+import Erro from './pages/Erro';
 import { useContext } from 'react';
 export const AppRoute = () => {
-
+    const adm = localStorage.getItem('token')
     const RotaPrivada = ({ isAdmin = false }) => {
-        const { token } = useContext(Context)
-        if (token === '') {
+
+        if (!adm) {
             return <Navigate to="/" replace />;
         }
 
@@ -35,7 +36,7 @@ export const AppRoute = () => {
                             <Route path='/criarProduto' element={<CriarProduto />} />
                         </Route>
 
-
+                        <Route path='*' element={<Erro />} />
                     </Routes>
 
                 </BrowserRouter>

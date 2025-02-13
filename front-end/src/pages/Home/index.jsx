@@ -12,7 +12,9 @@ import { Context } from '../../Contexto/provider'
 
 function Home() {
   
+const {token} = useContext(Context)
 
+console.log(token)
 
   return (
     <div >

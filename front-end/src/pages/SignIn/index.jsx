@@ -40,13 +40,13 @@ export default function SignIn() {
             }
 
             if (data.message === 'adm') {
-
                 const usuario = data.adm; 
                 setNomeUsuario(usuario.nome_Adm);
                 localStorage.setItem("nome", usuario.nome_adm);
                 localStorage.setItem('id_adm', usuario.id_adm);
-                setToken(data.token); 
-                navigate('/criarProduto');
+                localStorage.setItem('token',data.token)
+           
+                navigate('/');
             }
 
 

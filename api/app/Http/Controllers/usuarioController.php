@@ -46,7 +46,6 @@ class usuarioController extends Controller
         $usuario->email_usuario = $request->email_usuario;
         $usuario->numero_usuario = $request->numero_usuario;
         $usuario->senha_usuario = $request->senha_usuario;
-
         $usuario->save();
         return response()->json(['message' => 'Usuário criado com sucesso!'], 201);
     }
@@ -64,7 +63,7 @@ class usuarioController extends Controller
                 'message' => 'usuario',
                 $usuario
             ], 200);
-        }
+        } 
 
         if ($adm && $request->senha === $adm->senha_adm) {
 
