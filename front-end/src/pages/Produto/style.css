@@ -6,7 +6,11 @@
     display: flex;
     gap: 10px;
 }
-
+.containerNome{
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+}
 .section-info-produto {
     display: flex;
 }

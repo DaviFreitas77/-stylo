@@ -1,0 +1,100 @@
+.containerProdutoCheckOut{
+    display: flex;
+    width: 60%;
+
+
+    border: 1px solid #dfdfdf;
+}
+.produto{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.imgCheckOutProduto {
+    width: 100%; /* Garante que a imagem ocupe 100% da largura do contêiner pai */
+    max-width: 120px; /* Define um tamanho máximo para a imagem */
+    height: auto; /* Mantém a proporção da imagem */
+}
+.containerProduto{
+    gap: 10px;
+    width: 100%;
+    
+}
+.nomeCheckOut{
+    font-weight: bold;
+    margin-top: 10px;
+}
+.containerCheckOut{
+    display: flex;
+
+    gap: 20px;
+    padding: 25px;
+}
+.linha {
+    width: 100%; 
+    height: 1px; 
+    background-color:#dfdfdf; 
+    margin: 20px 0; 
+}
+.produtoCheck{
+    display: flex;
+    gap: 15px;
+}
+.infoProdutoCheck{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.h2CheckOut{
+    font-size: 23px;
+    font-weight: bold;
+}
+.totalCheck{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F5F5F5;
+    border: 1px solid #dfdfdf;
+    padding: 10px;
+    border-radius: 4px;
+}
+.containerTotalChecl{
+    width: 50%;
+
+}
+
+
+@media (max-width: 930px) {
+    .containerCheckOut {
+        flex-wrap: wrap;
+    }
+    .produtoCheck {
+        width: 100%;
+    }
+    .containerProdutoCheckOut {
+        width: 100%;
+        height: 101vh;
+    }
+    .containerTotalChecl {
+        width: 100%;
+    }
+
+     .containerTotalChecl  {
+        width: 100%;
+        position: fixed;  
+        bottom: 0;        
+        left: 0;          
+        padding: 15px;     
+        z-index: 100;      
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        font-size: 20px;
+        background-color:#ffff;
+        
+    }
+    .totalCheck h3{
+        font-weight: bold;
+
+    }
+}

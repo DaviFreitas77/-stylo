@@ -54,20 +54,12 @@ export default function DrawerSearch({ showDrawer, setShowDrawer }) {
                         className="inputSearch"
                         type="text"
                         placeholder="ex:camiseta"
-                        value={termo ? termo : transcript}
+                        value={termo}
                         onChange={handleInputChange}
 
                     />
 
-                    <button
-                        className="icon iconMic"
-                        onClick={SpeechRecognition.startListening}>
-                        {listening ? (
-                            <IoMicOutline size={20} />
-                        ) : (
-                            <MdOutlineMicOff size={20} />
-                        )}
-                    </button>
+                   
 
                 </div>
                 {/* {transcript ? (

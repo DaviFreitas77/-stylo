@@ -11,6 +11,7 @@ import { Context, Provider } from './Contexto/provider';
 import store from './store';
 import CriarProduto from './pages/Admin/Create';
 import Erro from './pages/Erro';
+import CheckOut from './pages/CheckOut';
 import { useContext } from 'react';
 export const AppRoute = () => {
     const adm = localStorage.getItem('token')
@@ -31,6 +32,7 @@ export const AppRoute = () => {
                         <Route path='/' element={<Home />} />
                         <Route path='/Login' element={<SignIn />} />
                         <Route path='/produto/:id_produto' element={<Produto />} />
+                        <Route path='/checkOut' element={<CheckOut/>}/>
 
                         <Route element={<RotaPrivada isAdmin={true} />}>
                             <Route path='/criarProduto' element={<CriarProduto />} />

@@ -6,12 +6,14 @@ import { CiBookmarkRemove } from "react-icons/ci";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { Context } from "../../Contexto/provider";
+import { useNavigate } from "react-router-dom";
 export default function DrawerCarrinho() {
     const dispatch = useDispatch();
     const produtos = useSelector(state => state.carrinho)
     const { idCarrinho, nomeUsuario } = useContext(Context)
     const nome = localStorage.getItem("nome");
     const idUsuario = localStorage.getItem("id_usuario");
+    const navigation = useNavigate()
 
     const increment = async (item) => {
         dispatch({
@@ -138,14 +140,23 @@ export default function DrawerCarrinho() {
                         </div>
                     ))}
 
-                    {produtos.length > 0 ? (
-                        <p>
-                            Total: R$
-                            {produtos.reduce((total, produto) => {
-                                return total + (produto.preco_produto * produto.quantidade);
-                            }, 0).toFixed(2)} {/* Formatar para 2 casas decimais */}
-                        </p>
-                    ) : null}
+                    <div className="containerBtnCheckOut">
+                        {produtos.length > 0 ? (
+                            <p className="totalCarrinho">
+                                Total: R$
+                                {produtos.reduce((total, produto) => {
+                                    return total + (produto.preco_produto * produto.quantidade);
+                                }, 0).toFixed(2)}
+                            </p>
+                        ) : null}
+
+
+                        <button
+                            className="botao"
+                            onClick={() => navigation('/checkOut')}>
+                            Finalizar Compra
+                        </button>
+                    </div>
 
 
                 </section>

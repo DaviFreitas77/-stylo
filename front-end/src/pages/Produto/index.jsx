@@ -17,6 +17,8 @@ import Loading from "../../components/Loading/LoadingAnimation";
 import { useDispatch } from "react-redux";
 import { Context } from "../../Contexto/provider";
 import { data } from "autoprefixer";
+import Lottie from "react-lottie";
+import heart from '../../assets/lottie/heart.json'
 
 export default function Produto() {
     const dispatch = useDispatch();
@@ -25,7 +27,7 @@ export default function Produto() {
     const [roupa, setRoupa] = useState([])
     const [tamanho, setTamanho] = useState([])
     const [quantidade, setQuantidade] = useState(1);
-    const { idCarrinho,token } = useContext(Context)
+    const { idCarrinho, token } = useContext(Context)
     const [cor, setCor] = useState([])
     const [selectTamanho, setSelectTamanho] = useState('')
     const [selectCor, setSelectCor] = useState('')
@@ -34,6 +36,15 @@ export default function Produto() {
     const navigate = useNavigate()
     const idUsuario = localStorage.getItem("id_usuario");
     const { id_produto } = useParams();
+
+
+    
+    
+    const defaultOptions = {
+        loop:false,
+        Autoplay:true,
+        animationData:heart
+    }
 
     const traducaoCores = {
         preto: "black",
@@ -123,7 +134,7 @@ export default function Produto() {
             return;
         }
 
-        if(!idUsuario){
+        if (!idUsuario) {
             alert('ente com sua conta para adicionar um produto ao carrinho')
         }
         try {
@@ -180,7 +191,13 @@ export default function Produto() {
                         <img className="img-produto" src={item.imagem_produto} alt="" />
                     </div>
                     <div className="details-produto">
-                        <h2 className="nome-produto">{item.nome_produto}</h2>
+                        <div className="containerNome">
+                            <h2 className="nome-produto">{item.nome_produto}</h2>
+                            <div>
+                                <Lottie options={defaultOptions} width={80} height={80}/>
+                            </div>
+                            
+                        </div>
                         <p className="desc_produto">{item.desc_produto}</p>
 
                         <div className="container-cores">

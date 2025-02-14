@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './style.css'
 import Botao from "../../components/Botao";
 import { FcGoogle } from "react-icons/fc";
@@ -12,6 +12,14 @@ export default function SignIn() {
     const { setNomeUsuario, setToken } = useContext(Context)
     const navigate = useNavigate();
 
+
+    useEffect(()=>{
+        const nome = localStorage.getItem('nome')
+        
+        if(nome){
+            navigate('/')
+        }
+    },[])
 
     const login = async () => {
         try {
@@ -40,13 +48,12 @@ export default function SignIn() {
             }
 
             if (data.message === 'adm') {
-                const usuario = data.adm; 
-                setNomeUsuario(usuario.nome_Adm);
+                const usuario = data.adm;
+                setNomeUsuario(usuario.nome_adm);
                 localStorage.setItem("nome", usuario.nome_adm);
                 localStorage.setItem('id_adm', usuario.id_adm);
-                localStorage.setItem('token',data.token)
-           
-                navigate('/');
+                localStorage.setItem('token', data.token)
+                navigate('/criarProduto');
             }
 
 
@@ -61,13 +68,18 @@ export default function SignIn() {
 
     return (
         <div className="container-signIn">
-            <div className="header-signIn">
-                <p>Logo</p>
-            </div>
-            <section className="container-signIn-signUp">
-                <div className="div-signIn">
-                    <h3 className="h3-sigIn">Já sou cliente</h3>
+
+            <section className="login">
+
+                <div className="containerH3Login">
+                    <h3 className="h3-sigIn">Que bom ter você aqui</h3>
+                    <p>entre e aproveite o melhor da stylo</p>
+                </div>
+
+
+                <div className="containerInputLogin">
                     <div>
+                        <p>Infome seu CPF</p>
                         <InputMask
                             mask="999.999.999-99"
                             className="input"
@@ -76,9 +88,12 @@ export default function SignIn() {
                             onChange={(txt) => setCpf(txt.target.value)}
                             value={cpf}
                         />
+                    </div>
 
 
 
+                    <div className="containerInputSenha">
+                        <p>Infome sua senha</p>
                         <input
                             className="input"
                             type="password"
@@ -86,8 +101,10 @@ export default function SignIn() {
                             onChange={(txt) => setSenha(txt.target.value)}
                             value={senha}
                         />
+                        <span className="esqueciSenha">Esqueci minha senha</span>
                     </div>
-                    <span className="span-signIn">Esqueci minha senha</span>
+                </div>
+                <div className="buttonsLogin">
                     <button
                         onClick={login}
                         className="btn-signIn">
@@ -97,31 +114,15 @@ export default function SignIn() {
                         Criar conta
                     </button>
                 </div>
-
-                <div className="div-signIn div-signUp">
-                    <h3 className="h3-sigIn">Criar conta</h3>
-                    <div>
-                        <input
-                            className="input"
-                            placeholder='Email'
-                            type='text'
-                            onChange={(txt) => setEmail(txt.target.value)}
-                            value={email}
-
-                        />
-
-                    </div>
-                    <button className="btn-signIn">
-                        Prosseguir
+                <div className="entrarComGoogle">
+                    <span>ou</span>
+                    <button className="btn-entrar-google">
+                        <FcGoogle size={25} />
+                        Entrar com o google
                     </button>
                 </div>
             </section>
-            <section className="entrar-google">
-                <button className="btn-entrar-google">
-                    <FcGoogle size={25} />
-                    Entrar com o google
-                </button>
-            </section>
+
         </div>
     )
 }
