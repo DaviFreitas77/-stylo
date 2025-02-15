@@ -47,12 +47,32 @@ export default function DrawerCarrinho() {
         }
     }
 
-    function decrement(item) {
+
+    const decrement = async (item) => {
         dispatch({
             type: 'DECREMENT_CARRINHO',
             item
         })
+
+        console.log(item)
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/decrement',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({id_produto:item.id_produto})
+            })
+
+            const data = await response.json()
+            console.log(data)
+            } catch (error) {
+                console.log(error)
+            }
+
+        
     }
+
 
 
     useEffect(() => {
@@ -142,7 +162,7 @@ export default function DrawerCarrinho() {
 
                     <div className="containerBtnCheckOut">
                         {produtos.length > 0 ? (
-                            <p className="totalCarrinho">
+                            <p className="totalCarrinho ">
                                 Total: R$
                                 {produtos.reduce((total, produto) => {
                                     return total + (produto.preco_produto * produto.quantidade);
@@ -152,7 +172,7 @@ export default function DrawerCarrinho() {
 
 
                         <button
-                            className="botao"
+                            className="botao  " data-bs-dismiss="offcanvas" aria-label="Close "
                             onClick={() => navigation('/checkOut')}>
                             Finalizar Compra
                         </button>

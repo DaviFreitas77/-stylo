@@ -7,6 +7,8 @@ use App\Models\CarrinhoItens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function Pest\Laravel\delete;
+
 class carrinhoController extends Controller
 
 
@@ -73,6 +75,27 @@ class carrinhoController extends Controller
         ]);
     }
 
+
+    public function decremetProduto(Request $request)
+    {
+        $id = $request->id_produto;
+        $carrinho = CarrinhoItens::where('fk_produto',$id)->first();
+
+        if($carrinho->quantidade > 0){
+            $carrinho->quantidade -= 1;
+            $carrinho->save();
+        }
+
+        if($carrinho->quantidade <= 0){
+
+            DB::table('tb_carrinho_itens')
+            ->where('fk_produto',$id)
+            ->delete();
+        }
+        return response()->json([
+            'sucesso'
+        ]);
+}
 
 
     public function getCarrinho(Request $request)

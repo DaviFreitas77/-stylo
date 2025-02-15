@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@ramonak/react-progress-bar": "^5.3.0",
+    "@stripe/react-stripe-js": "^3.1.1",
+    "@stripe/stripe-js": "^5.6.0",
     "@supabase/supabase-js": "^2.47.12",
     "bootstrap": "^5.3.3",
     "firebase": "^11.1.0",

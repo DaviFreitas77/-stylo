@@ -50,6 +50,7 @@
 .h2CheckOut{
     font-size: 23px;
     font-weight: bold;
+    margin-top: 30px;
 }
 .totalCheck{
     display: flex;
@@ -61,10 +62,21 @@
     border-radius: 4px;
 }
 .containerTotalChecl{
-    width: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 
 }
-
+.containerPagamento{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.containerPagamento h2{
+    font-size: 25px;
+    font-weight: bold;
+}
 
 @media (max-width: 930px) {
     .containerCheckOut {

@@ -9,6 +9,7 @@ use App\Http\Controllers\RelacaoTamanhoController;
 use App\Http\Controllers\subCategoriaController;
 use App\Http\Controllers\TamanhoController;
 use App\Http\Controllers\usuarioController;
+use App\Http\Controllers\PagamentoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +28,8 @@ Route::middleware('auth:sanctum')->post('/criarProduto', [ProdutoController::cla
 Route::post('/login',[usuarioController::class,('login')]);
 Route::post('/addCarrinho',[carrinhoController::class,('addCarrinho')]);
 Route::post('/addRelacaoTamanho',[RelacaoTamanhoController::class,('relacaoTamanho')]);
-
+Route::post('/pagamento',[PagamentoController::class,('createCharge')]);
+Route::post('/decrement',[carrinhoController::class,('decremetProduto')]);
 
 
 //get
