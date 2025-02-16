@@ -14,7 +14,7 @@ import 'swiper/css/scrollbar';
 export default function DestaqueEstacao() {
     const navigate = useNavigate();
     const [produto, setProduto] = useState([])
-    const [quantidadeProduto,setQuantidadeProduto] = useState()
+    const [quantidadeProduto, setQuantidadeProduto] = useState()
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export default function DestaqueEstacao() {
 
             } catch (error) {
                 console.log(error)
-            } 
+            }
         }
         getProduto()
     }, [])
@@ -85,35 +85,35 @@ export default function DestaqueEstacao() {
                 >
                     {loading ? (
                         <div className="container-cards">
-                                {shimmerPlaceholder()}
+                            {shimmerPlaceholder()}
                         </div>
-                    ):(
+                    ) : (
                         <div className="container-cards">
-                        {produto.map((item, index) => {
-                            return (
-                                <SwiperSlide
-                                key={index}
-                                >
-                                    <button
-                                        onClick={() => {
-                                            navigate(`/produto/${item.id_produto}`);
-                                        }}
-                                      
-                                        className="card-estacao">
-                                        <div >
-                                            <img className="img-card-estacao" src={item.imagem_produto} alt="" />
-                                        </div>
-                                        <p className="nome-card">{item.nome_produto}</p>
-                                        <p className="preco-card">{item.preco_produto}</p>
-                                    </button>
-                                </SwiperSlide>
+                            {produto.map((item, index) => {
+                                return (
+                                    <SwiperSlide
+                                        key={index}
+                                    >
+                                        <button
+                                            onClick={() => {
+                                                navigate(`/produto/${item.id_produto}`);
+                                            }}
 
-                            )
-                        })}
-                    </div>
+                                            className="card-estacao">
+                                            <div >
+                                                <img className="img-card-estacao" src={item.imagem_produto} alt="" />
+                                            </div>
+                                            <p className="nome-card">{item.nome_produto}</p>
+                                            <p className="preco-card">{item.preco_produto}</p>
+                                        </button>
+                                    </SwiperSlide>
+
+                                )
+                            })}
+                        </div>
                     )}
 
-                 
+
                 </Swiper>
 
 

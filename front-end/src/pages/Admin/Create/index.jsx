@@ -16,11 +16,11 @@ export default function CriarProduto() {
     const [tamanhosSelecionados, setTamanhosSelecionados] = useState([]);
     const [destaque, setDestaque] = useState('')
     const [estacao, setEstacao] = useState('')
-    const [arrayCor,setArrayCor] = useState([])
-    const [corSelecionado,setCorSelecionado] = useState([])
-    const {token} = useContext(Context)
+    const [arrayCor, setArrayCor] = useState([])
+    const [corSelecionado, setCorSelecionado] = useState([])
+    
+    const token = localStorage.getItem('token')
 
-    console.log(token)
     const traducaoCores = {
         preto: "black",
         vermelho: "red",
@@ -28,14 +28,14 @@ export default function CriarProduto() {
         branco: "white",
         amarelo: "yellow",
         verde: "green",
-        rosa:'pink'
+        rosa: 'pink'
     };
 
-    const toggleCor = (cor) =>{
-        if(corSelecionado.includes(cor)){
-            setCorSelecionado(corSelecionado.filter(item=>item !==cor))
-        }else{
-            setCorSelecionado([...corSelecionado,cor])
+    const toggleCor = (cor) => {
+        if (corSelecionado.includes(cor)) {
+            setCorSelecionado(corSelecionado.filter(item => item !== cor))
+        } else {
+            setCorSelecionado([...corSelecionado, cor])
         }
     }
 
@@ -80,14 +80,14 @@ export default function CriarProduto() {
                     method: 'GET',
                 })
                 const data = await response.json();
-               
+
                 setArrayTamanho(data)
             } catch (error) {
                 console.log(error)
             }
         }
 
-        const fetchCores = async() =>{
+        const fetchCores = async () => {
             try {
                 const response = await fetch('http://127.0.0.1:8000/api/getcor', {
                     method: 'GET',
@@ -112,7 +112,7 @@ export default function CriarProduto() {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization':`Bearer ${token}`
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     nome_produto: nome,
@@ -124,7 +124,7 @@ export default function CriarProduto() {
                     imagem_produto: 'https://firebasestorage.googleapis.com/v0/b/snackfast-6ef93.appspot.com/o/modelo.png?alt=media&token=4f1d3dae-2717-425b-8541-df8ace08dd5a',
                     fk_subCategoria: 1,
                     tamanhos: tamanhosSelecionados,
-                    cores:corSelecionado
+                    cores: corSelecionado
 
                 })
             })
@@ -216,7 +216,7 @@ export default function CriarProduto() {
                                     onClick={() => toggleCor(item.id_cor)}
                                     className={` ${corSelecionado.includes(item.id_cor) ? 'selected' : ''}`}
                                     key={index}>
-                                        <FaCircle color={traducaoCores[item.desc_cor]} size={45} />
+                                    <FaCircle color={traducaoCores[item.desc_cor]} size={45} />
                                 </button>
                             ))}
                         </div>

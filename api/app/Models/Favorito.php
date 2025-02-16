@@ -8,5 +8,6 @@ class Favorito extends Model
 {
   protected  $table = 'tb_favorito';
   protected  $fillable = ['fk_usuario','fk_produto'];
+  public $timestamps = false;
 
 }

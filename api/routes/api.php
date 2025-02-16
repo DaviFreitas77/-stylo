@@ -3,6 +3,7 @@
 use App\Http\Controllers\carrinhoController;
 use App\Http\Controllers\categoriaController;
 use App\Http\Controllers\corController;
+use App\Http\Controllers\favoritoContrller;
 use App\Http\Controllers\pesquisaController;
 use App\Http\Controllers\produtoController;
 use App\Http\Controllers\RelacaoTamanhoController;
@@ -30,6 +31,7 @@ Route::post('/addCarrinho',[carrinhoController::class,('addCarrinho')]);
 Route::post('/addRelacaoTamanho',[RelacaoTamanhoController::class,('relacaoTamanho')]);
 Route::post('/pagamento',[PagamentoController::class,('createCharge')]);
 Route::post('/decrement',[carrinhoController::class,('decremetProduto')]);
+Route::post('/addFavorito',[favoritoContrller::class,('addFavorito')]);
 
 
 //get

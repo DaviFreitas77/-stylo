@@ -50,7 +50,7 @@ export default function Header() {
             <h2>Logo</h2>
 
             <div className="icons-header">
-            
+
                 {nome && nome !== '' ? (
                     <div className="dropdown">
                         <button
@@ -77,7 +77,9 @@ export default function Header() {
 
                 <div className="iconsMobile">
                     <FaSearch className="icon iconSearch" size={25} />
-                    <MdFavorite className="icon iconFavorito" size={30} color="red"/>
+                    <MdFavorite 
+                    onClick={()=>navigate('/favorito')}
+                    className="icon iconFavorito" size={30} color="red" />
                     <DrawerCarrinho />
                 </div>
             </div>

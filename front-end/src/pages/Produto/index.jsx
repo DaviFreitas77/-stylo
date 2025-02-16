@@ -127,6 +127,16 @@ export default function Produto() {
     }, [id_produto, subCategoria])
 
 
+    const handleAddFavorito = (item)=>{
+
+        dispatch({
+            type:'ADD_FAVORITO',
+            item:{
+                ...item
+            }
+        })
+    }
+
     const handleAdd = async (item) => {
 
         if (!selectTamanho && !selectCor && !idCor) {
@@ -193,9 +203,11 @@ export default function Produto() {
                     <div className="details-produto">
                         <div className="containerNome">
                             <h2 className="nome-produto">{item.nome_produto}</h2>
-                            <div>
+                            <button
+                            onClick={()=>handleAddFavorito(item)}
+                            >
                                 <Lottie options={defaultOptions} width={80} height={80}/>
-                            </div>
+                            </button>
                             
                         </div>
                         <p className="desc_produto">{item.desc_produto}</p>

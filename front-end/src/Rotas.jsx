@@ -11,8 +11,8 @@ import Erro from './pages/Erro';
 import Checkout from './pages/CheckOut';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import Favorito from './pages/Favorito';
 
-// Carregar a chave pública do Stripe
 const stripePromise = loadStripe('pk_test_51QsTTtJQfLLJ5xBNcRM86xpkPl5gV4OBXQJg0qIVucCezUKCK3OORekNemOqwO6hV0Tsl6wdjb95h6WlrzZCOOXN00qMFOqrzH');
 
 export const AppRoute = () => {
@@ -36,6 +36,7 @@ export const AppRoute = () => {
                         <Route path='/' element={<Home />} />
                         <Route path='/Login' element={<SignIn />} />
                         <Route path='/produto/:id_produto' element={<Produto />} />
+                        <Route path='/favorito' element={<Favorito/>}/>
                         
                      
                         <Route path='/checkOut' element={
