@@ -17,15 +17,14 @@ class usuarioController extends Controller
     {
 
         $validated = $request->validate([
-            'email_usuario' => ['required', 'string', 'unique:tb_usuario,email_usuario'],
+            'email_usuario' => ['required', 'string'],
             'cpf_usuario' => ['required', 'string', 'max:14', 'min:14'],
             'nome_usuario' => ['required', 'string', 'max:20'],
             'numero_usuario' => ['required', 'string', 'max:15'],
             'senha_usuario' => ['required', 'string', 'min:6'],
         ], [
             'email_usuario.required' => 'O e-mail é obrigatório.',
-            'email_usuario.unique' => 'Este e-mail já está cadastrado.',
-
+            
             'cpf_usuario.required' => 'O CPF é obrigatório.',
             'cpf_usuario.max' => 'O CPF deve ter no máximo 14 caracteres.',
             'cpf_usuario.min' => 'O CPF deve ter exatamente 14 caracteres.',
@@ -40,6 +39,20 @@ class usuarioController extends Controller
             'senha_usuario.min' => 'A senha deve ter pelo menos 6 caracteres.',
         ]);
 
+        if (Usuario::where('cpf_usuario', $request->cpf_usuario)->exists()) {
+            return response()->json(['message' => 'CPF já cadastrado'], 401);
+        }
+
+        if (Usuario::where('email_usuario', $request->email_usuario)->exists()) {
+            return response()->json(['message' => 'E-mail já cadastrado'], 401);
+        }
+
+        if (Usuario::where('numero_usuario', $request->numero_usuario)->exists()) {
+            return response()->json(['message' => 'Número já cadastrado'], 401);
+        }
+
+
+
         $usuario = new Usuario;
         $usuario->cpf_usuario = $request->cpf_usuario;
         $usuario->nome_usuario = $request->nome_usuario;
@@ -53,6 +66,13 @@ class usuarioController extends Controller
 
     public function login(Request $request)
     {
+
+
+        $validated = $request->validate([
+            'cpf' => ['required']
+        ], [
+            'cpf_usuario.required' => 'O CPF é obrigatório.',
+        ]);
 
         $usuario = Usuario::where('cpf_usuario', $request->cpf)->first();
 

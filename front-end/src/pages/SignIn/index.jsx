@@ -10,18 +10,26 @@ export default function SignIn() {
     const [senha, setSenha] = useState('')
     const [email, setEmail] = useState('')
     const { setNomeUsuario, setToken } = useContext(Context)
+    const [senhaError, setSenhaError] = useState(false);
+
     const navigate = useNavigate();
 
 
-    useEffect(()=>{
+    useEffect(() => {
         const nome = localStorage.getItem('nome')
-        
-        if(nome){
+
+        if (nome) {
             navigate('/')
         }
-    },[])
+    }, [])
 
     const login = async () => {
+        
+        if(!cpf || !senha){
+            alert('preencha todos os campos')
+            setSenhaError(true)
+        }
+
         try {
             const response = await fetch('http://127.0.0.1:8000/api/login', {
                 method: 'POST',
@@ -37,6 +45,11 @@ export default function SignIn() {
 
 
             const data = await response.json();
+
+            if (!response.ok) {
+               alert(data.message)
+               setSenhaError(true)
+            }
 
             if (data.message === 'usuario') {
 
@@ -82,7 +95,7 @@ export default function SignIn() {
                         <p>Infome seu CPF</p>
                         <InputMask
                             mask="999.999.999-99"
-                            className="input"
+                            className={`input ${senhaError ? 'input-error' : ''} `}
                             type="text"
                             placeholder="CPF"
                             onChange={(txt) => setCpf(txt.target.value)}
@@ -95,7 +108,7 @@ export default function SignIn() {
                     <div className="containerInputSenha">
                         <p>Infome sua senha</p>
                         <input
-                            className="input"
+                            className={`input ${senhaError ? 'input-error' : ''} `}
                             type="password"
                             placeholder="Senha"
                             onChange={(txt) => setSenha(txt.target.value)}
@@ -110,7 +123,9 @@ export default function SignIn() {
                         className="btn-signIn">
                         Entrar
                     </button>
-                    <button className="btn-criarConta">
+                    <button
+                        onClick={() => navigate('/criarConta')}
+                        className="btn-criarConta">
                         Criar conta
                     </button>
                 </div>

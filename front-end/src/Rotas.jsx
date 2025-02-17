@@ -12,6 +12,7 @@ import Checkout from './pages/CheckOut';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import Favorito from './pages/Favorito';
+import SignUp from './pages/SignUp';
 
 const stripePromise = loadStripe('pk_test_51QsTTtJQfLLJ5xBNcRM86xpkPl5gV4OBXQJg0qIVucCezUKCK3OORekNemOqwO6hV0Tsl6wdjb95h6WlrzZCOOXN00qMFOqrzH');
 
@@ -37,6 +38,7 @@ export const AppRoute = () => {
                         <Route path='/Login' element={<SignIn />} />
                         <Route path='/produto/:id_produto' element={<Produto />} />
                         <Route path='/favorito' element={<Favorito/>}/>
+                        <Route path="/criarConta" element={<SignUp/>}/>
                         
                      
                         <Route path='/checkOut' element={

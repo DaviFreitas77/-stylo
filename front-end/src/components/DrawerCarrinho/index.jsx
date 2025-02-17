@@ -56,21 +56,21 @@ export default function DrawerCarrinho() {
 
         console.log(item)
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/decrement',{
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json'
+            const response = await fetch('http://127.0.0.1:8000/api/decrement', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                body:JSON.stringify({id_produto:item.id_produto})
+                body: JSON.stringify({ id_produto: item.id_produto })
             })
 
             const data = await response.json()
             console.log(data)
-            } catch (error) {
-                console.log(error)
-            }
+        } catch (error) {
+            console.log(error)
+        }
 
-        
+
     }
 
 
@@ -167,15 +167,18 @@ export default function DrawerCarrinho() {
                                 {produtos.reduce((total, produto) => {
                                     return total + (produto.preco_produto * produto.quantidade);
                                 }, 0).toFixed(2)}
+                                <button
+                                    className="botao  " data-bs-dismiss="offcanvas" aria-label="Close "
+                                    onClick={() => navigation('/checkOut')}>
+                                    Finalizar Compra
+                                </button>
                             </p>
-                        ) : null}
+                        ) : (
+                            <p>Não a itens no carrinho</p>
+                        )}
 
 
-                        <button
-                            className="botao  " data-bs-dismiss="offcanvas" aria-label="Close "
-                            onClick={() => navigation('/checkOut')}>
-                            Finalizar Compra
-                        </button>
+
                     </div>
 
 

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import './style.css'
 import { FaCircle } from "react-icons/fa";
 import { Context } from "../../../Contexto/provider";
+import { getDownloadURL, storage, uploadBytesResumable,ref } from "../../../Service/firebaseConexao";
 export default function CriarProduto() {
 
     const [nome, setNome] = useState('')
@@ -18,7 +19,8 @@ export default function CriarProduto() {
     const [estacao, setEstacao] = useState('')
     const [arrayCor, setArrayCor] = useState([])
     const [corSelecionado, setCorSelecionado] = useState([])
-    
+    const [image,SetImage] = useState('')
+    const [imageUrl,setImageUrl] = useState('')
     const token = localStorage.getItem('token')
 
     const traducaoCores = {
@@ -105,7 +107,28 @@ export default function CriarProduto() {
     }, [])
 
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            SetImage(file);
+            uploadImagem(file)
+        }
+    };
 
+
+    const uploadImagem = (file)=>{
+        const fileName = `${image.name}`
+
+        const storafeRef = ref(storage, `produtos/${fileName}`)
+
+        const uploadtask = uploadBytesResumable(storafeRef, file)
+
+        uploadtask.then(()=>{
+            getDownloadURL(uploadtask.snapshot.ref).then((dowload)=>{
+                setImageUrl(dowload)
+            })
+        })
+    }
     const cadastrarProduto = async () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/criarProduto', {
@@ -121,7 +144,7 @@ export default function CriarProduto() {
                     preco_antigo: precoAntigo,
                     destaque: destaque,
                     destaque_estacao: estacao,
-                    imagem_produto: 'https://firebasestorage.googleapis.com/v0/b/snackfast-6ef93.appspot.com/o/modelo.png?alt=media&token=4f1d3dae-2717-425b-8541-df8ace08dd5a',
+                    imagem_produto: imageUrl,
                     fk_subCategoria: 1,
                     tamanhos: tamanhosSelecionados,
                     cores: corSelecionado
@@ -130,7 +153,7 @@ export default function CriarProduto() {
             })
 
             const data = await response.json()
-            console.log(data)
+            alert(data.message)
         } catch (error) {
             console.log(error)
         }
@@ -141,7 +164,7 @@ export default function CriarProduto() {
         <div className="containerCriarProduto">
 
             <div className="containerInput">
-                <h1>Informação geral</h1>
+                <h1>Cadastrar Produto</h1>
                 <input
                     type="text"
                     placeholder="nome"
@@ -194,6 +217,11 @@ export default function CriarProduto() {
                     </select>
 
                 </div>
+                <div className="containerImgCreate">
+
+                    <input type="file" onChange={handleImageChange} />
+                    <img src={imageUrl} alt="" style={{width:400,marginTop:'20px'}}/>
+                </div>
                 <div className="containerTamanhoECor">
                     <div className="containerBtnTamanho">
                         <h2>Selecione os tamanhos</h2>
@@ -222,6 +250,7 @@ export default function CriarProduto() {
                         </div>
                     </div>
                 </div>
+
                 <button
                     onClick={cadastrarProduto}
                     className="btnProximo"
