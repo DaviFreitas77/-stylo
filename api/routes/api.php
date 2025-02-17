@@ -49,3 +49,4 @@ Route::get('/gettamanho',[TamanhoController::class,('tamanho')]);
 Route::get('/cor',[corController::class,('getCor')]);
 Route::get('/getcor',[corController::class,('cor')]);
 Route::get('/carrinho',[carrinhoController::class,('getCarrinho')]);
+Route::get('/favoritos',[favoritoContrller::class,('getFavorito')]);

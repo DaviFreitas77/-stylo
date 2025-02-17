@@ -1,7 +1,7 @@
 import { produce } from "immer";
 
 export default function favorito(state = [], action) {
-    console.log(state);  
+    console.log(state);
 
     switch (action.type) {
         case 'ADD_FAVORITO':
@@ -13,6 +13,9 @@ export default function favorito(state = [], action) {
                     alert("Produto já está nos favoritos!");  // Produto já existe
                 }
             });
+
+        case 'LOAD_FAVORITO':
+            return action.payload
         default:
             return state || [];
     }

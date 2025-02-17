@@ -17,9 +17,24 @@ class favoritoContrller extends Controller
             $favorito->fk_usuario = $id_usuario;
             $favorito->fk_produto = $id_produto;
             $favorito->save();
+            return response()->json([
+                'produto favoritado'
+            ]);
         };
-        return response()->json([
-            'produto favoritado'
-        ]);
+    }
+
+
+    public function getFavorito(Request $request)
+    {
+        $id_usuario = $request->id_usuario;
+        $favoritos = Favorito::where('fk_usuario', $id_usuario)
+        ->join('tb_produto','tb_favorito.fk_produto', '=' ,'tb_produto.id_produto')
+        ->select('tb_produto.nome_produto','tb_produto.imagem_produto','tb_produto.preco_produto','tb_produto.id_produto')
+        ->get()
+        ;
+
+        
+
+        return response()->json($favoritos);
     }
 }

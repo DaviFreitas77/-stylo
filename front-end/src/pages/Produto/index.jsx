@@ -38,12 +38,12 @@ export default function Produto() {
     const { id_produto } = useParams();
 
 
-    
-    
+
+
     const defaultOptions = {
-        loop:false,
-        Autoplay:true,
-        animationData:heart
+        loop: false,
+        Autoplay: true,
+        animationData: heart
     }
 
     const traducaoCores = {
@@ -59,7 +59,7 @@ export default function Produto() {
         setSelectCor(item.desc_cor)
         setIdCor(item.fk_cor)
     }
-    console.log(token)
+    console.log(idUsuario)
 
     useEffect(() => {
 
@@ -127,14 +127,31 @@ export default function Produto() {
     }, [id_produto, subCategoria])
 
 
-    const handleAddFavorito = (item)=>{
-
+    const handleAddFavorito = async (item) => {
         dispatch({
-            type:'ADD_FAVORITO',
-            item:{
+            type: 'ADD_FAVORITO',
+            item: {
                 ...item
             }
         })
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/addFavorito', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'aplication/json'
+                },
+                body: JSON.stringify({
+                    id_usuario: idUsuario,
+                    id_produto: item.id_produto
+                })
+            })
+
+            const data = await response.json()
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     const handleAdd = async (item) => {
@@ -204,11 +221,11 @@ export default function Produto() {
                         <div className="containerNome">
                             <h2 className="nome-produto">{item.nome_produto}</h2>
                             <button
-                            onClick={()=>handleAddFavorito(item)}
+                                onClick={() => handleAddFavorito(item)}
                             >
-                                <Lottie options={defaultOptions} width={80} height={80}/>
+                                <Lottie options={defaultOptions} width={80} height={80} />
                             </button>
-                            
+
                         </div>
                         <p className="desc_produto">{item.desc_produto}</p>
 
