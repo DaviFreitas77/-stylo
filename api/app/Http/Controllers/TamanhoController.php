@@ -28,4 +28,16 @@ class TamanhoController extends Controller
         return response()->json($tamanhos);
     }
     
+
+    public function postTamanho(Request $request){
+        $tam = $request->desc_tamanho;
+
+        $tamanho = new Tamanho;
+        $tamanho->desc_tamanho = $tam;
+        $tamanho->save();
+
+        return response()->json([
+            'message'=> 'tamanho adicionado'
+        ]);
+    }
 }

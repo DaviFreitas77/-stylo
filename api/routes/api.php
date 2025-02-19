@@ -32,6 +32,7 @@ Route::post('/addRelacaoTamanho',[RelacaoTamanhoController::class,('relacaoTaman
 Route::post('/pagamento',[PagamentoController::class,('createCharge')]);
 Route::post('/decrement',[carrinhoController::class,('decremetProduto')]);
 Route::post('/addFavorito',[favoritoContrller::class,('addFavorito')]);
+Route::post('/addCor',[corController::class,('postCor')]);
 
 
 //get

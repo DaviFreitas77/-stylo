@@ -98,6 +98,7 @@ export default function Checkout() {
                     </button>
                 </div>
             </section>
+            
         </div>
 
     );

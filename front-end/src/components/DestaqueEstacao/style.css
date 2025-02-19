@@ -25,20 +25,24 @@
     margin-bottom: 30px;
 }
 
-.img-card-estacao {
-    width: 80%;
-
-}
-
 .card-estacao {
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    width: 80%;
-    margin-bottom: 20px;
-
-
+    width: 95%;
+    margin-bottom: 30px; 
+    padding: 25px; 
+    max-width: 450px; /* Ajustando para cards mais largos em telas grandes */
+    height: 500px; /* Aumentando a altura para deixar o card mais alto */
+    background-color: #DFDFDF; /* Para que o card tenha um fundo mais destacado */
 }
+
+.img-card-estacao {
+    width: 100%; /* A imagem vai ocupar 100% do card */
+    height: 100%; /* A altura da imagem será 60% da altura total do card */
+    object-fit: cover; /* Garantindo que a imagem ocupe o espaço de forma proporcional */
+}
+
 
 .preco-card {
     font-weight: bold;
@@ -55,8 +59,10 @@
 
 .nome-card {
     font-size: 20px;
- 
+    font-weight: bold;
+    margin-top: 15px;
     text-align: start;
+    color: #333;
 }
 
 .swiper-estacao {
@@ -65,7 +71,13 @@
     
 
 }
+.nomeEprecoCard{
 
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+}
 .swiper-slide {
     display: flex;
     justify-content: center;
@@ -86,21 +98,32 @@
 
     .preco-card {
         font-weight: bold;
+        font-size: 18px;
     }
 
-    .card-estacao div {
-        text-align: center;
+    .card-estacao {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
         width: 100%;
+        margin-bottom: 30px; 
+        padding: 5px; 
+        max-width: 550px; /* Ajustando para cards mais largos em telas grandes */
+        height: 500px; /* Aumentando a altura para deixar o card mais alto */
+        background-color: #DFDFDF; /* Para que o card tenha um fundo mais destacado */
     }
+    
 
     .nome-card {
-        font-size: 15px;
+        font-size: 20px;
     }
 
     .img-card-estacao {
-        width: 100%;
-
+        width: 100%; /* A imagem vai ocupar 100% do card */
+        height: 100%; /* A altura da imagem será 60% da altura total do card */
+      
     }
+    
 
 
 }

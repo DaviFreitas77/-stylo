@@ -24,11 +24,12 @@
     justify-content: center;
 }
 
-.img-produto {
-    width: 50%;
 
+.corButton{
+    border: 1px solid black;
+    border-radius: 100%;
+    padding: 2px;
 }
-
 .details-produto {
     width: 50%;
     display: flex;
@@ -128,9 +129,6 @@
 
 
 @media (max-width:900px) {
-    .img-produto {
-        width: 50%;
-    }
 
     .details-produto {
         width: 100%;
@@ -139,7 +137,6 @@
         flex-direction: column;
         padding-top: 20px;
         margin-bottom: 20px;
-
         margin-left: 1px;
 
     }

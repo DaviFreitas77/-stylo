@@ -19,6 +19,7 @@ import { Context } from "../../Contexto/provider";
 import { data } from "autoprefixer";
 import Lottie from "react-lottie";
 import heart from '../../assets/lottie/heart.json'
+import ContentLoader from "react-content-loader";
 
 export default function Produto() {
     const dispatch = useDispatch();
@@ -52,7 +53,8 @@ export default function Produto() {
         azul: "blue",
         branco: "white",
         amarelo: "yellow",
-        verde: "green"
+        verde: "green",
+        rosa: "pink"
     };
 
     function pressCor(item) {
@@ -236,6 +238,7 @@ export default function Produto() {
                                 {cor.map((item, index) => (
                                     <button
                                         onClick={() => pressCor(item)}
+                                        className="corButton"
                                         style={item.desc_cor === selectCor ? { opacity: '.2' } : {}}
                                         key={index}>
                                         <FaCircle color={traducaoCores[item.desc_cor]} size={30} />
@@ -338,8 +341,11 @@ export default function Produto() {
                                         <div>
                                             <img className="img-card-estacao" src={prod.imagem_produto} alt="" />
                                         </div>
-                                        <p className="nome-card">{prod.nome_produto}</p>
-                                        <p className="preco-card">{prod.preco_produto}</p>
+
+                                        <div className="nomeEprecoCard">
+                                            <p className="nome-card">{prod.nome_produto}</p>
+                                            <p className="preco-card">{prod.preco_produto}</p>
+                                        </div>
                                     </button>
                                 </SwiperSlide>
                             );

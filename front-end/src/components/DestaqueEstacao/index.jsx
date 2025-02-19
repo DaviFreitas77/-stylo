@@ -78,8 +78,11 @@ export default function DestaqueEstacao() {
                         768: {
                             slidesPerView: 3,
                         },
-                        0: {
+                        468:{
                             slidesPerView: 2,
+                        },
+                        0: {
+                            slidesPerView: 1,
                         }
                     }}
                 >
@@ -100,11 +103,13 @@ export default function DestaqueEstacao() {
                                             }}
 
                                             className="card-estacao">
-                                            <div >
+                                           
                                                 <img className="img-card-estacao" src={item.imagem_produto} alt="" />
+                                         
+                                            <div className="nomeEprecoCard">
+                                                <p className="nome-card">{item.nome_produto}</p>
+                                                <p className="preco-card">{item.preco_produto}</p>
                                             </div>
-                                            <p className="nome-card">{item.nome_produto}</p>
-                                            <p className="preco-card">{item.preco_produto}</p>
                                         </button>
                                     </SwiperSlide>
 

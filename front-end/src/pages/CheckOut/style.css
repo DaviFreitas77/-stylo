@@ -13,9 +13,10 @@
 }
 
 .imgCheckOutProduto {
-    width: 100%; /* Garante que a imagem ocupe 100% da largura do contêiner pai */
-    max-width: 120px; /* Define um tamanho máximo para a imagem */
-    height: auto; /* Mantém a proporção da imagem */
+    width: 100%; 
+    max-width: 120px; 
+    height: auto; 
+    object-fit: cover;
 }
 .containerProduto{
     gap: 10px;
