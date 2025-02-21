@@ -1,0 +1,23 @@
+.tittleModal{
+    font-weight: bold;
+    text-align: center;
+    font-size: 27px;
+    color: #3c3c3c;
+   
+}
+
+.modalButton{
+    background-color: black;
+    color:#ffff;
+    width: 100%;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 20px;
+}
+.containerModal{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 100%;
+}

@@ -32,7 +32,7 @@ class carrinhoController extends Controller
         $itemExiste = CarrinhoItens::where('fk_produto', $request->id_produto)
             ->where('fk_cor', $request->id_cor)
             ->where('fk_tamanho', $request->id_tamanho)
-            ->where('fk_carrinho', $carrinho->id_carrinho) // Usando o ID do carrinho
+            ->where('fk_carrinho', $carrinho->id_carrinho) 
             ->first();
 
 
@@ -79,23 +79,34 @@ class carrinhoController extends Controller
     public function decremetProduto(Request $request)
     {
         $id = $request->id_produto;
-        $carrinho = CarrinhoItens::where('fk_produto',$id)->first();
+        $carrinho = CarrinhoItens::where('fk_produto', $id)->first();
 
-        if($carrinho->quantidade > 0){
+        if ($carrinho->quantidade > 0) {
             $carrinho->quantidade -= 1;
+            
             $carrinho->save();
         }
 
-        if($carrinho->quantidade <= 0){
+        if ($carrinho->quantidade <= 0) {
 
             DB::table('tb_carrinho_itens')
-            ->where('fk_produto',$id)
-            ->delete();
+                ->where('fk_produto', $id)
+                ->delete();
         }
         return response()->json([
             'sucesso'
         ]);
-}
+    }
+
+
+    public function deleteProdutoCarrinho($id_produto)
+    {
+        $carrinho = CarrinhoItens::where('fk_produto', $id_produto)->first();
+
+        if ($carrinho) {
+            $carrinho->delete();
+        }
+    }
 
 
     public function getCarrinho(Request $request)

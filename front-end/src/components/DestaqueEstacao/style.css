@@ -35,14 +35,21 @@
     max-width: 450px; /* Ajustando para cards mais largos em telas grandes */
     height: 500px; /* Aumentando a altura para deixar o card mais alto */
     background-color: #DFDFDF; /* Para que o card tenha um fundo mais destacado */
+    transition: transform 0.3s ease; 
+    transform-origin: center center; 
 }
 
+.card-estacao:hover{
+    transform: scale(1.08);
+    
+}
 .img-card-estacao {
-    width: 100%; /* A imagem vai ocupar 100% do card */
-    height: 100%; /* A altura da imagem será 60% da altura total do card */
-    object-fit: cover; /* Garantindo que a imagem ocupe o espaço de forma proporcional */
-}
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
 
+    
+}
 
 .preco-card {
     font-weight: bold;

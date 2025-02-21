@@ -33,6 +33,7 @@ Route::post('/pagamento',[PagamentoController::class,('createCharge')]);
 Route::post('/decrement',[carrinhoController::class,('decremetProduto')]);
 Route::post('/addFavorito',[favoritoContrller::class,('addFavorito')]);
 Route::post('/addCor',[corController::class,('postCor')]);
+Route::delete('/deleteProdutoCarrinho/{id_produto}',[carrinhoController::class,('deleteProdutoCarrinho')]);
 
 
 //get

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import InputMask from "react-input-mask";
 import './style.css'
 import { useNavigate } from "react-router-dom";
+import ModalScreen from '../../components/Modal'
+import signUp from '../../assets/lottie/signUp.json'
 export default function SignUp() {
 
     const [cpf, setCpf] = useState('')
@@ -10,14 +12,18 @@ export default function SignUp() {
     const [email, setEmail] = useState('')
     const [nome, setNome] = useState('')
     const navigate = useNavigate();
+    const [isOpen, setIsOpen] = useState(false)
 
+
+    function nevegar() {
+        navigate('/Login')
+    }
 
     const CriarConta = async () => {
 
         if (!cpf || !senha || !numero || !nome) {
             alert('Preencha todos os campos')
         }
-
         try {
             const response = await fetch('http://127.0.0.1:8000/api/criarUsuario', {
                 method: 'POST',
@@ -38,13 +44,12 @@ export default function SignUp() {
                 alert(errorData.message)
             } else {
                 const data = await response.json();
-                alert(data)
                 setNome('')
                 setCpf('')
                 setNumero('')
                 setSenha('')
                 setEmail('')
-                navigate('/login')
+                setIsOpen(true)
 
 
             }
@@ -54,6 +59,12 @@ export default function SignUp() {
             console.log(error)
         }
 
+    }
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: signUp
     }
 
     return (
@@ -138,6 +149,17 @@ export default function SignUp() {
                 </div>
 
             </section>
+
+            <ModalScreen
+                funcao={nevegar}
+                titulo='Cadastro concluido'
+                txtButton="Fazer login"
+                options={defaultOptions}
+                openModal={true}
+                modalOpen={isOpen}
+                setModalOpen={setIsOpen}
+
+            />
 
         </div>
     )

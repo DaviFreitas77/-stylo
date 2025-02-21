@@ -3,12 +3,18 @@ import { useSelector } from 'react-redux';
 import './style.css';
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import ModalScreen from '../../components/Modal';
+import payment from '../../assets/lottie/payment.json'
+
 
 const stripePromise = loadStripe('pk_test_51QsTTtJQfLLJ5xBNcRM86xpkPl5gV4OBXQJg0qIVucCezUKCK3OORekNemOqwO6hV0Tsl6wdjb95h6WlrzZCOOXN00qMFOqrzH');
 
 export default function Checkout() {
     const [nome, setNome] = useState();
     const produtos = useSelector(state => state.carrinho);
+
+    //modal
+    const [isOpen, setIsOpen] = useState(false)
 
     const calcularTotal = () => {
         return produtos.reduce((total, produto) => total + (produto.preco_produto * produto.quantidade), 0).toFixed(2);
@@ -51,12 +57,19 @@ export default function Checkout() {
         });
 
         const data = await response.json();
-        if(data.status === 'succeeded'){
-            alert('pagamento realizado com sucesso')
+        if (data.status === 'succeeded') {
+            setIsOpen(true)
+            
         }
         console.log(data);
     };
 
+    //modal
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: payment
+    }
     return (
 
         <div className="containerCheckOut">
@@ -82,10 +95,10 @@ export default function Checkout() {
                 </div>
             </div>
 
-            <   section className="containerPagamento">
-                
-                    <h2>Pagamento</h2>
-                
+            <section className="containerPagamento">
+
+                <h2>Pagamento</h2>
+
                 <div className="containerTotalChecl">
                     <CardElement />
                     <h2 className="h2CheckOut">Resumo da compra</h2>
@@ -98,7 +111,17 @@ export default function Checkout() {
                     </button>
                 </div>
             </section>
-            
+
+            <ModalScreen
+                titulo='Pagamento concluido'
+                txtButton="Acompanhe seus pedidos"
+                options={defaultOptions}
+                openModal={true}
+                modalOpen={isOpen}
+                setModalOpen={setIsOpen}
+
+            />
+
         </div>
 
     );

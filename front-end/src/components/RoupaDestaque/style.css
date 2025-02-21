@@ -13,6 +13,12 @@
     width: 100%; /* Garantir que as imagens ocupem o espaço correto */
     height: 40%; /* Garantir que as imagens cubram a altura do card */
     object-fit: cover; /* Ajusta as imagens sem distorcer */
+    transition: transform 0.3s ease; 
+    transform-origin: center center;
+}
+
+.roupa-colecao-destaque:hover{
+    transform: scale(1.10);
 }
 
 .colecao-destaque{
@@ -28,6 +34,7 @@
     background-color: #DFDFDF;
     height: 100%;
     width: 300px;
+    
     
 }
 .card-roupa:hover{

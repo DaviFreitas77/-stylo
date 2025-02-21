@@ -145,7 +145,7 @@ export default function CriarProduto() {
                     destaque: destaque,
                     destaque_estacao: estacao,
                     imagem_produto: imageUrl,
-                    fk_subCategoria: 1,
+                    fk_subCategoria: subCategoria,
                     tamanhos: tamanhosSelecionados,
                     cores: corSelecionado
 
@@ -159,6 +159,7 @@ export default function CriarProduto() {
         }
 
     }
+
 
     return (
         <div className="containerCriarProduto">

@@ -21,6 +21,7 @@ export default function DrawerCarrinho() {
             item
         });
 
+
         try {
             const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
                 method: 'POST',
@@ -47,6 +48,29 @@ export default function DrawerCarrinho() {
         }
     }
 
+    const handleDelete = async (item) => {
+
+        dispatch({
+            type: 'EXCLUIR',
+            item: {
+                ...item
+            }
+        })
+        fetch(`http://127.0.0.1:8000/api/deleteProdutoCarrinho/${item.id_produto}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Produto removido:', data);
+            })
+            .catch(error => {
+                console.error('Erro ao remover produto:', error);
+            });
+    }
 
     const decrement = async (item) => {
         dispatch({
@@ -54,14 +78,14 @@ export default function DrawerCarrinho() {
             item
         })
 
-        console.log(item)
+
         try {
             const response = await fetch('http://127.0.0.1:8000/api/decrement', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id_produto: item.id_produto })
+                body: JSON.stringify({ id_produto: item.id_produto, id_carrinho: idCarrinho })
             })
 
             const data = await response.json()
@@ -146,7 +170,9 @@ export default function DrawerCarrinho() {
                                     </div>
                                 </div>
                                 <div className="btn_remove_and_preco">
-                                    <CiBookmarkRemove size={30} />
+                                    <button onClick={() => handleDelete(produtos)}>
+                                        <CiBookmarkRemove size={30} />
+                                    </button>
                                     <div className="container-precos">
                                         <span className="last-price">
                                             R$ {produtos.preco_produto}

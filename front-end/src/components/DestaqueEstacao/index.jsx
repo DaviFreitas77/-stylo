@@ -78,7 +78,7 @@ export default function DestaqueEstacao() {
                         768: {
                             slidesPerView: 3,
                         },
-                        468:{
+                        468: {
                             slidesPerView: 2,
                         },
                         0: {
@@ -103,9 +103,9 @@ export default function DestaqueEstacao() {
                                             }}
 
                                             className="card-estacao">
-                                           
-                                                <img className="img-card-estacao" src={item.imagem_produto} alt="" />
-                                         
+
+                                            <img className="img-card-estacao" src={item.imagem_produto} alt="" />
+
                                             <div className="nomeEprecoCard">
                                                 <p className="nome-card">{item.nome_produto}</p>
                                                 <p className="preco-card">{item.preco_produto}</p>

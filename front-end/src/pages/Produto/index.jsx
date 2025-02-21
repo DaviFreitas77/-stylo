@@ -136,6 +136,8 @@ export default function Produto() {
                 ...item
             }
         })
+
+      
         try {
             const response = await fetch('http://127.0.0.1:8000/api/addFavorito', {
                 method: 'POST',
@@ -326,6 +328,7 @@ export default function Produto() {
                             }
                         }}
                     >
+
                         {produto.map((prod, index) => {
                             return (
                                 <SwiperSlide

@@ -38,6 +38,18 @@ export default function carrinho(state = [], action) {
                     draft[index].quantidade -= 1;
                 }
             })
+
+
+        case 'EXCLUIR':
+            return produce(state, draft => {
+               
+                const index = draft.findIndex(item => item.id_produto === action.item.id_produto);
+
+               
+                if (index !== -1) {
+                    draft.splice(index, 1);
+                }
+            });
         default:
             return state;
     }
