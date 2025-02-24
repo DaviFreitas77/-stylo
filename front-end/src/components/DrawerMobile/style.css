@@ -1,0 +1,42 @@
+.headerDrawerMobile{
+    background-color: #3c3c3c;
+    color: #fff;
+    height: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 20vh;
+}
+.buttons_drawer_mobile{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-left: 7px;
+}
+.favoritos, .pedidos{
+    font-weight: bold;
+}
+.nome_drawer{
+    font-size: 20px;
+    font-weight:700 ;
+    padding-left: 10px;
+}
+.btn-close{
+    color: #fff;
+    background-color: #fff;
+}
+.headerDrawerMobile div:first-child{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.sair{
+    position: fixed;
+    bottom: 0px;
+    width: 400px;
+    padding: 20px;
+    text-align: end;
+    border-top: 1px solid black;
+    font-size: 20px;
+}

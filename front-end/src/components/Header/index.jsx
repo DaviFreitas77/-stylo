@@ -77,9 +77,9 @@ export default function Header() {
 
                 <div className="iconsMobile">
                     <FaSearch className="icon iconSearch" size={25} />
-                    <MdFavorite 
-                    onClick={()=>navigate('/favorito')}
-                    className="icon iconFavorito" size={30} color="red" />
+                    <MdFavorite
+                        onClick={() => navigate('/favorito')}
+                        className="icon iconFavorito" size={30} color="red" />
                     <DrawerCarrinho />
                 </div>
             </div>

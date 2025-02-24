@@ -113,9 +113,9 @@
         height: 40vh;
     }
     .roupa-colecao-destaque {
-        width: 100%; /* Garantir que as imagens ocupem o espaço correto */
-        height: 100%; /* Garantir que as imagens cubram a altura do card */
-        object-fit: cover; /* Ajusta as imagens sem distorcer */
+        width: 100%; 
+        height: 70%; 
+        object-fit: cover; 
     }
     
 }

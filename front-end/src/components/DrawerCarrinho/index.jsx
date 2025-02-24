@@ -31,7 +31,7 @@ export default function DrawerCarrinho() {
                 body: JSON.stringify({
                     id_produto: item.id_produto,
                     quantidade: 1,
-                    id_carrinho: idCarrinho,
+                    id_carrinho: 5,
                     id_cor: item.id_cor,
                     id_tamanho: item.id_tamanho,
                     preco_produto: item.preco_produto,
@@ -56,7 +56,7 @@ export default function DrawerCarrinho() {
                 ...item
             }
         })
-        fetch(`http://127.0.0.1:8000/api/deleteProdutoCarrinho/${item.id_produto}`, {
+        fetch(`http://127.0.0.1:8000/api/deleteProdutoCarrinho/${item.id_produto}/${idCarrinho}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

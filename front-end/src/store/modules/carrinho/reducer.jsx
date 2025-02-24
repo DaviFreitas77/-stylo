@@ -36,6 +36,8 @@ export default function carrinho(state = [], action) {
 
                 if (index >= 0 && draft[index].quantidade > 1) {
                     draft[index].quantidade -= 1;
+                }else{
+                    draft.splice(index, 1); 
                 }
             })
 

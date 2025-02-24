@@ -18,8 +18,6 @@ const stripePromise = loadStripe('pk_test_51QsTTtJQfLLJ5xBNcRM86xpkPl5gV4OBXQJg0
 
 export const AppRoute = () => {
     const adm = localStorage.getItem('token');
-    
-    // Componente de rota privada (somente admins)
     const RotaPrivada = ({ isAdmin = false }) => {
         if (!adm) {
             return <Navigate to="/" replace />;
@@ -37,16 +35,16 @@ export const AppRoute = () => {
                         <Route path='/' element={<Home />} />
                         <Route path='/Login' element={<SignIn />} />
                         <Route path='/produto/:id_produto' element={<Produto />} />
-                        <Route path='/favorito' element={<Favorito/>}/>
-                        <Route path="/criarConta" element={<SignUp/>}/>
-                        
-                     
+                        <Route path='/favorito' element={<Favorito />} />
+                        <Route path="/criarConta" element={<SignUp />} />
+
+
                         <Route path='/checkOut' element={
                             <Elements stripe={stripePromise}>
                                 <Checkout />
                             </Elements>
                         } />
-                        
+
                         <Route element={<RotaPrivada isAdmin={true} />}>
                             <Route path='/criarProduto' element={<CriarProduto />} />
                         </Route>

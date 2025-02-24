@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrinho;
 use App\Models\CarrinhoItens;
+use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -39,7 +40,7 @@ class carrinhoController extends Controller
         $totalCarrinho = $carrinho->total_carrinho;
 
 
-        // Se o item já existe no carrinho, atualize a quantidade e preço
+       
         if ($itemExiste) {
             $carrinho->total_carrinho -= $itemExiste->preco_itens;
             $itemExiste->quantidade += $request->quantidade;
@@ -80,10 +81,17 @@ class carrinhoController extends Controller
     {
         $id = $request->id_produto;
         $carrinho = CarrinhoItens::where('fk_produto', $id)->first();
+        $carrinhoCompra = Carrinho::where('id_carrinho',$request->id_carrinho)->first();
+        $produto = Produto::where('id_produto',$id)->first();
+
+    
 
         if ($carrinho->quantidade > 0) {
             $carrinho->quantidade -= 1;
+            $carrinhoCompra->total_carrinho -= $produto->preco_produto;
             
+
+            $carrinhoCompra->save();
             $carrinho->save();
         }
 
@@ -99,12 +107,20 @@ class carrinhoController extends Controller
     }
 
 
-    public function deleteProdutoCarrinho($id_produto)
+    public function deleteProdutoCarrinho($id_produto,$id_carrinho)
     {
         $carrinho = CarrinhoItens::where('fk_produto', $id_produto)->first();
+        $produto = Produto::where('id_produto',$id_produto)->first();
+        $carrinhoCompra = Carrinho::where('id_carrinho',$id_carrinho)->first();
 
-        if ($carrinho) {
+        if ($carrinho && $produto && $carrinhoCompra ) {
+            $preco_produto = $carrinho->quantidade * $produto->preco_produto;
+            $carrinhoCompra->total_carrinho -= $preco_produto;
+
+            $carrinhoCompra->save();
+
             $carrinho->delete();
+
         }
     }
 
