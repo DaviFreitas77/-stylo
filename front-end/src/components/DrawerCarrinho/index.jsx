@@ -7,6 +7,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { Context } from "../../Contexto/provider";
 import { useNavigate } from "react-router-dom";
+import { decrementCarrinho, incrementCarrinhho } from "../../store/modules/carrinho/actions";
 export default function DrawerCarrinho() {
     const dispatch = useDispatch();
     const produtos = useSelector(state => state.carrinho)
@@ -15,37 +16,9 @@ export default function DrawerCarrinho() {
     const idUsuario = localStorage.getItem("id_usuario");
     const navigation = useNavigate()
 
+    //actions
     const increment = async (item) => {
-        dispatch({
-            type: 'INCREMENT_CARRINHO',
-            item
-        });
-
-
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id_produto: item.id_produto,
-                    quantidade: 1,
-                    id_carrinho: 5,
-                    id_cor: item.id_cor,
-                    id_tamanho: item.id_tamanho,
-                    preco_produto: item.preco_produto,
-                    id_usuario: idUsuario
-                })
-            })
-            const data = await response.json();
-            console.log(data)
-
-
-
-        } catch (error) {
-            console.log(error)
-        }
+        dispatch(incrementCarrinhho(idCarrinho, item, idUsuario))
     }
 
     const handleDelete = async (item) => {
@@ -73,31 +46,8 @@ export default function DrawerCarrinho() {
     }
 
     const decrement = async (item) => {
-        dispatch({
-            type: 'DECREMENT_CARRINHO',
-            item
-        })
-
-
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/decrement', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ id_produto: item.id_produto, id_carrinho: idCarrinho })
-            })
-
-            const data = await response.json()
-            console.log(data)
-        } catch (error) {
-            console.log(error)
-        }
-
-
+        dispatch(decrementCarrinho(item, idCarrinho))
     }
-
-
 
     useEffect(() => {
         const fetchCarrinho = async () => {
@@ -118,6 +68,8 @@ export default function DrawerCarrinho() {
         }
         fetchCarrinho()
     }, [idUsuario])
+
+
 
     return (
         <div>

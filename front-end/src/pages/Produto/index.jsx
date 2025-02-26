@@ -20,6 +20,8 @@ import { data } from "autoprefixer";
 import Lottie from "react-lottie";
 import heart from '../../assets/lottie/heart.json'
 import ContentLoader from "react-content-loader";
+import { addFavorito } from "../../store/modules/Favorito/action";
+import { addCarrinho } from "../../store/modules/carrinho/actions";
 
 export default function Produto() {
     const dispatch = useDispatch();
@@ -61,7 +63,6 @@ export default function Produto() {
         setSelectCor(item.desc_cor)
         setIdCor(item.fk_cor)
     }
-    console.log(idUsuario)
 
     useEffect(() => {
 
@@ -129,37 +130,12 @@ export default function Produto() {
     }, [id_produto, subCategoria])
 
 
+    //actions
     const handleAddFavorito = async (item) => {
-        dispatch({
-            type: 'ADD_FAVORITO',
-            item: {
-                ...item
-            }
-        })
-
-      
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/addFavorito', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'aplication/json'
-                },
-                body: JSON.stringify({
-                    id_usuario: idUsuario,
-                    id_produto: item.id_produto
-                })
-            })
-
-            const data = await response.json()
-            console.log(data)
-        } catch (error) {
-            console.log(error)
-        }
-
+        dispatch(addFavorito(item, idUsuario))
     }
 
     const handleAdd = async (item) => {
-
         if (!selectTamanho && !selectCor && !idCor) {
             alert('Por favor, selecione tamanho e cor antes de adicionar ao carrinho.');
             return;
@@ -168,50 +144,9 @@ export default function Produto() {
         if (!idUsuario) {
             navigate('/Login')
         }
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-
-                body: JSON.stringify({
-                    id_usuario: idUsuario,
-                    id_carrinho: idCarrinho,
-                    id_produto: item.id_produto,
-                    quantidade: quantidade,
-                    id_cor: idCor,
-                    id_tamanho: idTamanho,
-                    preco_produto: item.preco_produto
-
-
-                }),
-            })
-            if (response.ok) {
-                console.log('Produto adicionado ao carrinho com sucesso!');
-
-                console.log(item)
-                dispatch({
-                    type: 'ADD_CARRINHO',
-                    item: {
-                        ...item,
-                        tamanho: selectTamanho,
-                        cor: selectCor,
-                        quantidade: quantidade,
-                        preco: item.preco_produto
-                    },
-                });
-            } else {
-                const errorData = await response.json();
-                console.error('Erro ao adicionar item ao carrinho:', errorData);
-
-            }
-        } catch (error) {
-            console.log(error)
-
-        }
-
+        dispatch(addCarrinho(item, idCarrinho, idUsuario, quantidade, idCor, idTamanho, selectTamanho, selectCor))
     }
+
 
     return (
         <div className="container-produto">
@@ -247,8 +182,6 @@ export default function Produto() {
                                     </button>
 
                                 ))}
-
-
                             </div>
                         </div>
 
@@ -259,9 +192,7 @@ export default function Produto() {
 
                         <div className="container-tamanho">
                             <h4 className="subtitulo">Tamanho</h4>
-
                             <select
-
                                 onChange={(e) => {
                                     const selectedItem = tamanho.find(item => item.fk_tamanho === parseInt(e.target.value));
                                     if (selectedItem) {
@@ -278,12 +209,8 @@ export default function Produto() {
                                 {tamanho.map((item, index) => (
                                     <option key={index} value={item.fk_tamanho}>{item.desc_tamanho}</option>
                                 ))}
-
-
                             </select>
-
                         </div>
-
                         <button
                             onClick={() => handleAdd(item)}
                             className="botao">

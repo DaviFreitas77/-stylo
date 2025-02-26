@@ -33,14 +33,14 @@ class carrinhoController extends Controller
         $itemExiste = CarrinhoItens::where('fk_produto', $request->id_produto)
             ->where('fk_cor', $request->id_cor)
             ->where('fk_tamanho', $request->id_tamanho)
-            ->where('fk_carrinho', $carrinho->id_carrinho) 
+            ->where('fk_carrinho', $carrinho->id_carrinho)
             ->first();
 
 
         $totalCarrinho = $carrinho->total_carrinho;
 
 
-       
+
         if ($itemExiste) {
             $carrinho->total_carrinho -= $itemExiste->preco_itens;
             $itemExiste->quantidade += $request->quantidade;
@@ -81,18 +81,22 @@ class carrinhoController extends Controller
     {
         $id = $request->id_produto;
         $carrinho = CarrinhoItens::where('fk_produto', $id)->first();
-        $carrinhoCompra = Carrinho::where('id_carrinho',$request->id_carrinho)->first();
-        $produto = Produto::where('id_produto',$id)->first();
+        $carrinhoCompra = Carrinho::where('id_carrinho', $request->id_carrinho)->first();
+        $produto = Produto::where('id_produto', $id)->first();
 
-    
+
 
         if ($carrinho->quantidade > 0) {
             $carrinho->quantidade -= 1;
             $carrinhoCompra->total_carrinho -= $produto->preco_produto;
-            
 
             $carrinhoCompra->save();
             $carrinho->save();
+        }
+
+        if($carrinhoCompra->total_carrinho < 0 ){
+            $carrinhoCompra->total_carrinho = 0.00;
+            $carrinhoCompra->save();
         }
 
         if ($carrinho->quantidade <= 0) {
@@ -103,24 +107,22 @@ class carrinhoController extends Controller
         }
         return response()->json([
             'sucesso'
-        ]);
+        ], 200);
     }
 
 
-    public function deleteProdutoCarrinho($id_produto,$id_carrinho)
+    public function deleteProdutoCarrinho($id_produto, $id_carrinho)
     {
         $carrinho = CarrinhoItens::where('fk_produto', $id_produto)->first();
-        $produto = Produto::where('id_produto',$id_produto)->first();
-        $carrinhoCompra = Carrinho::where('id_carrinho',$id_carrinho)->first();
+        $produto = Produto::where('id_produto', $id_produto)->first();
+        $carrinhoCompra = Carrinho::where('id_carrinho', $id_carrinho)->first();
 
-        if ($carrinho && $produto && $carrinhoCompra ) {
+        if ($carrinho && $produto && $carrinhoCompra) {
             $preco_produto = $carrinho->quantidade * $produto->preco_produto;
             $carrinhoCompra->total_carrinho -= $preco_produto;
 
             $carrinhoCompra->save();
-
             $carrinho->delete();
-
         }
     }
 
