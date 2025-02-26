@@ -1,12 +1,12 @@
 .headerDrawerMobile{
     background-color: #3c3c3c;
     color: #fff;
-    height: 100%;
-    padding: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-height: 20vh;
+    height: 12vh;
+    padding: 10px;
+  
 }
 .buttons_drawer_mobile{
     display: flex;
@@ -30,6 +30,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 10px;
+    
 }
 .sair{
     position: fixed;
@@ -39,4 +41,13 @@
     text-align: end;
     border-top: 1px solid black;
     font-size: 20px;
+}
+.loginMobileBtn{
+
+    margin-top: 20px;
+    color: #fff;
+    padding: 20px;
+    width: 90%;
+    border-radius: 4px;
+
 }

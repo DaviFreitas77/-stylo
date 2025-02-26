@@ -39,7 +39,8 @@ export default function SignIn() {
                 body: JSON.stringify({
                     cpf: cpf,
                     senha: senha
-                })
+                }),
+                
             })
 
 
@@ -62,10 +63,10 @@ export default function SignIn() {
 
             if (data.message === 'adm') {
                 const usuario = data.adm;
+                localStorage.setItem('token', data.token)
                 setNomeUsuario(usuario.nome_adm);
                 localStorage.setItem("nome", usuario.nome_adm);
                 localStorage.setItem('id_adm', usuario.id_adm);
-                localStorage.setItem('token', data.token)
                 navigate('/criarProduto');
             }
 

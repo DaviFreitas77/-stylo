@@ -166,7 +166,7 @@ export default function Produto() {
         }
 
         if (!idUsuario) {
-            alert('ente com sua conta para adicionar um produto ao carrinho')
+            navigate('/Login')
         }
         try {
             const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {

@@ -6,6 +6,15 @@
 
 }
 
-.img-colecao{
-    width:50%;
+.img-colecao {
+    width: 100%;
+    transition: transform 0.3s ease-in-out; /* Suaviza a transição */
+}
+
+.img-colecao:hover {
+    transform: scale(1.02); /* Aumenta 20% proporcionalmente */
+}
+.btnColecao{
+    width: 100%;
+
 }

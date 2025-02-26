@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class usuarioController extends Controller
 {
@@ -58,7 +60,7 @@ class usuarioController extends Controller
         $usuario->nome_usuario = $request->nome_usuario;
         $usuario->email_usuario = $request->email_usuario;
         $usuario->numero_usuario = $request->numero_usuario;
-        $usuario->senha_usuario = $request->senha_usuario;
+        $usuario->senha_usuario = Hash::make($request->senha_usuario);
         $usuario->save();
         return response()->json(['message' => 'Usuário criado com sucesso!'], 201);
     }
@@ -75,10 +77,10 @@ class usuarioController extends Controller
         ]);
 
         $usuario = Usuario::where('cpf_usuario', $request->cpf)->first();
-
         $adm = ADM::where('cpf_adm', $request->cpf)->first();
 
         if ($usuario && $request->senha === $usuario->senha_usuario) {
+           
             return response()->json([
                 'message' => 'usuario',
                 $usuario
@@ -86,7 +88,6 @@ class usuarioController extends Controller
         } 
 
         if ($adm && $request->senha === $adm->senha_adm) {
-
             $token = $adm->createToken('admToken')->plainTextToken;
             return response()->json([
                 'message' => 'adm',

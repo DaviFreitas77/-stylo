@@ -100,4 +100,19 @@ class produtoController extends Controller
 
         return response()->json($produtos);
     }
+
+    public function getProdutosMasculino(Request $request) {
+        $id_categoria =  $request->query('id_categoria'); 
+
+    
+        $produtos = DB::table('tb_produto')
+            ->join('tb_subCategoria', 'tb_produto.fk_subCategoria', '=', 'tb_subCategoria.id_subCategoria')
+            ->join('tb_categoria', 'tb_subCategoria.fk_categoria', '=', 'tb_categoria.id_categoria')
+            ->where('tb_categoria.id_categoria', $id_categoria)
+            ->select('tb_produto.nome_produto','tb_produto.imagem_produto','tb_produto.preco_produto','tb_produto.preco_antigo_produto')
+            ->get();
+    
+        return response()->json($produtos);
+    }
 }
+

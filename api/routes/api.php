@@ -11,6 +11,7 @@ use App\Http\Controllers\subCategoriaController;
 use App\Http\Controllers\TamanhoController;
 use App\Http\Controllers\usuarioController;
 use App\Http\Controllers\PagamentoController;
+use App\Models\ProdutoDestaque;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +53,6 @@ Route::get('/cor',[corController::class,('getCor')]);
 Route::get('/getcor',[corController::class,('cor')]);
 Route::get('/carrinho',[carrinhoController::class,('getCarrinho')]);
 Route::get('/favoritos',[favoritoContrller::class,('getFavorito')]);
+Route::get('/produtosMasculino',[produtoController::class,'getProdutosMasculino']);
+
+
