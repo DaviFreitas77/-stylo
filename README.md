@@ -1,6 +1,5 @@
 # Stylo E-commerce
 
-![Logo Stylo](link-para-logo.jpg) <!-- Substitua pelo link real da imagem do logo -->
 
 ## Descrição
 
@@ -36,4 +35,4 @@ Aqui estão algumas capturas de tela da aplicação:
 - **Context API**: Para gerenciamento de estados
 - **Pagamento**: Stripe API
 - **Armazenamento**: Firebase Storage
-- **Outras bibliotecas**: [Liste outras bibliotecas utilizadas, se aplicável]
+
