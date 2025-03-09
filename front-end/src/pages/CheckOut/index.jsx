@@ -7,11 +7,14 @@ import ModalScreen from '../../components/Modal';
 import payment from '../../assets/lottie/payment.json'
 
 
-const stripePromise = loadStripe('pk_test_51QsTTtJQfLLJ5xBNcRM86xpkPl5gV4OBXQJg0qIVucCezUKCK3OORekNemOqwO6hV0Tsl6wdjb95h6WlrzZCOOXN00qMFOqrzH');
+import Dots from "react-activity/dist/Dots";
+import "react-activity/dist/Dots.css";
+
 
 export default function Checkout() {
     const [nome, setNome] = useState();
     const produtos = useSelector(state => state.carrinho);
+    const [payLoading, setPayLoading] = useState(false)
 
     //modal
     const [isOpen, setIsOpen] = useState(false)
@@ -24,6 +27,7 @@ export default function Checkout() {
 
 
     const pay = async () => {
+        setPayLoading(true)
         if (!stripe || !elements) {
             return;
         }
@@ -33,15 +37,18 @@ export default function Checkout() {
 
         if (!cardElement) {
             alert('Por favor, preencha os dados do cartão');
+            setPayLoading(false)
             return;
         }
 
         // Criar o token com o CardElement
         const { token, error } = await stripe.createToken(cardElement);
 
+
         if (error) {
             console.error(error);
             alert('Erro ao criar o token: ' + error.message);
+            setPayLoading(false)
             return;
         }
 
@@ -59,7 +66,8 @@ export default function Checkout() {
         const data = await response.json();
         if (data.status === 'succeeded') {
             setIsOpen(true)
-            
+            setPayLoading(false)
+
         }
         console.log(data);
     };
@@ -106,9 +114,16 @@ export default function Checkout() {
                         Total: ({produtos.length} itens)
                         <h3>R$ {calcularTotal()}</h3>
                     </div>
-                    <button onClick={pay} className="botao">
-                        Finalizar
-                    </button>
+                    {payLoading ? (
+                        <button onClick={pay} className="botao" disabled>
+                           <Dots/>
+                        </button>
+                    ) : (
+                        <button onClick={pay} className="botao">
+                            Finalizar
+                        </button>
+                    )}
+
                 </div>
             </section>
 
