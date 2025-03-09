@@ -79,7 +79,7 @@ class usuarioController extends Controller
         $usuario = Usuario::where('cpf_usuario', $request->cpf)->first();
         $adm = ADM::where('cpf_adm', $request->cpf)->first();
 
-        if ($usuario && $request->senha === $usuario->senha_usuario) {
+        if ($usuario && Hash::check($request->senha, $usuario->senha_usuario)) {
            
             return response()->json([
                 'message' => 'usuario',
