@@ -2,10 +2,11 @@ import React from "react";
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Loading from "../Loading/LoadingAnimation";
 import './style.css'
+
 export default function Colecao() {
     const [categoria, setCategoria] = useState([]);
-    const [idCategoria, setIdCategoria] = useState('')
 
     useEffect(() => {
         const fetchCategoria = async () => {
@@ -27,19 +28,24 @@ export default function Colecao() {
 
     return (
         <div className="container-colecao">
+            {categoria.length > 0 ?(
+                  categoria.map((item, index) => (
+                    <Link
+                        to={`/produtos-categoria/${item.id_categoria}`}
+                        key={index} className="btnColecao">
+                        <img className="img-colecao " src={item.imagem_categoria} alt={item.nome_categoria} />
+    
+                    </Link>
+    
+    
+    
+    
+                ))
+            ):(
+                <Loading/>
+            )}
 
-            {categoria.map((item, index) => (
-                <Link
-                    to= {`/produtos-categoria/${item.id_categoria}`}
-                    key={index} className="btnColecao">
-                    <img className="img-colecao " src={item.imagem_categoria} alt={item.nome_categoria} />
-
-                </Link>
-
-
-
-
-            ))}
+          
         </div>
 
 

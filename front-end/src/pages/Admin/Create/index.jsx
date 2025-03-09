@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import './style.css'
 import { FaCircle } from "react-icons/fa";
 import { Context } from "../../../Contexto/provider";
-import { getDownloadURL, storage, uploadBytesResumable,ref } from "../../../Service/firebaseConexao";
+import { getDownloadURL, storage, uploadBytesResumable, ref } from "../../../Service/firebaseConexao";
 export default function CriarProduto() {
 
     const [nome, setNome] = useState('')
@@ -19,8 +19,8 @@ export default function CriarProduto() {
     const [estacao, setEstacao] = useState('')
     const [arrayCor, setArrayCor] = useState([])
     const [corSelecionado, setCorSelecionado] = useState([])
-    const [image,SetImage] = useState('')
-    const [imageUrl,setImageUrl] = useState('')
+    const [image, SetImage] = useState('')
+    const [imageUrl, setImageUrl] = useState('')
     const token = localStorage.getItem('token')
 
     const traducaoCores = {
@@ -116,15 +116,15 @@ export default function CriarProduto() {
     };
 
 
-    const uploadImagem = (file)=>{
+    const uploadImagem = (file) => {
         const fileName = `${image.name}`
 
         const storafeRef = ref(storage, `produtos/${fileName}`)
 
         const uploadtask = uploadBytesResumable(storafeRef, file)
 
-        uploadtask.then(()=>{
-            getDownloadURL(uploadtask.snapshot.ref).then((dowload)=>{
+        uploadtask.then(() => {
+            getDownloadURL(uploadtask.snapshot.ref).then((dowload) => {
                 setImageUrl(dowload)
             })
         })
@@ -221,7 +221,7 @@ export default function CriarProduto() {
                 <div className="containerImgCreate">
 
                     <input type="file" onChange={handleImageChange} />
-                    <img src={imageUrl} alt="" style={{width:400,marginTop:'20px'}}/>
+                    <img src={imageUrl} alt="" style={{ width: 400, marginTop: '20px' }} />
                 </div>
                 <div className="containerTamanhoECor">
                     <div className="containerBtnTamanho">
