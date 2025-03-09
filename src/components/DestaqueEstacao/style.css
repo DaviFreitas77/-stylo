@@ -1,0 +1,137 @@
+.container-destaque-estacao {
+    margin-top: 40px;
+}
+
+.titulo-destaque-estacao {
+    font-size: 45px;
+    margin-bottom: 40px;
+    padding: 15px;
+    text-align: center;
+}
+
+.destaque-estacao {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+
+}
+
+
+.banner-estação {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.card-estacao {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    width: 95%;
+    margin-bottom: 30px; 
+    padding: 25px; 
+    max-width: 450px; /* Ajustando para cards mais largos em telas grandes */
+    height: 500px; /* Aumentando a altura para deixar o card mais alto */
+    background-color: #DFDFDF; /* Para que o card tenha um fundo mais destacado */
+    transition: transform 0.3s ease; 
+    transform-origin: center center; 
+}
+
+.card-estacao:hover{
+    transform: scale(1.08);
+    
+}
+.img-card-estacao {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+
+    
+}
+
+.preco-card {
+    font-weight: bold;
+    text-align: start;
+}
+
+.card-estacao div {
+    background-color: #DFDFDF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.nome-card {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: start;
+    color: #333;
+}
+
+.swiper-estacao {
+    width: 100%;
+    display: flex;
+    
+
+}
+.nomeEprecoCard{
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+}
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+@media (max-width:468px) {
+    .card-estacao {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .preco-card {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .card-estacao {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 30px; 
+        padding: 5px; 
+        max-width: 550px; /* Ajustando para cards mais largos em telas grandes */
+        height: 500px; /* Aumentando a altura para deixar o card mais alto */
+        background-color: #DFDFDF; /* Para que o card tenha um fundo mais destacado */
+    }
+    
+
+    .nome-card {
+        font-size: 20px;
+    }
+
+    .img-card-estacao {
+        width: 100%; /* A imagem vai ocupar 100% do card */
+        height: 100%; /* A altura da imagem será 60% da altura total do card */
+      
+    }
+   
+    
+
+
+}

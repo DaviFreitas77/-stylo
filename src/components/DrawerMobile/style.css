@@ -1,0 +1,53 @@
+.headerDrawerMobile{
+    background-color: #3c3c3c;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 12vh;
+    padding: 10px;
+  
+}
+.buttons_drawer_mobile{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-left: 7px;
+}
+.favoritos, .pedidos{
+    font-weight: bold;
+}
+.nome_drawer{
+    font-size: 20px;
+    font-weight:700 ;
+    padding-left: 10px;
+}
+.btn-close{
+    color: #fff;
+    background-color: #fff;
+}
+.headerDrawerMobile div:first-child{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    
+}
+.sair{
+    position: fixed;
+    bottom: 0px;
+    width: 400px;
+    padding: 20px;
+    text-align: end;
+    border-top: 1px solid black;
+    font-size: 20px;
+}
+.loginMobileBtn{
+
+    margin-top: 20px;
+    color: #fff;
+    padding: 20px;
+    width: 90%;
+    border-radius: 4px;
+
+}

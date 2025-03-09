@@ -1,0 +1,49 @@
+.containerErro{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.h1Erro{
+    font-size: 45px;
+    font-weight: 800;
+}
+
+.containerErro div{
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.containerErro div p{
+    max-width: 400px;
+    font-size: 18px;
+}
+.btnBeck {
+    background-color: #ffffff; 
+    color: #000000;
+    border: 1px solid #000;
+    font-size: 20px;
+    margin-top: 25px;
+    border-radius: 3px;
+    padding: 10px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+/* Efeito quando o mouse passa sobre o botão */
+.btnBeck:hover {
+    background-color: #000; /* Cor de fundo preta */
+    color: #fff; /* Cor do texto branca */
+    transform: scale(.9); /* Aumenta o botão ligeiramente */
+   
+}
+
+/* Efeito quando o botão é clicado (pressionado) */
+.btnBeck:active {
+    transform: scale(1); /* Retorna ao tamanho original */
+    background-color: #333; /* Cor de fundo escura */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra mais intensa */
+}

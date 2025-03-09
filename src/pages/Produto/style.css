@@ -1,0 +1,181 @@
+.container-produto {
+    padding: 15px;
+}
+
+.container-icons-cores {
+    display: flex;
+    gap: 10px;
+}
+.containerNome{
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+}
+.section-info-produto {
+    display: flex;
+}
+
+.div-img-produto {
+    background-color: #F4F0EF;
+    width: 80%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.corButton{
+    border: 1px solid black;
+    border-radius: 100%;
+    padding: 2px;
+}
+.details-produto {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+
+}
+
+.container-addCarrinho {
+    display: flex;
+
+}
+
+.container-nomeProduto {
+    display: flex;
+
+    align-items: center;
+}
+
+
+.container-cores {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.subtitulo {
+    font-size: 20px;
+}
+
+.nome-produto {
+    font-size: 35px;
+    font-weight: 400;
+}
+
+.prices {
+    margin-top: 30px;
+}
+
+.price-produto {
+    font-size: 32px;
+    font-weight: bold;
+
+}
+
+.last-price {
+    color: gray;
+    text-decoration: line-through;
+}
+
+.desc_produto {
+    text-align: justify;
+    max-width: 450px;
+    margin-top: 10px;
+}
+
+.input-select {
+    background-color: #dfdfdf;
+    width: 10%;
+    padding: 5px;
+
+}
+
+.input-select:focus {
+    outline: none;
+}
+
+.container-tamanho {
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.line {
+    border-bottom: 1px solid black;
+    width: 80%;
+
+}
+
+.produtos {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    gap: 15px;
+  
+}
+.container-pagination{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-right: 30px;
+}
+
+
+
+@media (max-width:900px) {
+
+    .details-produto {
+        width: 100%;
+        gap: 8px;
+        display: flex;
+        flex-direction: column;
+        padding-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 1px;
+
+    }
+    .container-pagination{
+        margin-right: 15px;
+    }
+    
+
+    .section-info-produto {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+    }
+
+    .div-img-produto {
+        background-color: #F4F0EF;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width:468px) {
+
+    .section-info-produto {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .container-produto {
+        padding: 10px;
+    }
+    .container-pagination{
+        margin-top: 15px;
+        margin-right: 0px;
+    }
+
+}

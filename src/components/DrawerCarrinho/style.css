@@ -1,0 +1,136 @@
+#offcanvasRight {
+    width: 40%;
+    padding: 15px;
+    overflow-y: auto;
+    max-height: 100%;
+    scrollbar-color: #000 #e0e0e0;
+ 
+
+   
+}
+.offcanvas-header {
+    padding: 0px;
+    
+}
+
+.icon_carrinho{
+    font-size: 25px;
+}
+.image_carrinho{
+    width: 20%;
+}
+.section-carrinho{
+    margin-top: 30px;
+}
+.card-produto-carrinho{
+    display: flex;
+    margin-bottom: 30px;
+}
+.btn_remove_and_preco{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+}
+.price-carrinho{
+   font-size: 20px;
+   font-weight: bold;
+}
+
+.nome_produto_and_remove{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+   
+}
+.container-quantidade{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.quantidade-carrinho{
+    background-color:#000;
+    color: #ffff;
+    width: 15px;
+    font-size: 10px;
+    text-align: center;
+    border-radius: 100%;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+.container-quantidade-buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+}
+.container-precos{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+.containerBtnCheckOut{
+    background-color: #F5F5F5;
+    padding: 10px;
+}
+.totalCarrinho{
+    font-size: 18px;
+}
+@media(max-width:630px){
+    #offcanvasRight {
+        width: 100% !important;
+    }
+    .price-carrinho{
+        font-size: 15px;
+        font-weight: bold;
+     }
+     .nome_produto_carrinho{
+      font-size: 14px;
+        
+     }
+     .container-quantidade-buttons{
+        display: flex;
+        justify-content: space-between;
+        width: 40%;
+    }
+     
+    .container-precos{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        
+    }
+    .container-precos{
+        gap: 10px !important;
+    }
+}
+@media(max-width:1030px){
+    #offcanvasRight {
+        width: 60%;
+    }
+    .price-carrinho{
+        font-size: 30px;
+        font-weight: bold;
+     }
+     .nome_produto_carrinho{
+        font-size: 30px;
+     }
+     .tamanho_e_cor{
+        font-size: 25px;
+     }
+     .quantidade{
+        font-size: 25px;
+     }
+    .icon_carrinho{
+        font-size: 40px;
+    }
+    .container-precos{
+        gap: 0px;
+    }
+}

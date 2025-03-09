@@ -1,0 +1,103 @@
+.container-signIn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #F3F3F3;
+}
+.login {
+    background-color: #fff;
+    max-width: 600px;
+    width: 100%;
+    padding: 45px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 40px;
+  }
+  
+.h3-sigIn{
+    font-size: 28px;
+    font-weight: bold;
+
+}
+.containerInputLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.containerInputLogin div{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.containerInputLogin div p{
+    font-size: 20px;
+    font-weight: 600;
+}
+.input{
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #000;
+}
+.input-error{
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid red;
+}
+.input:focus{
+    outline: none;
+}
+.buttonsLogin{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+.btn-signIn{
+    background-color: #000;
+    color: #fff;
+    padding: 12px;
+    border-radius: 10px;
+}
+.btn-criarConta{
+    border-radius: 10px;
+    border: 1px solid #000;
+    padding: 12px;
+}
+.entrarComGoogle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+.btn-entrar-google{
+    width: 100%;
+    border-radius: 10px;
+    
+}
+.containerH3Login{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.containerInputSenha {
+    display: flex;
+    flex-direction: column;
+   
+  }
+  
+  .esqueciSenha {
+    align-self: flex-end; 
+    font-size: 14px;
+    color: #007bff; 
+    text-decoration: none;
+    margin-top: 1px; 
+  }
+  
+  .esqueciSenha:hover {
+    text-decoration: underline; /* para adicionar o efeito de underline no hover */
+  }
+  
