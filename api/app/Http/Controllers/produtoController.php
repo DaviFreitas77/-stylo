@@ -24,15 +24,13 @@ class produtoController extends Controller
 
         $produto->save();
         $tamanhosString = $request->tamanhos; 
-        $tamanhosArray = explode(',', $tamanhosString);
         $cores = $request->cores;
-        $coresArray = explode(',',$cores);
-
 
         
+
         
         if ($produto->id_produto) {
-            foreach ($tamanhosArray as $tamanho) {
+            foreach ($tamanhosString as $tamanho) {
                 DB::table('tb_relacao_tamanho')->insert([
                     'fk_item' => $produto->id_produto,
                     'fk_tamanho' => $tamanho,
@@ -41,7 +39,7 @@ class produtoController extends Controller
         }
 
         if ($produto->id_produto) {
-            foreach ($coresArray as $cor) {
+            foreach ($cores as $cor) {
                 DB::table('tb_relacao_cor')->insert([
                     'fk_item' => $produto->id_produto,
                     'fk_cor' => $cor,
