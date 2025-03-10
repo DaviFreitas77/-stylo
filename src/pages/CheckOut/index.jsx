@@ -116,7 +116,7 @@ export default function Checkout() {
                     </div>
                     {payLoading ? (
                         <button onClick={pay} className="botao" disabled>
-                           <Dots/>
+                            <Dots />
                         </button>
                     ) : (
                         <button onClick={pay} className="botao">

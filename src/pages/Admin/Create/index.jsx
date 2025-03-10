@@ -23,6 +23,8 @@ export default function CriarProduto() {
     const [imageUrl, setImageUrl] = useState('')
     const token = localStorage.getItem('token')
 
+
+
     const traducaoCores = {
         preto: "black",
         vermelho: "red",
@@ -130,6 +132,7 @@ export default function CriarProduto() {
         })
     }
     const cadastrarProduto = async () => {
+
         try {
             const response = await fetch('http://127.0.0.1:8000/api/criarProduto', {
                 method: "POST",
@@ -137,6 +140,7 @@ export default function CriarProduto() {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
+
                 body: JSON.stringify({
                     nome_produto: nome,
                     desc_produto: desc,
@@ -152,8 +156,22 @@ export default function CriarProduto() {
                 })
             })
 
-            const data = await response.json()
-            alert(data.message)
+            if (response.ok) {
+                const data = await response.json()
+                alert(data.message)
+                setNome('')
+                setDesc('')
+                setPreco('')
+                setPrecoAntigo('')
+                setDestaque('')
+                setEstacao('')
+                setImageUrl('')
+                setSubCategoria('')
+                setTamanhosSelecionados([])
+                setCorSelecionado([])
+
+            }
+
         } catch (error) {
             console.log(error)
         }
