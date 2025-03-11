@@ -33,7 +33,7 @@ export default function VerificarEmail() {
         <div className="containerVerificarEmail">
             <input type="number"
                 onChange={(t) => setCodigo(t.target.value)}
-                style={{ border: '1px solid black' }}
+                style={{ border: '1px solid pink' }}
 
             />
               <button onClick={verificarEmail}>Verificar</button>
