@@ -72,7 +72,7 @@ class usuarioController extends Controller
             $request->nome_usuario,
             $request->email_usuario
         );
-        
+
         DB::table('tb_verificar_email')->insert([
             'email_usuario' => $request->email_usuario,
             'codigo' => $codigo
@@ -97,11 +97,7 @@ class usuarioController extends Controller
             $usuario->save();
             $verificacao->delete();
             return response()->json(['message' => 'E-mail confirmado com sucesso!'], 200);
-
         }
-
-
-
     }
 
 
@@ -118,7 +114,15 @@ class usuarioController extends Controller
         $usuario = Usuario::where('cpf_usuario', $request->cpf)->first();
         $adm = ADM::where('cpf_adm', $request->cpf)->first();
 
-        if ($usuario && Hash::check($request->senha, $usuario->senha_usuario)) {
+        if ($usuario && Hash::check($request->senha, $usuario->senha_usuario)  && $usuario->confirmado == false) {
+
+            return response()->json([
+                'message' => 'Verifique seu email e ative sua conta!',
+                 'email_usuario' => $usuario->email_usuario
+            ], 403);
+        }
+
+        if ($usuario && Hash::check($request->senha, $usuario->senha_usuario) && $usuario->confirmado == true) {
 
             return response()->json([
                 'message' => 'usuario',

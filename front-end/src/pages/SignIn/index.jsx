@@ -5,12 +5,15 @@ import { FcGoogle } from "react-icons/fc";
 import InputMask from 'react-input-mask'
 import { Context } from "../../Contexto/provider";
 import { useNavigate } from "react-router-dom";
+import Dots from "react-activity/dist/Dots";
+import "react-activity/dist/Dots.css";
 export default function SignIn() {
     const [cpf, setCpf] = useState('')
     const [senha, setSenha] = useState('')
     const [email, setEmail] = useState('')
     const { setNomeUsuario, setToken } = useContext(Context)
     const [senhaError, setSenhaError] = useState(false);
+    const [loadingBtn, setLoadingBtn] = useState(false)
 
     const navigate = useNavigate();
 
@@ -22,61 +25,51 @@ export default function SignIn() {
             navigate('/')
         }
     }, [])
-
     const login = async () => {
-        
-        if(!cpf || !senha){
-            alert('preencha todos os campos')
-            setSenhaError(true)
+        setLoadingBtn(true)
+        if (!cpf || !senha) {
+            alert('Preencha todos os campos');
+            setSenhaError(true);
+            setLoadingBtn(false)
+            return;
         }
 
         try {
             const response = await fetch('http://127.0.0.1:8000/api/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
-                body: JSON.stringify({
-                    cpf: cpf,
-                    senha: senha
-                }),
-                
-            })
-
-
+                body: JSON.stringify({ cpf: cpf, senha: senha })
+            });
 
             const data = await response.json();
 
-            if (!response.ok) {
-               alert(data.message)
-               setSenhaError(true)
+            if (response.status === 403) {
+
+                navigate('/VerificarEmail', { state: { email: data.email_usuario } });
+                return;
             }
 
-            if (data.message === 'usuario') {
-
+            if (response.ok) {
                 const usuario = data[0];
-                setNomeUsuario(usuario.nome_usuario)
+                setNomeUsuario(usuario.nome_usuario);
                 localStorage.setItem("nome", usuario.nome_usuario);
-                localStorage.setItem('id_usuario', usuario.id_usuario)
-                navigate('/')
+                localStorage.setItem('id_usuario', usuario.id_usuario);
+                navigate('/');
+            } else {
+                alert('Erro ao fazer login. Verifique suas credenciais.');
+                
             }
-
-            if (data.message === 'adm') {
-                const usuario = data.adm;
-                localStorage.setItem('token', data.token)
-                setNomeUsuario(usuario.nome_adm);
-                localStorage.setItem("nome", usuario.nome_adm);
-                localStorage.setItem('id_adm', usuario.id_adm);
-                navigate('/criarProduto');
-            }
-
-
 
         } catch (error) {
-            console.log(error)
+            alert('Erro de conexão. Tente novamente mais tarde.');
+            console.error(error);
+        } finally {
+            setLoadingBtn(false)
         }
-
-    }
+    };
 
 
 
@@ -119,11 +112,21 @@ export default function SignIn() {
                     </div>
                 </div>
                 <div className="buttonsLogin">
-                    <button
-                        onClick={login}
-                        className="btn-signIn">
-                        Entrar
-                    </button>
+                    {loadingBtn ? (
+                        <button
+                            onClick={login}
+                            className="btn-signIn">
+                            <Dots />
+                        </button>
+
+                    ) : (
+
+                        <button
+                            onClick={login}
+                            className="btn-signIn">
+                            Entrar
+                        </button>
+                    )}
                     <button
                         onClick={() => navigate('/criarConta')}
                         className="btn-criarConta">

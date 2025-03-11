@@ -1,7 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../../Contexto/provider";
+import { useLocation } from "react-router-dom";
 
 export default function VerificarEmail() {
+    const location = useLocation();
+    const { email } = location.state || {}; 
+    console.log(email)
+
     const [codigo, setCodigo] = useState('')
     const { emailVerificar } = useContext(Context)
 
@@ -14,7 +19,7 @@ export default function VerificarEmail() {
                 'Accept': 'application/json',
             },
             body: JSON.stringify({
-                email: emailVerificar,
+                email: emailVerificar ? emailVerificar : email,
                 codigo: codigo
             })
         })
