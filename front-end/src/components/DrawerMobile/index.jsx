@@ -23,12 +23,12 @@ export default function DrawerMobile() {
     return (
         <div className="container-drawerMobile">
 
-            <button class="btn " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">  <HiOutlineMenuAlt1 className="icon iconMenu" size={35} /></button>
+            <button className ="btn " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">  <HiOutlineMenuAlt1 className="icon iconMenu" size={35} /></button>
 
 
 
-            <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" >
-                <div class="offcanvas-header">
+            <div className="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" >
+                <div className="offcanvas-header">
 
                 </div>
 
