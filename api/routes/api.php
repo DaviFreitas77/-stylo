@@ -28,6 +28,8 @@ Route::middleware('auth:sanctum')->post('/criarProduto', [ProdutoController::cla
 
 
 Route::post('/login',[usuarioController::class,('login')]);
+Route::post('/confirmaEmail', [usuarioController::class, 'confirmarEmail']);
+
 Route::post('/addCarrinho',[carrinhoController::class,('addCarrinho')]);
 Route::post('/addRelacaoTamanho',[RelacaoTamanhoController::class,('relacaoTamanho')]);
 Route::post('/pagamento',[PagamentoController::class,('createCharge')]);

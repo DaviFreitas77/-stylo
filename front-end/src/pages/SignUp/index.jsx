@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import InputMask from "react-input-mask";
 import './style.css'
 import { useNavigate } from "react-router-dom";
-import ModalScreen from '../../components/Modal'
 import signUp from '../../assets/lottie/signUp.json'
+import { Context } from "../../Contexto/provider";
 export default function SignUp() {
 
     const [cpf, setCpf] = useState('')
@@ -11,13 +11,9 @@ export default function SignUp() {
     const [numero, setNumero] = useState('')
     const [email, setEmail] = useState('')
     const [nome, setNome] = useState('')
+    const {setEmailVerificar} = useContext(Context)
     const navigate = useNavigate();
-    const [isOpen, setIsOpen] = useState(false)
 
-
-    function nevegar() {
-        navigate('/Login')
-    }
 
     const CriarConta = async () => {
 
@@ -48,8 +44,9 @@ export default function SignUp() {
                 setCpf('')
                 setNumero('')
                 setSenha('')
+                setEmailVerificar(email)
                 setEmail('')
-                setIsOpen(true)
+                navigate('/VerificarEmail')
 
 
             }
@@ -150,16 +147,8 @@ export default function SignUp() {
 
             </section>
 
-            <ModalScreen
-                funcao={nevegar}
-                titulo='Cadastro concluido'
-                txtButton="Fazer login"
-                options={defaultOptions}
-                openModal={true}
-                modalOpen={isOpen}
-                setModalOpen={setIsOpen}
-
-            />
+           
+           
 
         </div>
     )

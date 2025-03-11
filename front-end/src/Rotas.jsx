@@ -14,6 +14,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import Favorito from './pages/Favorito';
 import SignUp from './pages/SignUp';
 import ProdutosCategoria from './pages/ProdutosCategoria';
+import VerificarEmail from './pages/VerificarEmail';
 
 const stripePromise = loadStripe('pk_test_51QsTTtJQfLLJ5xBNcRM86xpkPl5gV4OBXQJg0qIVucCezUKCK3OORekNemOqwO6hV0Tsl6wdjb95h6WlrzZCOOXN00qMFOqrzH');
 
@@ -35,6 +36,7 @@ export const AppRoute = () => {
                     <Routes>
                         <Route path='/' element={<Home />} />
                         <Route path='/Login' element={<SignIn />} />
+                        <Route path='/VerificarEmail' element={<VerificarEmail />} />
                         <Route path='/produto/:id_produto' element={<Produto />} />
                         <Route path='/favorito' element={<Favorito />} />
                         <Route path="/criarConta" element={<SignUp />} />

@@ -7,7 +7,6 @@ export default function CriarProduto() {
 
     const [nome, setNome] = useState('')
     const [desc, setDesc] = useState('')
-    const [categoria, setCategoria] = useState('')
     const [arrayCategoria, setArrayCategoria] = useState([])
     const [subCategoria, setSubCategoria] = useState('')
     const [arraySubcCategoria, setArraySubCategoria] = useState([])

@@ -12,9 +12,12 @@ use Illuminate\Support\Facades\Session;
 use laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\EnviarEmailController;
+use Illuminate\Support\Facades\DB;
 
 class usuarioController extends Controller
 {
+    public $codigo;
     public function criarUsuario(Request $request)
     {
 
@@ -26,7 +29,7 @@ class usuarioController extends Controller
             'senha_usuario' => ['required', 'string', 'min:6'],
         ], [
             'email_usuario.required' => 'O e-mail é obrigatório.',
-            
+
             'cpf_usuario.required' => 'O CPF é obrigatório.',
             'cpf_usuario.max' => 'O CPF deve ter no máximo 14 caracteres.',
             'cpf_usuario.min' => 'O CPF deve ter exatamente 14 caracteres.',
@@ -53,16 +56,52 @@ class usuarioController extends Controller
             return response()->json(['message' => 'Número já cadastrado'], 401);
         }
 
-
-
         $usuario = new Usuario;
         $usuario->cpf_usuario = $request->cpf_usuario;
         $usuario->nome_usuario = $request->nome_usuario;
         $usuario->email_usuario = $request->email_usuario;
         $usuario->numero_usuario = $request->numero_usuario;
         $usuario->senha_usuario = Hash::make($request->senha_usuario);
+        $usuario->confirmado = 0;
+
+
+        $codigo = rand(1000, 9999);
+        $emailController = new EnviarEmailController();
+        $emailController->enviar(
+            $codigo,
+            $request->nome_usuario,
+            $request->email_usuario
+        );
+        
+        DB::table('tb_verificar_email')->insert([
+            'email_usuario' => $request->email_usuario,
+            'codigo' => $codigo
+
+        ]);
+
         $usuario->save();
-        return response()->json(['message' => 'Usuário criado com sucesso!'], 201);
+        return response()->json(['message' => 'Verifiquei seu email'], 201);
+    }
+
+    public function confirmarEmail(Request $request)
+    {
+        $codigo = $request->codigo;
+        $email = $request->email;
+        $verificacao = VerificarEmail::where('email_usuario', $email)
+            ->where('codigo', $codigo)
+            ->first();
+
+        if ($verificacao) {
+            $usuario = Usuario::where('email_usuario', $request->email)->first();
+            $usuario->confirmado = true;
+            $usuario->save();
+            $verificacao->delete();
+            return response()->json(['message' => 'E-mail confirmado com sucesso!'], 200);
+
+        }
+
+
+
     }
 
 
@@ -80,12 +119,12 @@ class usuarioController extends Controller
         $adm = ADM::where('cpf_adm', $request->cpf)->first();
 
         if ($usuario && Hash::check($request->senha, $usuario->senha_usuario)) {
-           
+
             return response()->json([
                 'message' => 'usuario',
                 $usuario
             ], 200);
-        } 
+        }
 
         if ($adm && $request->senha === $adm->senha_adm) {
             $token = $adm->createToken('admToken')->plainTextToken;

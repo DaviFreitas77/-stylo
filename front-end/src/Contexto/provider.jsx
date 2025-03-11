@@ -9,6 +9,7 @@ export const Provider = ({ children }) => {
   const [url, setUrl] = useState('')
   const [token,setToken] = useState('')
   const idUsuario = localStorage.getItem("id_usuario");
+  const [emailVerificar,setEmailVerificar] = useState('')
   
 
   useEffect(() => {
@@ -27,7 +28,7 @@ export const Provider = ({ children }) => {
   return (
 
 
-    <Context.Provider value={{ nomeUsuario, setNomeUsuario, url, setUrl, setItensCarrinho, itensCarrinho, idCarrinho, setIdCarrinho,setToken,token }}>
+    <Context.Provider value={{ nomeUsuario, setNomeUsuario, url, setUrl, setItensCarrinho, itensCarrinho, idCarrinho, setIdCarrinho,setToken,token,setEmailVerificar,emailVerificar}}>
       {children}
     </Context.Provider>
   )

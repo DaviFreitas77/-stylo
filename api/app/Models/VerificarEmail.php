@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class VerificarEmail extends Model
 {
-    protected $table = 'tb_verificar_email';
-
-    protected $fillable = ['id_usuario', 'token'];
+    public $table = 'tb_verificar_email';
+    public $primaryKey = 'id_verificar_email';
+    public $fillable = ['email_usuario','codigo'];
 
     public $timestamps = false;
 }
-
