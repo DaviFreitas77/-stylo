@@ -6,6 +6,7 @@ import { TbShoppingCartUp } from "react-icons/tb";
 import './style.css'
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loading/LoadingAnimation";
+import Header from "../../components/Header";
 export default function ProdutosCategoria() {
 
     const { id_categoria } = useParams();
@@ -35,6 +36,7 @@ export default function ProdutosCategoria() {
 
     return (
         <div className="container-produtos-categoria">
+             <Header/>
             <p>Masculino</p>
             <div className="produtos-categoria">
 

@@ -32,7 +32,7 @@ export const AppRoute = () => {
         <ReduxProvider store={store}>
             <Provider>
                 <BrowserRouter>
-                    <Header />
+                
                     <Routes>
                         <Route path='/' element={<Home />} />
                         <Route path='/Login' element={<SignIn />} />

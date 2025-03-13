@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import './style.css'
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import Header from "../../components/Header";
 export default function Favorito() {
 
     const produtos = useSelector(state => state.favorito)
@@ -35,6 +36,7 @@ export default function Favorito() {
 
     return (
         <div className="container-favoritos">
+             <Header/>
             <div className="headerFavoritos">
                 <h1>Sua lista de desejos...</h1>
                 <p>Seus produtos favoritos ficam aqui para você ver sempre que quiser.</p>

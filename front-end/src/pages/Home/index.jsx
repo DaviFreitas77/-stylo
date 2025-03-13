@@ -19,6 +19,7 @@ console.log(token)
 
   return (
     <div >
+      <Header/>
       <TopBar />
       <HeroBanner />
       <Colecao />

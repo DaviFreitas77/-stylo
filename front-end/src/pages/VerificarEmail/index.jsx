@@ -1,17 +1,25 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../../Contexto/provider";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import './style.css'
+
 
 export default function VerificarEmail() {
     const location = useLocation();
-    const { email } = location.state || {}; 
-    console.log(email)
+    const { email } = location.state || {};
+    const [loadinButton, setLoadingButton] = useState(false)
+    const [error,setError] = useState(false)
+    const [correct,setCorrect] = useState(false)
+    const navigate = useNavigate()
+
+
 
     const [codigo, setCodigo] = useState('')
-    const { emailVerificar } = useContext(Context)
+    const emailVerificar = localStorage.getItem('emailVerificar')
 
 
     function verificarEmail() {
+        setLoadingButton(true)
         fetch('http://127.0.0.1:8000/api/confirmaEmail', {
             method: 'POST',
             headers: {
@@ -23,25 +31,58 @@ export default function VerificarEmail() {
                 codigo: codigo
             })
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-        
+            .then(response => {
+                if(response.status == 400){
+                    setError(true)
+                }else{
+                    setCorrect(true)
+                    setTimeout(() => {
+                        navigate('/login') 
+                        localStorage.removeItem('emailVerificar')
+
+                    }, 1000);
+                    
+                }
+                return response.json()
             })
             .catch((error) => {
                 console.log(error);
-           
+
+            })
+            .finally(()=>{
+                setLoadingButton(false)
             });
     }
 
     return (
         <div className="containerVerificarEmail">
-            <input type="number"
-                onChange={(t) => setCodigo(t.target.value)}
-                style={{ border: '1px solid pink' }}
+            <div>
+                <h2>Digite o codigo que recebeu</h2>
+                <p>O codigo de 4 digitos foi enviado para <strong>{emailVerificar ? emailVerificar : email} </strong></p>
+                <input type="number"
+                    onChange={(e) => setCodigo(e.target.value)}
+                    placeholder="Código"
+                />
+                {loadinButton ? (
 
-            />
-              <button onClick={verificarEmail}>Verificar</button>
+                    <button onClick={verificarEmail}>carregando...</button>
+                ) : (
+                    <button onClick={verificarEmail}>Confirmar código</button>
+                )}
+                {error ?(
+                    <p className="error">Código incorreto</p>
+                ):(
+                    null
+                )}
+                {correct?(
+                       <p className="correct">Confirmado</p>
+                ):(
+                    null
+                )}
+            </div>
+            <div>
+            <img src="/public/img/verificarEmail.jpg" alt="" className="img-verificar-email" />
+            </div>
         </div>
     )
 }

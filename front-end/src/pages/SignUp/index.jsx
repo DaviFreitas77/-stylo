@@ -4,6 +4,8 @@ import './style.css'
 import { useNavigate } from "react-router-dom";
 import signUp from '../../assets/lottie/signUp.json'
 import { Context } from "../../Contexto/provider";
+import Dots from "react-activity/dist/Dots";
+import "react-activity/dist/Dots.css";
 export default function SignUp() {
 
     const [cpf, setCpf] = useState('')
@@ -11,13 +13,15 @@ export default function SignUp() {
     const [numero, setNumero] = useState('')
     const [email, setEmail] = useState('')
     const [nome, setNome] = useState('')
-    const {setEmailVerificar} = useContext(Context)
+    const [loadinButton, setLoadingButton] = useState(false)
     const navigate = useNavigate();
 
 
-    const CriarConta = async () => {
 
+    const CriarConta = async () => {
+        setLoadingButton(true)
         if (!cpf || !senha || !numero || !nome) {
+            setLoadingButton(false)
             alert('Preencha todos os campos')
         }
         try {
@@ -44,7 +48,7 @@ export default function SignUp() {
                 setCpf('')
                 setNumero('')
                 setSenha('')
-                setEmailVerificar(email)
+                 localStorage.setItem('emailVerificar',email)
                 setEmail('')
                 navigate('/VerificarEmail')
 
@@ -54,6 +58,8 @@ export default function SignUp() {
 
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoadingButton(false)
         }
 
     }
@@ -138,17 +144,27 @@ export default function SignUp() {
                 </div>
                 <div className="buttonsLogin">
 
-                    <button
-                        onClick={CriarConta}
-                        className="btn-signIn">
-                        Criar conta
-                    </button>
+                    {loadinButton ? (
+                        <button
+                            onClick={CriarConta}
+                            className="btn-signIn">
+                            <Dots />
+
+                        </button>
+
+                    ) : (
+                        <button
+                            onClick={CriarConta}
+                            className="btn-signIn">
+                            Criar conta
+                        </button>
+                    )}
                 </div>
 
             </section>
 
-           
-           
+
+
 
         </div>
     )

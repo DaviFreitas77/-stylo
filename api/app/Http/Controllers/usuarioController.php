@@ -98,6 +98,10 @@ class usuarioController extends Controller
             $verificacao->delete();
             return response()->json(['message' => 'E-mail confirmado com sucesso!'], 200);
         }
+        
+        if(!$verificacao){
+            return response()->json(['message' => 'Código incorreto!'], 400);
+        }
     }
 
 

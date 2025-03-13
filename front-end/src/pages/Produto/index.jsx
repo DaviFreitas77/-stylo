@@ -23,6 +23,7 @@ import ContentLoader from "react-content-loader";
 import { addFavorito } from "../../store/modules/Favorito/action";
 import { addCarrinho } from "../../store/modules/carrinho/actions";
 
+
 export default function Produto() {
     const dispatch = useDispatch();
     const [subCategoria, setSubCateogira] = useState();
@@ -150,6 +151,7 @@ export default function Produto() {
 
     return (
         <div className="container-produto">
+             <Header/>
             {roupa.map((item, index) => (
                 <section className="section-info-produto">
 
