@@ -58,7 +58,7 @@ export default function VerificarEmail() {
         <div className="containerVerificarEmail">
             <div>
                 <h2>Digite o codigo que recebeu</h2>
-                <p>O codigo de 4 digitos foi enviado para <strong>{emailVerificar ? emailVerificar : email} </strong></p>
+                <p className="email">O codigo de 4 digitos foi enviado para <strong>{emailVerificar ? emailVerificar : email} </strong></p>
                 <input type="number"
                     onChange={(e) => setCodigo(e.target.value)}
                     placeholder="Código"
