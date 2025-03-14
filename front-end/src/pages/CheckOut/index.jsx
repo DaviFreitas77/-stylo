@@ -5,6 +5,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import ModalScreen from '../../components/Modal';
 import payment from '../../assets/lottie/payment.json'
+import Header from '../../components/Header';
 
 
 import Dots from "react-activity/dist/Dots";
@@ -80,64 +81,61 @@ export default function Checkout() {
     }
     return (
 
-        <div className="containerCheckOut">
-            <div className="containerProdutoCheckOut">
-                <div className="produto">
-                    {produtos.map((produto, index) => (
-                        <div className="containerProduto" key={index}>
-                            <div className="produtoCheck">
-                                <img className="imgCheckOutProduto" src={produto.imagem_produto} alt="" />
-                                <div className="infoProdutoCheck">
-                                    <p className="nomeCheckOut">{produto.nome_produto}</p>
-                                    <p>vendido por STYLO</p>
-                                    <p>tamanho: {produto.desc_tamanho}</p>
-                                    <p>cor: {produto.desc_cor}</p>
-                                    <p>quantidade: {produto.quantidade}</p>
-                                    <span className="last-price">R$ 290,00</span>
-                                    <span className="price-carrinho">R$ {produto.preco_produto}</span>
+            <div>
+                <Header/>
+                        <div className="containerCheckOut">
+                <div className="containerProdutoCheckOut">
+                    <div className="produto">
+                        {produtos.map((produto, index) => (
+                            <div className="containerProduto" key={index}>
+                                <div className="produtoCheck">
+                                    <img className="imgCheckOutProduto" src={produto.imagem_produto} alt="" />
+                                    <div className="infoProdutoCheck">
+                                        <p className="nomeCheckOut">{produto.nome_produto}</p>
+                                        <p>vendido por STYLO</p>
+                                        <p>tamanho: {produto.desc_tamanho}</p>
+                                        <p>cor: {produto.desc_cor}</p>
+                                        <p>quantidade: {produto.quantidade}</p>
+                                        <span className="last-price">R$ 290,00</span>
+                                        <span className="price-carrinho">R$ {produto.preco_produto}</span>
+                                    </div>
                                 </div>
+                                <div className="linha"></div>
                             </div>
-                            <div className="linha"></div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            <section className="containerPagamento">
-
-                <h2>Pagamento</h2>
-
-                <div className="containerTotalChecl">
-                    <CardElement />
-                    <h2 className="h2CheckOut">Resumo da compra</h2>
-                    <div className="totalCheck">
-                        Total: ({produtos.length} itens)
-                        <h3>R$ {calcularTotal()}</h3>
+                        ))}
                     </div>
-                    {payLoading ? (
-                        <button onClick={pay} className="botao" disabled>
-                            <Dots />
-                        </button>
-                    ) : (
-                        <button onClick={pay} className="botao">
-                            Finalizar
-                        </button>
-                    )}
-
                 </div>
-            </section>
-
-            <ModalScreen
-                titulo='Pagamento concluido'
-                txtButton="Acompanhe seus pedidos"
-                options={defaultOptions}
-                openModal={true}
-                modalOpen={isOpen}
-                setModalOpen={setIsOpen}
-
-            />
-
-        </div>
+                <section className="containerPagamento">
+                    <h2>Pagamento</h2>
+                    <div className="containerTotalChecl">
+                        <CardElement />
+                        <h2 className="h2CheckOut">Resumo da compra</h2>
+                        <div className="totalCheck">
+                            Total: ({produtos.length} itens)
+                            <h3>R$ {calcularTotal()}</h3>
+                        </div>
+                        {payLoading ? (
+                            <button onClick={pay} className="botao" disabled>
+                                <Dots />
+                            </button>
+                        ) : (
+                            <button onClick={pay} className="botao">
+                                Finalizar
+                            </button>
+                        )}
+                    </div>
+                </section>
+                <ModalScreen
+                    titulo='Pagamento concluido'
+                    txtButton="Acompanhe seus pedidos"
+                    options={defaultOptions}
+                    openModal={true}
+                    modalOpen={isOpen}
+                    setModalOpen={setIsOpen}
+                />
+                
+                        </div>
+            </div>
 
     );
 }

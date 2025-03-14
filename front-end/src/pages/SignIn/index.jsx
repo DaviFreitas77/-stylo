@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import './style.css'
 import Botao from "../../components/Botao";
 import { FcGoogle } from "react-icons/fc";
-import InputMask from 'react-input-mask'
+import { IMaskInput } from "react-imask";
 import { Context } from "../../Contexto/provider";
 import { useNavigate } from "react-router-dom";
 import Dots from "react-activity/dist/Dots";
@@ -87,8 +87,8 @@ export default function SignIn() {
                 <div className="containerInputLogin">
                     <div>
                         <p>Infome seu CPF</p>
-                        <InputMask
-                            mask="999.999.999-99"
+                        <IMaskInput 
+                              mask="000.000.000-00"
                             className={`input ${senhaError ? 'input-error' : ''} `}
                             type="text"
                             placeholder="CPF"

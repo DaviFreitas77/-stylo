@@ -1,7 +1,7 @@
 import { produce } from "immer";
 
 export default function favorito(state = [], action) {
-    console.log(state);
+   
 
     switch (action.type) {
         case 'ADD_FAVORITO':

@@ -151,9 +151,9 @@ export default function Produto() {
 
     return (
         <div className="container-produto">
-             <Header/>
+            <Header />
             {roupa.map((item, index) => (
-                <section className="section-info-produto">
+                <section className="section-info-produto" key={index}>
 
                     <div className="div-img-produto">
                         <img className="img-produto" src={item.imagem_produto} alt="" />

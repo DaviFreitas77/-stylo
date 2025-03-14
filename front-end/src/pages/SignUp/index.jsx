@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import InputMask from "react-input-mask";
+import { IMaskInput } from "react-imask";
 import './style.css'
 import { useNavigate } from "react-router-dom";
 import signUp from '../../assets/lottie/signUp.json'
@@ -82,8 +82,8 @@ export default function SignUp() {
                 <div className="containerInputLogin">
                     <div>
                         <p>CPF</p>
-                        <InputMask
-                            mask="999.999.999-99"
+                        <IMaskInput
+                            mask="000.000.00-00"
                             className="input"
                             type="text"
                             placeholder="CPF"
@@ -106,8 +106,8 @@ export default function SignUp() {
 
                     <div>
                         <p>Numero</p>
-                        <InputMask
-                            mask="(99)999999999"
+                        <IMaskInput
+                            mask="(00)000000000"
                             className="input"
                             type="text"
                             placeholder="(00)0000000000"

@@ -33,7 +33,7 @@
     margin-bottom: 30px; 
     padding: 25px; 
     max-width: 450px; /* Ajustando para cards mais largos em telas grandes */
-    height: 500px; /* Aumentando a altura para deixar o card mais alto */
+   
     background-color: #DFDFDF; /* Para que o card tenha um fundo mais destacado */
     transition: transform 0.3s ease; 
     transform-origin: center center; 
@@ -116,7 +116,7 @@
         margin-bottom: 30px; 
         padding: 5px; 
         max-width: 550px; /* Ajustando para cards mais largos em telas grandes */
-        height: 500px; /* Aumentando a altura para deixar o card mais alto */
+      
         background-color: #DFDFDF; /* Para que o card tenha um fundo mais destacado */
     }
     
