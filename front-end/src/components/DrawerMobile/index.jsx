@@ -27,7 +27,7 @@ export default function DrawerMobile() {
 
 
 
-            <div className="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" >
+            <div className="offcanvas offcanvas-start" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                 <div className="offcanvas-header">
 
                 </div>
@@ -42,7 +42,7 @@ export default function DrawerMobile() {
                                         ola {nome}
                                     </p>
                                 </div>
-                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                             </div>
                             <div className="buttons_drawer_mobile">
                                 <Link className="favoritos" to="/favorito">Meus favoritos</Link>
@@ -65,7 +65,7 @@ export default function DrawerMobile() {
                                     <Link to="/Login" className="nome_drawer">Fazer login</Link>
 
                                 </div>
-                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                             </div>
                             
                         </div>

@@ -50,9 +50,8 @@ export default function DrawerCarrinho() {
     }
 
     useEffect(() => {
-        console.log("idUsuario:", idUsuario); // Verifica o valor
 
-    if (!idUsuario) return; // Se for undefined, não faz o fetch
+    if (!idUsuario) return; 
         const fetchCarrinho = async () => {
             try {
                 const response = await fetch(`http://127.0.0.1:8000/api/carrinho?id_usuario=${idUsuario}`, {
