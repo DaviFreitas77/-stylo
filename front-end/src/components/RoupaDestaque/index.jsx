@@ -50,7 +50,7 @@ export default function Destaque() {
                     modules={[Autoplay, Navigation, Pagination]}
                     spaceBetween={4}
                     slidesPerView={3}
-                    loop={true}
+                    loop={false}
                     navigation
                     autoplay={{
                         delay: 2000,

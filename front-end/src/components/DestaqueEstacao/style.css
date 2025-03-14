@@ -68,8 +68,9 @@
     font-size: 20px;
     font-weight: bold;
     margin-top: 15px;
-    text-align: start;
+    text-align: center;
     color: #333;
+
 }
 
 .swiper-estacao {
@@ -115,9 +116,9 @@
         width: 100%;
         margin-bottom: 30px; 
         padding: 5px; 
-        max-width: 550px; /* Ajustando para cards mais largos em telas grandes */
+        max-width: 550px; 
       
-        background-color: #DFDFDF; /* Para que o card tenha um fundo mais destacado */
+        background-color: #DFDFDF; 
     }
     
 
@@ -125,11 +126,7 @@
         font-size: 20px;
     }
 
-    .img-card-estacao {
-        width: 100%; /* A imagem vai ocupar 100% do card */
-        height: 100%; /* A altura da imagem será 60% da altura total do card */
-      
-    }
+
    
     
 

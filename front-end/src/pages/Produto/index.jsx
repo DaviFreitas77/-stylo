@@ -241,7 +241,7 @@ export default function Produto() {
                         modules={[Autoplay, Navigation, Pagination]}
                         spaceBetween={4}
                         slidesPerView={4}
-                        loop={true}
+                        loop={false}
                         autoplay={{
                             delay: 2000,
                             disableOnInteraction: false

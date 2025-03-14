@@ -41,9 +41,12 @@
     opacity: .9;
 }
 .nome-roupa{
-    margin-top: 20px;
-    font-size: 1rem;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
     text-align: center;
+    color: #333;
+    
 
 }
 .preco-roupa{

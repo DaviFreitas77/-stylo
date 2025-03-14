@@ -75,15 +75,10 @@ export default function DestaqueEstacao() {
                         1024: {
                             slidesPerView: 4,
                         },
-                        768: {
-                            slidesPerView: 3,
-                        },
-                        468: {
-                            slidesPerView: 2,
-                        },
                         0: {
-                            slidesPerView: 1,
+                            slidesPerView: 2,
                         }
+                       
                     }}
                 >
                     {loading ? (

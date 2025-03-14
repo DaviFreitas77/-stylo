@@ -13,6 +13,10 @@ export const Provider = ({ children }) => {
   
 
   useEffect(() => {
+
+
+
+    
     if(!idUsuario) return;
     const fetchIdCarrinho = async () => {
       const carrinho = await fetch(`http://127.0.0.1:8000/api/carrinho?id_usuario=${idUsuario}`, {

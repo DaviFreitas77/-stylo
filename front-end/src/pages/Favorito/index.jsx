@@ -7,19 +7,18 @@ import Header from "../../components/Header";
 export default function Favorito() {
 
     const produtos = useSelector(state => state.favorito)
-    console.log('aa', produtos)
     const navigate = useNavigate();
     const idUsuario = localStorage.getItem('id_usuario')
     const dispatch = useDispatch()
 
 
     useEffect(() => {
+        if(!idUsuario) return;
         const fetchProduto = async () => {
             try {
                 const response = await fetch(`http://127.0.0.1:8000/api/favoritos?id_usuario=${idUsuario}`)
 
                 const data = await response.json()
-                console.log(data)
                 dispatch({
                     type: 'LOAD_FAVORITO',
                     payload: data
