@@ -1,58 +1,72 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './style.css'
 
 import { useNavigate } from "react-router-dom";
 import ContentLoader from "react-content-loader";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-
-
+import { useQuery } from "@tanstack/react-query";
+import { Context } from '../../Contexto/provider'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+
+
+const getProduto = async () => {
+    const response = await fetch('http://127.0.0.1:8000/api/destaqueEstacao', {
+        method: 'GET',
+    });
+
+    if (!response.ok) {
+        throw new Error()
+    }
+    return response.json()
+}
+
 export default function DestaqueEstacao() {
+    const { url } = useContext(Context)
     const navigate = useNavigate();
-    const [produto, setProduto] = useState([])
-    const [quantidadeProduto, setQuantidadeProduto] = useState()
-    const [loading, setLoading] = useState(false)
 
-    useEffect(() => {
-        const getProduto = async () => {
-            setLoading(true)
-            try {
-                const response = await fetch('http://127.0.0.1:8000/api/destaqueEstacao', {
-                    method: 'GET',
-                });
+    const { data: produto, isLoading } = useQuery({
+        queryKey: ['produto'],
+        queryFn: () => getProduto(url)
+    })
 
-                const data = await response.json()
-                setProduto(data)
-                setQuantidadeProduto(data.length);
-                setLoading(false)
+    if (isLoading) {
+        return (
+            <Swiper
+                slidesPerView={5}
+                spaceBetween={10}
+                loop={true}
+                breakpoints={{
+                    1024: { slidesPerView: 4 }, //  Desktop: 5 slides
+                    768: { slidesPerView: 3 },  //  Tablet: 3 slides
+                    0: { slidesPerView: 2 }     //  Mobile: 1 slide
+                }}
+                className="swiper-loading"
+            >
+                {Array.from({ length: 5 }, (_, index) => (
+                    <SwiperSlide key={index}>
+                        <ContentLoader
+                            speed={3}
+                            width={400}
+                            height={300}
+                            backgroundColor="gray"
+                            foregroundColor="black"
+                        >
+                            <rect x="16" y="16" rx="10" ry="10" width="200" height="230" />
+                            <rect x="16" y="275" rx="5" ry="5" width="50" height="20" />
+                            <rect x="16" y="250" rx="5" ry="5" width="100" height="20" />
+                        </ContentLoader>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        );
+    }
+    
 
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getProduto()
-    }, [])
-    const shimmerPlaceholder = () => {
-        return Array.from({ length: 5 }, (_, index) => (
-            <SwiperSlide key={index}>
-                <ContentLoader
-                    speed={3}
-                    width={400}
-                    height={300}
-                    backgroundColor="gray"
-                    foregroundColor="black"
-                >
-                    <rect x="16" y="16" rx="10" ry="10" width="200" height="230" />
-                    <rect x="16" y="275" rx="5" ry="5" width="50" height="20" />
-                    <rect x="16" y="250" rx="5" ry="5" width="100" height="20" />
-                </ContentLoader>
-            </SwiperSlide>
-        ));
-    };
+    
     return (
         <div className="container-destaque-estacao">
             <img className="banner-estação" src="/img/inverno.png" alt="" />
@@ -78,40 +92,35 @@ export default function DestaqueEstacao() {
                         0: {
                             slidesPerView: 2,
                         }
-                       
+
                     }}
                 >
-                    {loading ? (
-                        <div className="container-cards">
-                            {shimmerPlaceholder()}
-                        </div>
-                    ) : (
-                        <div className="container-cards">
-                            {produto.map((item, index) => {
-                                return (
-                                    <SwiperSlide
-                                        key={index}
-                                    >
-                                        <button
-                                            onClick={() => {
-                                                navigate(`/produto/${item.id_produto}`);
-                                            }}
 
-                                            className="card-estacao">
+                    <div className="container-cards">
+                        {produto.map((item, index) => {
+                            return (
+                                <SwiperSlide
+                                    key={index}
+                                >
+                                    <button
+                                        onClick={() => {
+                                            navigate(`/produto/${item.id_produto}`);
+                                        }}
 
-                                            <img className="img-card-estacao" src={item.imagem_produto} alt="" />
+                                        className="card-estacao">
 
-                                            <div className="nomeEprecoCard">
-                                                <p className="nome-card">{item.nome_produto}</p>
-                                                <p className="preco-card">{item.preco_produto}</p>
-                                            </div>
-                                        </button>
-                                    </SwiperSlide>
+                                        <img className="img-card-estacao" src={item.imagem_produto} alt="" />
 
-                                )
-                            })}
-                        </div>
-                    )}
+                                        <div className="nomeEprecoCard">
+                                            <p className="nome-card">{item.nome_produto}</p>
+                                            <p className="preco-card">{item.preco_produto}</p>
+                                        </div>
+                                    </button>
+                                </SwiperSlide>
+
+                            )
+                        })}
+                    </div>
 
 
                 </Swiper>
