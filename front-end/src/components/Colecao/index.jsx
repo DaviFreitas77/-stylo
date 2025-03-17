@@ -26,24 +26,7 @@ export default function Colecao() {
     });
 
     if (isLoading) {
-
-        return (
-            <div className="d-flex">
-                {Array.from({ length: 2 }).map((_, index) => (
-                        <ContentLoader
-                        key={index}
-                            speed={3}
-                            width="50%" 
-                            height={300} 
-                            backgroundColor="gray"
-                            foregroundColor="black"
-                        >
-                            <rect x="1" y="1" rx="0" ry="0" width="100%" height="50%" />
-                        </ContentLoader>
-                   
-                ))}
-            </div>
-        );
+        return <Loading />;
     }
 
     if (isError) {
