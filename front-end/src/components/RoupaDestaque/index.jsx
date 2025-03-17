@@ -7,35 +7,38 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useNavigate } from "react-router-dom";
-
-
-
-
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { useQuery } from "@tanstack/react-query";
+import { Context } from "../../Contexto/provider";
+import Loading from "../Loading/LoadingAnimation";
 
+const fetchDestaque = async (url) => {
+    const response = await fetch(`${url}/getDestaque`, {
+        method: 'GET',
+    });
+
+    if (!response.ok) {
+        throw new Error('Erro ao buscar categorias')
+    }
+
+    return response.json()
+}
 
 export default function Destaque() {
-    const [produtoDestaque, setProdutoDestaque] = useState([]);
-
+    const { url } = useContext(Context)
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const produtoDestaque = async () => {
+    const { data: produtoDestaque, isLoading, isError, error } = useQuery({
+        queryKey: ['produtoDestaque'],
+        queryFn: () => fetchDestaque(url)
+    })
+    if (isLoading) {
+        return <Loading />;
+    }
 
-            try {
-                const response = await fetch('http://127.0.0.1:8000/api/getDestaque', {
-                    method: 'GET',
-                });
-
-                const data = await response.json();
-                setProdutoDestaque(data);
-
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        produtoDestaque();
-    }, []);
+    if (isError) {
+        return <div>Error: {error.message}</div>;
+    }
 
 
     return (

@@ -5,11 +5,11 @@ import { Context } from "../../Contexto/provider";
 import { useNavigate } from "react-router-dom";
 import Dots from "react-activity/dist/Dots";
 import "react-activity/dist/Dots.css";
-import { useForm,Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { IMaskInput } from "react-imask";
 
 export default function SignIn() {
-    const { control,register, handleSubmit, formState: { errors } } = useForm();
+    const { control, register, handleSubmit, formState: { errors } } = useForm();
     const { setNomeUsuario } = useContext(Context);
     const [loadingBtn, setLoadingBtn] = useState(false);
     const navigate = useNavigate();

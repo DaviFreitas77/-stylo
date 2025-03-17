@@ -1,13 +1,12 @@
-import React from "react";
-
-import { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../Loading/LoadingAnimation";
 import { useQuery } from "@tanstack/react-query";
-import './style.css'
+import './style.css';
+import { Context } from "../../Contexto/provider";
 
-const fetchCategorias = async () => {
-    const response = await fetch("http://127.0.0.1:8000/api/getCategorias", {
+const fetchCategorias = async (url) => {
+    const response = await fetch(`${url}/getCategorias`, {
         method: "GET",
     });
 
@@ -18,11 +17,11 @@ const fetchCategorias = async () => {
     return response.json();
 };
 
-
 export default function Colecao() {
+    const { url } = useContext(Context);
     const { data: categoria, isLoading, isError, error } = useQuery({
         queryKey: ["categorias"],
-        queryFn: fetchCategorias,
+        queryFn: () => fetchCategorias(url),
     });
 
     if (isLoading) {
@@ -32,7 +31,6 @@ export default function Colecao() {
     if (isError) {
         return <div>Error: {error.message}</div>;
     }
-
 
     return (
         <div className="container-colecao">
@@ -54,7 +52,5 @@ export default function Colecao() {
                 <p>Nenhuma categoria encontrada.</p>
             )}
         </div>
-
-
-    )
+    );
 }

@@ -7,17 +7,17 @@ export const Provider = ({ children }) => {
   const [itensCarrinho, setItensCarrinho] = useState([])
   const [idCarrinho, setIdCarrinho] = useState('')
   const [url, setUrl] = useState('')
-  const [token,setToken] = useState('')
+  const [token, setToken] = useState('')
   const idUsuario = localStorage.getItem("id_usuario");
-  const [emailVerificar,setEmailVerificar] = useState('')
-  
+  const [emailVerificar, setEmailVerificar] = useState('')
 
   useEffect(() => {
+    setUrl('http://127.0.0.1:8000/api');
+  }, [url])
 
 
-
-    
-    if(!idUsuario) return;
+  useEffect(() => {
+    if (!idUsuario) return;
     const fetchIdCarrinho = async () => {
       const carrinho = await fetch(`http://127.0.0.1:8000/api/carrinho?id_usuario=${idUsuario}`, {
         method: 'GET'
@@ -30,10 +30,12 @@ export const Provider = ({ children }) => {
     fetchIdCarrinho();
   }, [])
 
+
+
   return (
 
 
-    <Context.Provider value={{ nomeUsuario, setNomeUsuario, url, setUrl, setItensCarrinho, itensCarrinho, idCarrinho, setIdCarrinho,setToken,token,setEmailVerificar,emailVerificar}}>
+    <Context.Provider value={{ nomeUsuario, setNomeUsuario, url, setUrl, setItensCarrinho, itensCarrinho, idCarrinho, setIdCarrinho, setToken, token, setEmailVerificar, emailVerificar }}>
       {children}
     </Context.Provider>
   )
