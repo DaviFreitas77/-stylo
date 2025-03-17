@@ -6,23 +6,21 @@ import signUp from '../../assets/lottie/signUp.json'
 import { Context } from "../../Contexto/provider";
 import Dots from "react-activity/dist/Dots";
 import "react-activity/dist/Dots.css";
+import { useForm, Controller } from "react-hook-form";
 export default function SignUp() {
 
-    const [cpf, setCpf] = useState('')
-    const [senha, setSenha] = useState('')
-    const [numero, setNumero] = useState('')
-    const [email, setEmail] = useState('')
-    const [nome, setNome] = useState('')
-    const [loadinButton, setLoadingButton] = useState(false)
+
+    const { control, register, handleSubmit, formState: { errors } } = useForm();
+    const [loadingButton, setLoadingButton] = useState(false)
     const navigate = useNavigate();
 
 
 
-    const CriarConta = async () => {
+    const CriarConta = async (data) => {
         setLoadingButton(true)
-        if (!cpf || !senha || !numero || !nome) {
+        if (!data.cpf || !data.senha || !data.numero || !data.nome) {
             setLoadingButton(false)
-            alert('Preencha todos os campos')
+            return;
         }
         try {
             const response = await fetch('http://127.0.0.1:8000/api/criarUsuario', {
@@ -31,11 +29,11 @@ export default function SignUp() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    cpf_usuario: cpf,
-                    nome_usuario: nome,
-                    email_usuario: email,
-                    numero_usuario: numero,
-                    senha_usuario: senha
+                    cpf_usuario: data.cpf,
+                    nome_usuario: data.nome,
+                    email_usuario: data.email,
+                    numero_usuario: data.numero,
+                    senha_usuario: data.senha
                 })
             })
 
@@ -43,13 +41,7 @@ export default function SignUp() {
                 const errorData = await response.json();
                 alert(errorData.message)
             } else {
-                const data = await response.json();
-                setNome('')
-                setCpf('')
-                setNumero('')
-                setSenha('')
-                 localStorage.setItem('emailVerificar',email)
-                setEmail('')
+                localStorage.setItem('emailVerificar', data.email)
                 navigate('/VerificarEmail')
 
 
@@ -64,101 +56,105 @@ export default function SignUp() {
 
     }
 
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: signUp
-    }
-
     return (
         <div className="container-signIn">
             <section className="login">
                 <div className="containerH3Login">
                     <h3 className="h3-sigIn">Vamos criar sua conta  </h3>
-                    <p>Os campos abaixo são essenciais para criarmos sua conta Centauro</p>
+                    <p>Os campos abaixo são essenciais para criarmos sua conta </p>
                 </div>
 
 
-                <div className="containerInputLogin">
+                <form
+                    onSubmit={handleSubmit(CriarConta)}
+                    className="containerInputLogin">
                     <div>
                         <p>CPF</p>
-                        <IMaskInput
-                            mask="000.000.00-00"
-                            className="input"
-                            type="text"
-                            placeholder="CPF"
-                            onChange={(txt) => setCpf(txt.target.value)}
-                            value={cpf}
+                        <Controller
+                            name="cpf"
+                            control={control}
+                            rules={{ required: 'o cpf é obrigatório' }}
+                            render={({ field }) => (
+                                <IMaskInput
+                                    {...field}
+                                    mask="000.000.000-00"
+                                    className="input"
+                                    placeholder="CPF"
 
+                                />
+                            )}
                         />
+                        {errors.cpf && <p className="error fs-6 text">{errors.cpf.message}</p>}
+
                     </div>
                     <div>
                         <p>Nome</p>
                         <input
+                            {...register("nome", { required: "o nome é obrigatório" })}
                             type="text"
                             className="input"
                             placeholder="EX: Davi"
-                            onChange={(txt) => setNome(txt.target.value)}
-                            value={nome}
+                            name="nome"
+
 
                         />
+                        {errors.nome && <p className="error fs-6 text">{errors.nome.message}</p>}
                     </div>
 
                     <div>
                         <p>Numero</p>
-                        <IMaskInput
-                            mask="(00)000000000"
-                            className="input"
-                            type="text"
-                            placeholder="(00)0000000000"
-                            onChange={(txt) => setNumero(txt.target.value)}
-                            value={numero}
+                        <Controller
+                            name="numero"
+                            control={control}
+                            rules={{ required: 'o numero é obrigatório' }}
+                            render={({ field }) => (
+                                <IMaskInput
+                                    {...field}
+                                    mask="(00)000000000"
+                                    className="input"
+                                    type="text"
+                                    placeholder="(00)0000000000"
 
+
+                                />
+                            )}
                         />
+                        {errors.numero && <p className="error fs-6 text">{errors.numero.message}</p>}
                     </div>
                     <div>
                         <p>Email</p>
                         <input type="email"
+                            {...register("email", { required: "o email é obrigatório" })}
+                            name="email"
                             className="input"
                             placeholder="Email"
-                            onChange={(txt) => setEmail(txt.target.value)}
-                            value={email}
-
                         />
+                        {errors.email && <p className="error fs-6 text">{errors.email.message}</p>}
                     </div>
+
 
 
 
                     <div className="containerInputSenha">
                         <p>Senha</p>
                         <input
+                            {...register("senha", { required: 'a senha é obrigatória' })}
+                            name="senha"
                             className="input"
                             type="password"
                             placeholder="*********"
-                            onChange={(txt) => setSenha(txt.target.value)}
-                            value={senha}
 
                         />
+                        {errors.senha && <p className="error fs-6 text">{errors.senha.message}</p>}
 
                     </div>
-                </div>
+                    <button type="submit" className="btn-signIn">
+                        {loadingButton ? <Dots /> : "Criar conta"}
+                    </button>
+                </form>
                 <div className="buttonsLogin">
 
-                    {loadinButton ? (
-                        <button
-                            onClick={CriarConta}
-                            className="btn-signIn">
-                            <Dots />
 
-                        </button>
-
-                    ) : (
-                        <button
-                            onClick={CriarConta}
-                            className="btn-signIn">
-                            Criar conta
-                        </button>
-                    )}
                 </div>
 
             </section>

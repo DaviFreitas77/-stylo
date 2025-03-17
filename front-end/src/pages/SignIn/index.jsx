@@ -1,147 +1,129 @@
 import React, { useContext, useEffect, useState } from "react";
-import './style.css'
-import Botao from "../../components/Botao";
+import "./style.css";
 import { FcGoogle } from "react-icons/fc";
-import { IMaskInput } from "react-imask";
 import { Context } from "../../Contexto/provider";
 import { useNavigate } from "react-router-dom";
 import Dots from "react-activity/dist/Dots";
 import "react-activity/dist/Dots.css";
-export default function SignIn() {
-    const [cpf, setCpf] = useState('')
-    const [senha, setSenha] = useState('')
-    const [email, setEmail] = useState('')
-    const { setNomeUsuario, setToken } = useContext(Context)
-    const [senhaError, setSenhaError] = useState(false);
-    const [loadingBtn, setLoadingBtn] = useState(false)
+import { useForm,Controller } from "react-hook-form";
+import { IMaskInput } from "react-imask";
 
+export default function SignIn() {
+    const { control,register, handleSubmit, formState: { errors } } = useForm();
+    const { setNomeUsuario } = useContext(Context);
+    const [loadingBtn, setLoadingBtn] = useState(false);
     const navigate = useNavigate();
 
-
     useEffect(() => {
-        const nome = localStorage.getItem('nome')
-
-        if (nome) {
-            navigate('/')
+        if (localStorage.getItem("nome")) {
+            navigate("/");
         }
-    }, [])
-    const login = async () => {
-        setLoadingBtn(true)
-        if (!cpf || !senha) {
-            alert('Preencha todos os campos');
-            setSenhaError(true);
-            setLoadingBtn(false)
+    }, [navigate]);
+
+    const login = async (data) => {
+        setLoadingBtn(true);
+
+        if (!data.cpf || !data.senha) {
+            setLoadingBtn(false);
             return;
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/login', {
-                method: 'POST',
+            const response = await fetch("http://127.0.0.1:8000/api/login", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
                 },
-                body: JSON.stringify({ cpf: cpf, senha: senha })
+                body: JSON.stringify({ cpf: data.cpf, senha: data.senha }),
             });
 
-            const data = await response.json();
+            const responseData = await response.json();
 
             if (response.status === 403) {
-
-                navigate('/VerificarEmail', { state: { email: data.email_usuario } });
+                navigate("/VerificarEmail", { state: { email: responseData.email_usuario } });
                 return;
             }
 
             if (response.ok) {
-                const usuario = data[0];
+                const usuario = responseData[0];
                 setNomeUsuario(usuario.nome_usuario);
                 localStorage.setItem("nome", usuario.nome_usuario);
-                localStorage.setItem('id_usuario', usuario.id_usuario);
-                navigate('/');
+                localStorage.setItem("id_usuario", usuario.id_usuario);
+                navigate("/");
             } else {
-                alert('Erro ao fazer login. Verifique suas credenciais.');
-                
+                alert("Erro ao fazer login. Verifique suas credenciais.");
             }
-
         } catch (error) {
-            alert('Erro de conexão. Tente novamente mais tarde.');
             console.error(error);
         } finally {
-            setLoadingBtn(false)
+            setLoadingBtn(false);
         }
     };
 
-
-
     return (
         <div className="container-signIn">
-
             <section className="login">
-
                 <div className="containerH3Login">
                     <h3 className="h3-sigIn">Que bom ter você aqui</h3>
-                    <p>entre e aproveite o melhor da stylo</p>
+                    <p>Entre e aproveite o melhor da Stylo</p>
                 </div>
 
-
-                <div className="containerInputLogin">
+                <form onSubmit={handleSubmit(login)} className="containerInputLogin">
                     <div>
-                        <p>Infome seu CPF</p>
-                        <IMaskInput 
-                              mask="000.000.000-00"
-                            className={`input ${senhaError ? 'input-error' : ''} `}
-                            type="text"
-                            placeholder="CPF"
-                            onChange={(txt) => setCpf(txt.target.value)}
-                            value={cpf}
+                        <p>Informe seu CPF</p>
+                        {/* useform não suporta diretamente o inputMask,por isso tem que usar o controller,O Controller gerencia o estado do input e mantém o valor corretamente sincronizado com o hook-form */}
+
+                        <Controller
+                            name="cpf"
+                            control={control}
+                            rules={{ required: "CPF é obrigatório" }}
+                            render={({ field }) => (
+                                <IMaskInput
+                                    {...field}
+                                    mask="000.000.000-00"
+                                    className="input"
+                                    placeholder="CPF"
+                                />
+                            )}
                         />
+                        {errors.cpf && <p className="error fs-6 text">{errors.cpf.message}</p>}
                     </div>
-
-
 
                     <div className="containerInputSenha">
-                        <p>Infome sua senha</p>
+                        <p>Informe sua senha</p>
                         <input
-                            className={`input ${senhaError ? 'input-error' : ''} `}
+                            {...register("senha", { required: "Senha é obrigatória" })}
+                            className="input"
                             type="password"
                             placeholder="Senha"
-                            onChange={(txt) => setSenha(txt.target.value)}
-                            value={senha}
                         />
+                        {errors.senha && <p className="error fs-6 text">{errors.senha.message}</p>}
                         <span className="esqueciSenha">Esqueci minha senha</span>
                     </div>
-                </div>
-                <div className="buttonsLogin">
-                    {loadingBtn ? (
-                        <button
-                            onClick={login}
-                            className="btn-signIn">
-                            <Dots />
-                        </button>
 
-                    ) : (
-
-                        <button
-                            onClick={login}
-                            className="btn-signIn">
-                            Entrar
+                    <div className="buttonsLogin">
+                        <button type="submit" className="btn-signIn">
+                            {loadingBtn ? <Dots /> : "Entrar"}
                         </button>
-                    )}
-                    <button
-                        onClick={() => navigate('/criarConta')}
-                        className="btn-criarConta">
-                        Criar conta
-                    </button>
-                </div>
+                        <button
+                            onClick={() => navigate("/criarConta")}
+                            className="btn-criarConta"
+                            type="button"
+                        >
+                            Criar conta
+                        </button>
+                    </div>
+                </form>
+
                 <div className="entrarComGoogle">
                     <span>ou</span>
                     <button className="btn-entrar-google">
                         <FcGoogle size={25} />
-                        Entrar com o google
+                        Entrar com o Google
                     </button>
                 </div>
             </section>
-
         </div>
-    )
+    );
 }
