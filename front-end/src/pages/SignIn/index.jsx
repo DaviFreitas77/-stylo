@@ -7,6 +7,7 @@ import Dots from "react-activity/dist/Dots";
 import "react-activity/dist/Dots.css";
 import { useForm, Controller } from "react-hook-form";
 import { IMaskInput } from "react-imask";
+import Cookies from "js-cookie";
 
 export default function SignIn() {
     const { control, register, handleSubmit, formState: { errors } } = useForm();
@@ -46,12 +47,21 @@ export default function SignIn() {
             }
 
             if (response.ok) {
-                const usuario = responseData[0];
-                setNomeUsuario(usuario.nome_usuario);
-                localStorage.setItem("nome", usuario.nome_usuario);
-                localStorage.setItem("id_usuario", usuario.id_usuario);
+                console.log(responseData)
+               
+                setNomeUsuario(responseData.nome);
+                localStorage.setItem("nome", responseData.nome);
+                localStorage.setItem("id_usuario", responseData.id);
+                {
+                    responseData.token && (
+                        localStorage.setItem("token", responseData.token)
+
+                    )
+                }
                 navigate("/");
-            } else {
+            }
+
+            else {
                 alert("Erro ao fazer login. Verifique suas credenciais.");
             }
         } catch (error) {
@@ -72,8 +82,7 @@ export default function SignIn() {
                 <form onSubmit={handleSubmit(login)} className="containerInputLogin">
                     <div>
                         <p>Informe seu CPF</p>
-                        {/* useform não suporta diretamente o inputMask,por isso tem que usar o controller,O Controller gerencia o estado do input e mantém o valor corretamente sincronizado com o hook-form */}
-
+                        {/* useform não suporta diretamente o inputMask,por isso tem que usar o controller */}
                         <Controller
                             name="cpf"
                             control={control}

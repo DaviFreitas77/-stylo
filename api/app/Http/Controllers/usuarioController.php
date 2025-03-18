@@ -98,8 +98,8 @@ class usuarioController extends Controller
             $verificacao->delete();
             return response()->json(['message' => 'E-mail confirmado com sucesso!'], 200);
         }
-        
-        if(!$verificacao){
+
+        if (!$verificacao) {
             return response()->json(['message' => 'Código incorreto!'], 400);
         }
     }
@@ -122,15 +122,16 @@ class usuarioController extends Controller
 
             return response()->json([
                 'message' => 'Verifique seu email e ative sua conta!',
-                 'email_usuario' => $usuario->email_usuario
+                'email_usuario' => $usuario->email_usuario
             ], 403);
         }
 
         if ($usuario && Hash::check($request->senha, $usuario->senha_usuario) && $usuario->confirmado == true) {
 
             return response()->json([
-                'message' => 'usuario',
-                $usuario
+                'id' => $usuario->id_usuario,
+                'nome' => $usuario->nome_usuario,
+                'email' => $usuario->email_usuario
             ], 200);
         }
 
@@ -138,7 +139,8 @@ class usuarioController extends Controller
             $token = $adm->createToken('admToken')->plainTextToken;
             return response()->json([
                 'message' => 'adm',
-                'adm' => $adm,
+                'nome' => $adm->nome_adm,
+                'id'=> $adm->id_adm,
                 'token' => $token
             ], 201);
         }
