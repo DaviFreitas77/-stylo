@@ -23,12 +23,12 @@ class produtoController extends Controller
         $produto->destaque_estacao = $request->destaque_estacao;
 
         $produto->save();
-        $tamanhosString = $request->tamanhos; 
+        $tamanhosString = $request->tamanhos;
         $cores = $request->cores;
 
-        
 
-        
+
+
         if ($produto->id_produto) {
             foreach ($tamanhosString as $tamanho) {
                 DB::table('tb_relacao_tamanho')->insert([
@@ -103,18 +103,50 @@ class produtoController extends Controller
         return response()->json($produtos);
     }
 
-    public function getProdutosMasculino(Request $request) {
-        $id_categoria =  $request->query('id_categoria'); 
+    public function getProdutosCategoria(Request $request)
+    {
+        $id_categoria =  $request->query('id_categoria');
 
-    
         $produtos = DB::table('tb_produto')
             ->join('tb_subCategoria', 'tb_produto.fk_subCategoria', '=', 'tb_subCategoria.id_subCategoria')
             ->join('tb_categoria', 'tb_subCategoria.fk_categoria', '=', 'tb_categoria.id_categoria')
             ->where('tb_categoria.id_categoria', $id_categoria)
-            ->select('tb_produto.id_produto','tb_produto.nome_produto','tb_produto.imagem_produto','tb_produto.preco_produto','tb_produto.preco_antigo_produto')
+            ->select('tb_produto.id_produto', 'tb_produto.nome_produto', 'tb_produto.imagem_produto', 'tb_produto.preco_produto', 'tb_produto.preco_antigo_produto', 'tb_categoria.nome_categoria')
             ->get();
-    
+
         return response()->json($produtos);
     }
-}
 
+    public function filtroProduto($id_subCategoria, $id_cor, $id_tamanho)
+    {
+        $query = Produto::query();
+    
+        // Aplica os filtros apenas se os parâmetros não forem nulos
+        if ($id_subCategoria) {
+            $query->where('fk_subCategoria', $id_subCategoria);
+        }
+    
+        if ($id_cor) {
+            $query->where('fk_cor', $id_cor);
+        }
+    
+        if ($id_tamanho) {
+            $query->where('fk_tamanho', $id_tamanho);
+        }
+    
+        $produtoFiltrado = $query->join('tb_relacao_cor', 'tb_produto.id_produto', '=', 'tb_relacao_cor.fk_item')
+            ->join('tb_cor', 'tb_relacao_cor.fk_cor', '=', 'tb_cor.id_cor')
+            ->join('tb_relacao_tamanho', 'tb_produto.id_produto', '=', 'tb_relacao_tamanho.fk_item')
+            ->join('tb_tamanho', 'tb_relacao_tamanho.fk_Tamanho', '=', 'tb_tamanho.id_tamanho')
+            ->select('tb_produto.id_produto', 'tb_produto.nome_produto', 'tb_produto.imagem_produto', 'tb_produto.preco_produto', 'tb_produto.preco_antigo_produto')
+            ->get();
+    
+        // Se não encontrar nenhum produto, retorna uma resposta vazia
+        if ($produtoFiltrado->isEmpty()) {
+            return response()->json(['message' =>'nenhum produto encontrado']);
+        }
+    
+        // Retorna os produtos filtrados
+        return response()->json($produtoFiltrado);
+    }
+}

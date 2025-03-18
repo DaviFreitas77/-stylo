@@ -25,4 +25,14 @@ class subCategoriaController extends Controller
 
         return response()->json($subCategoria);
     }
+
+  public function getSubCategoria($id_categoria){
+    if(!$id_categoria){
+        return;
+    }
+
+    $subCategorias = Subcategoria::where('fk_categoria',$id_categoria)->get();
+
+    return response()->json($subCategorias);
+  }
 }
