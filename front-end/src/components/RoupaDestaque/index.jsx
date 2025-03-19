@@ -11,33 +11,17 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { useQuery } from "@tanstack/react-query";
 import { Context } from "../../Contexto/provider";
 import Loading from "../Loading/LoadingAnimation";
+import { ProductFeatured } from "../../Hooks/productFeatured";
 
-const fetchDestaque = async (url) => {
-    const response = await fetch(`${url}/getDestaque`, {
-        method: 'GET',
-    });
 
-    if (!response.ok) {
-        throw new Error('Erro ao buscar categorias')
-    }
-
-    return response.json()
-}
 
 export default function Destaque() {
-    const { url } = useContext(Context)
+    const { product, isLoading } = ProductFeatured(); 
     const navigate = useNavigate();
 
-    const { data: produtoDestaque, isLoading, isError, error } = useQuery({
-        queryKey: ['produtoDestaque'],
-        queryFn: () => fetchDestaque(url)
-    })
-    if (isLoading) {
-        return <Loading />;
-    }
 
-    if (isError) {
-        return <div>Error: {error.message}</div>;
+    if (isLoading) {
+        return <Loading />; // Exibe um componente de loading enquanto os dados estão sendo carregados
     }
 
 
@@ -70,7 +54,7 @@ export default function Destaque() {
                     }}
                 >
                     <section className="colecao-destaque">
-                        {produtoDestaque.map((item, index) => {
+                        {product?.map((item, index) => {
                             return (
                                 <SwiperSlide key={index}>
                                     <button

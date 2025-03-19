@@ -11,7 +11,6 @@ export default function ProdutosCategoria() {
 
     const { id_categoria } = useParams();
     const [produtos, setProdutos] = useState([])
-
     const [subCategoria, setSubCategoria] = useState([])
     const [cor, setCor] = useState([])
     const [tamanho, setTamanho] = useState([])
@@ -23,7 +22,6 @@ export default function ProdutosCategoria() {
 
 
     const pegarCategoria = (item) => {
-
         setIdSubCategoria(item)
     }
 
@@ -39,9 +37,7 @@ export default function ProdutosCategoria() {
 
 
     const filtrarProduto = async () => {
-        console.log('tamanho',idTamanho)
-        console.log('suncategoria',id_subCategoria)
-        console.log('cor',idCor)
+
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/filtro/${id_subCategoria}/${idCor}/${idTamanho}`, {
                 method: 'GET'
@@ -129,7 +125,7 @@ export default function ProdutosCategoria() {
 
     return (
         <div>
-            <Header/>
+            <Header />
             <div className="container-categoria-produtos">
                 <section className="container-filters">
                     <div className="filter-group">

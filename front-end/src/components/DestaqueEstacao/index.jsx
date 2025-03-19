@@ -11,28 +11,16 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { featuredStation } from "../../Hooks/featuredStation";
 
 
-const getProduto = async () => {
-    const response = await fetch('http://127.0.0.1:8000/api/destaqueEstacao', {
-        method: 'GET',
-    });
 
-    if (!response.ok) {
-        throw new Error()
-    }
-    return response.json()
-}
 
 export default function DestaqueEstacao() {
+    const { produto,isLoading } = featuredStation();
     const { url } = useContext(Context)
     const navigate = useNavigate();
-
-    const { data: produto, isLoading } = useQuery({
-        queryKey: ['produto'],
-        queryFn: () => getProduto(url)
-    })
-
+   
     if (isLoading) {
         return (
             <Swiper
@@ -64,9 +52,9 @@ export default function DestaqueEstacao() {
             </Swiper>
         );
     }
-    
 
-    
+
+
     return (
         <div className="container-destaque-estacao">
             <img className="banner-estação" src="/img/inverno.png" alt="" />
@@ -97,7 +85,7 @@ export default function DestaqueEstacao() {
                 >
 
                     <div className="container-cards">
-                        {produto.map((item, index) => {
+                        {produto?.map((item, index) => {
                             return (
                                 <SwiperSlide
                                     key={index}
