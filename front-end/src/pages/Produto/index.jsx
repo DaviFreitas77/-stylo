@@ -22,26 +22,25 @@ import heart from '../../assets/lottie/heart.json'
 import ContentLoader from "react-content-loader";
 import { addFavorito } from "../../store/modules/Favorito/action";
 import { addCarrinho } from "../../store/modules/carrinho/actions";
+import { colors, interestProduct, product, sizes } from "../../Hooks/product";
 
 
 export default function Produto() {
     const dispatch = useDispatch();
-    const [subCategoria, setSubCateogira] = useState();
-    const [produto, setProduto] = useState([])
-    const [roupa, setRoupa] = useState([])
-    const [tamanho, setTamanho] = useState([])
-    const [quantidade, setQuantidade] = useState(1);
+    const { id_produto } = useParams();
+    const { color, isLoadingColor, errorColor } = colors(id_produto)
+    const { size, isLoadingSize, errorSize } = sizes(id_produto)
+    const { products, isLoadingProduct, errorProduct } = product(id_produto)
+    const { productInterestUser, isLoadingInterest, errorInterest } = interestProduct(id_produto)
+    const quantidade = 1
+
     const { idCarrinho, token } = useContext(Context)
-    const [cor, setCor] = useState([])
     const [selectTamanho, setSelectTamanho] = useState('')
     const [selectCor, setSelectCor] = useState('')
     const [idCor, setIdCor] = useState('')
     const [idTamanho, setIdTamanho] = useState('')
     const navigate = useNavigate()
     const idUsuario = localStorage.getItem("id_usuario");
-    const { id_produto } = useParams();
-
-
 
 
     const defaultOptions = {
@@ -65,70 +64,7 @@ export default function Produto() {
         setIdCor(item.fk_cor)
     }
 
-    useEffect(() => {
 
-        const cor = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000/api/cor?id_produto=${id_produto}`, {
-                    method: 'GET'
-                });
-
-                const data = await response.json();
-                setCor(data)
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-
-        const tamanho = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000/api/tamanho?id_produto=${id_produto}`, {
-                    method: 'GET'
-                });
-                const data = await response.json();
-                setTamanho(data)
-
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-
-
-        const fetchProduto = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000/api/produto?id_produto=${id_produto}`, {
-                    method: 'GET'
-                });
-                const data = await response.json();
-                setSubCateogira(data[0].fk_subcategoria);
-                setRoupa(data)
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-
-
-        const getInteresseUsuario = async () => {
-            if (subCategoria) {
-                try {
-                    const response = await fetch(`http://127.0.0.1:8000/api/interesseUsuario?subCategoria=${subCategoria}`);
-                    const data = await response.json();
-                    setProduto(data);
-
-                } catch (error) {
-                    console.error('Erro:', error);
-                }
-            }
-        }
-        fetchProduto()
-        getInteresseUsuario()
-
-        tamanho()
-        cor()
-    }, [id_produto, subCategoria])
 
 
     //actions
@@ -152,7 +88,7 @@ export default function Produto() {
     return (
         <div className="container-produto">
             <Header />
-            {roupa.map((item, index) => (
+            {products?.map((item, index) => (
                 <section className="section-info-produto" key={index}>
 
                     <div className="div-img-produto">
@@ -174,7 +110,7 @@ export default function Produto() {
                             <h3 className="subtitulo">Cores</h3>
                             <div className="container-icons-cores">
 
-                                {cor.map((item, index) => (
+                                {color?.map((item, index) => (
                                     <button
                                         onClick={() => pressCor(item)}
                                         className="corButton"
@@ -208,7 +144,7 @@ export default function Produto() {
                                 <option value="" disabled>
                                     selecione
                                 </option>
-                                {tamanho.map((item, index) => (
+                                {size.map((item, index) => (
                                     <option key={index} value={item.fk_tamanho}>{item.desc_tamanho}</option>
                                 ))}
                             </select>
@@ -235,58 +171,51 @@ export default function Produto() {
                         <button className="custom-next"><MdOutlineArrowForwardIos size={40} /></button>
                     </div>
                 </div>
-                {produto.length > 0 ? (
-                    <Swiper
-                        className="swiper"
-                        modules={[Autoplay, Navigation, Pagination]}
-                        spaceBetween={4}
-                        slidesPerView={4}
-                        loop={false}
-                        autoplay={{
-                            delay: 2000,
-                            disableOnInteraction: false
-                        }}
-                        pagination={true}
-                        navigation={{ prevEl: '.custom-prev', nextEl: '.custom-next' }}
-                        breakpoints={{
-                            768: {
-                                slidesPerView: 4,
-                            },
-                            0: {
-                                slidesPerView: 2,
-                            }
-                        }}
-                    >
 
-                        {produto.map((prod, index) => {
-                            return (
-                                <SwiperSlide
-                                    key={index}
+                <Swiper
+                    className="swiper"
+                    modules={[Autoplay, Navigation, Pagination]}
+                    spaceBetween={4}
+                    slidesPerView={4}
+                    loop={false}
+                    pagination={true}
+                    navigation={{ prevEl: '.custom-prev', nextEl: '.custom-next' }}
+                    breakpoints={{
+                        768: {
+                            slidesPerView: 4,
+                        },
+                        0: {
+                            slidesPerView: 2,
+                        }
+                    }}
+                >
+                    {productInterestUser?.map((prod, index) => {
+                        return (
+                            <SwiperSlide
+                                key={index}
+                            >
+                                <button
+
+                                    onClick={() => {
+                                        navigate(`/produto/${prod.id_produto}`,); //
+                                    }}
+                                    className="card-estacao"
                                 >
-                                    <button
+                                    <div>
+                                        <img className="img-card-estacao" src={prod.imagem_produto} alt="" />
+                                    </div>
 
-                                        onClick={() => {
-                                            navigate(`/produto/${prod.id_produto}`,); //
-                                        }}
-                                        className="card-estacao"
-                                    >
-                                        <div>
-                                            <img className="img-card-estacao" src={prod.imagem_produto} alt="" />
-                                        </div>
+                                    <div className="nomeEprecoCard">
+                                        <p className="nome-card">{prod.nome_produto}</p>
+                                        <p className="preco-card">{prod.preco_produto}</p>
+                                    </div>
+                                </button>
+                            </SwiperSlide>
+                        );
+                    })}
 
-                                        <div className="nomeEprecoCard">
-                                            <p className="nome-card">{prod.nome_produto}</p>
-                                            <p className="preco-card">{prod.preco_produto}</p>
-                                        </div>
-                                    </button>
-                                </SwiperSlide>
-                            );
-                        })}
+                </Swiper>
 
-                    </Swiper>
-                ) : (
-                    <Loading />
-                )}
 
 
             </section>

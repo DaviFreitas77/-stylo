@@ -5,15 +5,13 @@ import { IoSearch } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { IoMicOutline } from "react-icons/io5";
 import { MdOutlineMicOff } from "react-icons/md";
-// import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+
 export default function DrawerSearch({ showDrawer, setShowDrawer }) {
     const [termo, setTermo] = useState('')
     const [produto, setProduto] = useState([])
     const navigate = useNavigate()
 
     const pesquisa = async (valor) => {
-
-
         if (valor.length > 0) {
             try {
                 const response = await fetch(`http://127.0.0.1:8000/api/pesquisa?pesquisa_produto=${valor}`)
@@ -33,17 +31,6 @@ export default function DrawerSearch({ showDrawer, setShowDrawer }) {
         setTermo(e.target.value)
     }
 
-    // const voiceSearch = (transcript) => {
-    //     pesquisa(transcript)
-    //     resetTranscript();
-
-    // }
-    // const {
-    //     transcript,
-    //     listening,
-    //     resetTranscript,
-    //     browserSupportsSpeechRecognition
-    // } = useSpeechRecognition();
 
     return (
         <div className="container-drawer">
@@ -59,14 +46,8 @@ export default function DrawerSearch({ showDrawer, setShowDrawer }) {
 
                     />
 
-                   
-
                 </div>
-                {/* {transcript ? (
-                    <button onClick={() => voiceSearch(transcript)}>
-                        <IoSearch size={25} />
-                    </button>
-                ) : null} */}
+               
                 <button onClick={() => setShowDrawer(false)}> <IoCloseSharp size={35} /></button>
 
             </div>
