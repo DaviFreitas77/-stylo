@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import './style.css'
 import Header from '../../components/Header'
 import Botao from '../../components/Botao'
 import { FaCircle } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MdOutlineArrowBackIos } from "react-icons/md"
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import 'swiper/css';
@@ -13,13 +13,10 @@ import 'swiper/css/scrollbar';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { useParams } from "react-router-dom";
-import Loading from "../../components/Loading/LoadingAnimation";
 import { useDispatch } from "react-redux";
 import { Context } from "../../Contexto/provider";
-import { data } from "autoprefixer";
 import Lottie from "react-lottie";
 import heart from '../../assets/lottie/heart.json'
-import ContentLoader from "react-content-loader";
 import { addFavorito } from "../../store/modules/Favorito/action";
 import { addCarrinho } from "../../store/modules/carrinho/actions";
 import { colors, interestProduct, product, sizes } from "../../Hooks/product";
@@ -34,14 +31,13 @@ export default function Produto() {
     const { productInterestUser, isLoadingInterest, errorInterest } = interestProduct(id_produto)
     const quantidade = 1
 
-    const { idCarrinho, token } = useContext(Context)
+    const { idCarrinho } = useContext(Context)
     const [selectTamanho, setSelectTamanho] = useState('')
     const [selectCor, setSelectCor] = useState('')
     const [idCor, setIdCor] = useState('')
     const [idTamanho, setIdTamanho] = useState('')
     const navigate = useNavigate()
     const idUsuario = localStorage.getItem("id_usuario");
-
 
     const defaultOptions = {
         loop: false,
@@ -64,22 +60,19 @@ export default function Produto() {
         setIdCor(item.fk_cor)
     }
 
-
-
-
     //actions
     const handleAddFavorito = async (item) => {
         dispatch(addFavorito(item, idUsuario))
     }
 
     const handleAdd = async (item) => {
+        if (!idUsuario) {
+            navigate('/Login')
+        }
+
         if (!selectTamanho && !selectCor && !idCor) {
             alert('Por favor, selecione tamanho e cor antes de adicionar ao carrinho.');
             return;
-        }
-
-        if (!idUsuario) {
-            navigate('/Login')
         }
         dispatch(addCarrinho(item, idCarrinho, idUsuario, quantidade, idCor, idTamanho, selectTamanho, selectCor))
     }
@@ -131,20 +124,21 @@ export default function Produto() {
                         <div className="container-tamanho">
                             <h4 className="subtitulo">Tamanho</h4>
                             <select
+                                value={idTamanho ?? ""}
                                 onChange={(e) => {
-                                    const selectedItem = tamanho.find(item => item.fk_tamanho === parseInt(e.target.value));
+                                    const selectedItem = size.find(item => item.fk_tamanho === parseInt(e.target.value));
                                     if (selectedItem) {
-                                        console.log(selectedItem)
+
                                         setSelectTamanho(selectedItem.desc_tamanho);
                                         setIdTamanho(selectedItem.fk_tamanho);
                                     }
                                 }}
-
                                 className="input-select" name="" id="">
                                 <option value="" disabled>
                                     selecione
                                 </option>
                                 {size.map((item, index) => (
+
                                     <option key={index} value={item.fk_tamanho}>{item.desc_tamanho}</option>
                                 ))}
                             </select>
@@ -195,7 +189,6 @@ export default function Produto() {
                                 key={index}
                             >
                                 <button
-
                                     onClick={() => {
                                         navigate(`/produto/${prod.id_produto}`,); //
                                     }}

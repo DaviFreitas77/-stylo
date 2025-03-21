@@ -1,6 +1,5 @@
 export const addCarrinho = (item, idCarrinho, idUsuario, quantidade, idCor, idTamanho, selectCor, selectTamanho) => {
     return async (dispatch) => {
-
         try {
             const response = await fetch('http://127.0.0.1:8000/api/addCarrinho', {
                 method: 'POST',
@@ -21,9 +20,6 @@ export const addCarrinho = (item, idCarrinho, idUsuario, quantidade, idCor, idTa
                 }),
             })
             if (response.ok) {
-                console.log('Produto adicionado ao carrinho com sucesso!');
-
-                console.log(item)
                 dispatch({
                     type: 'ADD_CARRINHO',
                     item: {
@@ -92,7 +88,7 @@ export const decrementCarrinho = (item, idCarrinho) => {
                 },
                 body: JSON.stringify({ id_produto: item.id_produto, id_carrinho: idCarrinho })
             })
-            
+
 
             if (response.ok) {
                 dispatch({

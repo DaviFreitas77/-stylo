@@ -29,26 +29,11 @@
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    width: 95%;
-    margin-bottom: 30px; 
-    padding: 25px; 
-    max-width: 450px; /* Ajustando para cards mais largos em telas grandes */
-   
-    background-color: #DFDFDF; /* Para que o card tenha um fundo mais destacado */
-    transition: transform 0.3s ease; 
-    transform-origin: center center; 
-}
+    width: 100%;
+    max-width: 300px;
+    background-color: #DFDFDF;
+    border-radius: 4px;
 
-.card-estacao:hover{
-    transform: scale(1.08);
-    
-}
-.img-card-estacao {
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-
-    
 }
 
 .preco-card {
@@ -76,16 +61,18 @@
 .swiper-estacao {
     width: 100%;
     display: flex;
-    
+
 
 }
-.nomeEprecoCard{
+
+.nomeEprecoCard {
 
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: start;
 }
+
 .swiper-slide {
     display: flex;
     justify-content: center;
@@ -114,21 +101,20 @@
         flex-direction: column;
         cursor: pointer;
         width: 100%;
-        margin-bottom: 30px; 
-        padding: 5px; 
-        max-width: 550px; 
-      
-        background-color: #DFDFDF; 
+        margin-bottom: 30px;
+        padding: 5px;
+        max-width: 550px;
+        background-color: #DFDFDF;
     }
-    
+
 
     .nome-card {
         font-size: 20px;
     }
 
 
-   
-    
+
+
 
 
 }

@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 import ContentLoader from "react-content-loader";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import { useQuery } from "@tanstack/react-query";
-import { Context } from '../../Contexto/provider'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -17,10 +15,11 @@ import { featuredStation } from "../../Hooks/featuredStation";
 
 
 export default function DestaqueEstacao() {
-    const { produto,isLoading } = featuredStation();
-    const { url } = useContext(Context)
+    const { produto, isLoading } = featuredStation();
+    console.log(produto)
+
     const navigate = useNavigate();
-   
+
     if (isLoading) {
         return (
             <Swiper
@@ -28,9 +27,9 @@ export default function DestaqueEstacao() {
                 spaceBetween={10}
                 loop={true}
                 breakpoints={{
-                    1024: { slidesPerView: 4 }, //  Desktop: 5 slides
-                    768: { slidesPerView: 3 },  //  Tablet: 3 slides
-                    0: { slidesPerView: 2 }     //  Mobile: 1 slide
+                    1024: { slidesPerView: 4 },
+                    768: { slidesPerView: 3 },  
+                    0: { slidesPerView: 2 }     
                 }}
                 className="swiper-loading"
             >
