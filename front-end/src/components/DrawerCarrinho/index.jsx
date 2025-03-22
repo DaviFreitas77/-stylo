@@ -59,7 +59,7 @@ export default function DrawerCarrinho() {
                 })
                 const data = await response.json();
 
-                console.log(data.itens)
+
                 dispatch({
                     type: 'LOAD_CARRINHO',
                     payload: data.itens

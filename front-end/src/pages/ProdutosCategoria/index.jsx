@@ -1,17 +1,21 @@
 import React, { useState } from "react";
-
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { TbShoppingCartUp } from "react-icons/tb";
 import './style.css'
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loading/LoadingAnimation";
 import Header from "../../components/Header";
+import { loadCategory, loadColor, loadProductCategory, loadSize } from "../../Hooks/prouductCategory";
 export default function ProdutosCategoria() {
 
     const { id_categoria } = useParams();
-    const [produtos, setProdutos] = useState([])
-    const [subCategoria, setSubCategoria] = useState([])
+    const { product, isLoadingProduct, errorProduct } = loadProductCategory(id_categoria)
+    const { category, isLoadingCategory, erroCategory } = loadCategory(id_categoria)
+    const { colors, isLoadingColor, errorColor } = loadColor()
+    const { sizes, isLoadingSize, errorSize } = loadSize()
+    
+
+
     const [cor, setCor] = useState([])
     const [tamanho, setTamanho] = useState([])
     const [idCor, setIdCor] = useState('')
@@ -52,76 +56,6 @@ export default function ProdutosCategoria() {
         }
     }
 
-    useEffect(() => {
-        const loadScreenCategoria = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000/api/produtosCategoria?id_categoria=${id_categoria}`, {
-                    method: "GET"
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Erro na requisição: ${response.status}`);
-                }
-
-                const data = await response.json();
-                setProdutos(data);
-            } catch (error) {
-                console.error("Erro ao carregar produtos:", error);
-            }
-        };
-
-
-        const loadCategoria = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000/api/getsubCategoriaProduto/${id_categoria}`, {
-                    method: "Get"
-                })
-
-
-                const data = await response.json();
-                setSubCategoria(data)
-
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-
-
-        const loadCor = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000/api/getcor`, {
-                    method: "GET"
-                })
-
-                const data = await response.json();
-                setCor(data)
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-
-        const loadTamanho = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:8000/api/gettamanho`, {
-                    method: "GET"
-                })
-
-                const data = await response.json();
-                setTamanho(data)
-
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        loadCategoria()
-        loadScreenCategoria();
-        loadCor();
-        loadTamanho();
-    }, []);
-
 
     return (
         <div>
@@ -131,7 +65,7 @@ export default function ProdutosCategoria() {
                     <div className="filter-group">
                         <h2 className="subtitulo-filter">Categoria</h2>
                         <div className="filter-options">
-                            {subCategoria.length > 0 && subCategoria.map((item, index) => (
+                            {category.length > 0 && category?.map((item, index) => (
                                 <button
                                     onClick={() => pegarCategoria(item.id_subCategoria)}
                                     className={`btn-subCategoria ${id_subCategoria === item.id_subCategoria ? 'activeBtn' : ''}`}
@@ -144,7 +78,7 @@ export default function ProdutosCategoria() {
                     <div className="filter-group">
                         <h2 className="subtitulo-filter">Cores</h2>
                         <div className="filter-options">
-                            {cor.length > 0 && cor.map((item, index) => (
+                            {colors.length > 0 && colors?.map((item, index) => (
                                 <label key={index} className="filter-checkbox">
                                     <input type="checkbox" onChange={() => pegarCor(item.id_cor)} />
                                     <span className="checkmark"></span>
@@ -156,7 +90,7 @@ export default function ProdutosCategoria() {
                     <div className="filter-group">
                         <h2 className="subtitulo-filter">Tamanho</h2>
                         <div className="filter-options">
-                            {tamanho.length > 0 && tamanho.map((item, index) => (
+                            {sizes.length > 0 && sizes?.map((item, index) => (
                                 <label key={index} className="filter-checkbox">
                                     <input type="checkbox" onChange={() => pegarTamanho(item.id_tamanho)} />
                                     <span className="checkmark"></span>
@@ -193,7 +127,7 @@ export default function ProdutosCategoria() {
                             </Link>
                         ))
                     ) : (
-                        produtos.map((item, index) => (
+                        product?.map((item, index) => (
                             <Link
                                 to={`/produto/${item.id_produto}`}
                                 key={index} className="container-produto-categoria">

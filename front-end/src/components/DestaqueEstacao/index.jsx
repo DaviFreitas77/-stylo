@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+
 import './style.css'
 
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,6 @@ import { featuredStation } from "../../Hooks/featuredStation";
 
 export default function DestaqueEstacao() {
     const { produto, isLoading } = featuredStation();
-    console.log(produto)
 
     const navigate = useNavigate();
 
