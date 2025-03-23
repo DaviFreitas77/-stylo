@@ -2,10 +2,8 @@ import React, { useContext, useState } from "react";
 import { IMaskInput } from "react-imask";
 import './style.css'
 import { useNavigate } from "react-router-dom";
-import signUp from '../../assets/lottie/signUp.json'
-import { Context } from "../../Contexto/provider";
-import Dots from "react-activity/dist/Dots";
-import "react-activity/dist/Dots.css";
+import { Windmill } from "react-activity";
+import"react-activity/dist/Windmill.css" ;
 import { useForm, Controller } from "react-hook-form";
 export default function SignUp() {
 
@@ -148,9 +146,18 @@ export default function SignUp() {
                         {errors.senha && <p className="error fs-6 text">{errors.senha.message}</p>}
 
                     </div>
-                    <button type="submit" className="btn-signIn">
-                        {loadingButton ? <Dots /> : "Criar conta"}
-                    </button>
+                    {loadingButton ? (
+
+                        <button type="submit" className="btn-signIn">
+                            <Windmill />
+                        </button>
+                    ) : (
+                        <button type="submit" className="btn-signIn">
+                            criar conta
+                        </button>
+                    )}
+
+
                 </form>
                 <div className="buttonsLogin">
 

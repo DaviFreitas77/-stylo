@@ -3,8 +3,8 @@ import "./style.css";
 import { FcGoogle } from "react-icons/fc";
 import { Context } from "../../Contexto/provider";
 import { useNavigate } from "react-router-dom";
-import Dots from "react-activity/dist/Dots";
-import "react-activity/dist/Dots.css";
+import Windmill from "react-activity/dist/Windmill";
+import "react-activity/dist/Windmill.css";
 import { useForm, Controller } from "react-hook-form";
 import { IMaskInput } from "react-imask";
 import Cookies from "js-cookie";
@@ -113,7 +113,7 @@ export default function SignIn() {
 
                     <div className="buttonsLogin">
                         <button type="submit" className="btn-signIn">
-                            {loadingBtn ? <Dots /> : "Entrar"}
+                            {loadingBtn ? <Windmill /> : "Entrar"}
                         </button>
                         <button
                             onClick={() => navigate("/criarConta")}

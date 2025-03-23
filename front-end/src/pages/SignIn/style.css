@@ -58,6 +58,9 @@
     color: #fff;
     padding: 12px;
     border-radius: 10px;
+    display: flex;
+    align-items: center !important;
+    justify-content: center;
 }
 .btn-criarConta{
     border-radius: 10px;
