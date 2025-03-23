@@ -21,7 +21,10 @@ export default function Checkout() {
     const [isOpen, setIsOpen] = useState(false)
 
     const calcularTotal = () => {
-        return produtos.reduce((total, produto) => total + (produto.preco_produto * produto.quantidade), 0).toFixed(2);
+        return produtos.reduce((total, produto) => total + (produto.preco_produto * produto.quantidade), 0).toLocaleString("pt-BR",{
+            style:"currency",
+            currency:"BRL"
+        });
     }
     const stripe = useStripe();
     const elements = useElements();
@@ -81,9 +84,9 @@ export default function Checkout() {
     }
     return (
 
-            <div>
-                <Header/>
-                        <div className="containerCheckOut">
+        <div>
+            <Header />
+            <div className="containerCheckOut">
                 <div className="containerProdutoCheckOut">
                     <div className="produto">
                         {produtos.map((produto, index) => (
@@ -97,7 +100,10 @@ export default function Checkout() {
                                         <p>cor: {produto.desc_cor}</p>
                                         <p>quantidade: {produto.quantidade}</p>
                                         <span className="last-price">R$ 290,00</span>
-                                        <span className="price-carrinho">R$ {produto.preco_produto}</span>
+                                        <span className="price-carrinho">{Number(produto.preco_produto).toLocaleString("pt-BR",{
+                                            style:'currency',
+                                            currency:"BRL"
+                                        })}</span>
                                     </div>
                                 </div>
                                 <div className="linha"></div>
@@ -112,7 +118,7 @@ export default function Checkout() {
                         <h2 className="h2CheckOut">Resumo da compra</h2>
                         <div className="totalCheck">
                             Total: ({produtos.length} itens)
-                            <h3>R$ {calcularTotal()}</h3>
+                            <h3>{calcularTotal()}</h3>
                         </div>
                         {payLoading ? (
                             <button onClick={pay} className="botao" disabled>
@@ -133,9 +139,9 @@ export default function Checkout() {
                     modalOpen={isOpen}
                     setModalOpen={setIsOpen}
                 />
-                
-                        </div>
+
             </div>
+        </div>
 
     );
 }

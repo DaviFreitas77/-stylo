@@ -13,7 +13,7 @@ export default function ProdutosCategoria() {
     const { category, isLoadingCategory, erroCategory } = loadCategory(id_categoria)
     const { colors, isLoadingColor, errorColor } = loadColor()
     const { sizes, isLoadingSize, errorSize } = loadSize()
-    
+
 
 
     const [cor, setCor] = useState([])
@@ -117,8 +117,14 @@ export default function ProdutosCategoria() {
                                 <p className="nome-produto-categoria">{item.nome_produto}</p>
                                 <div className="div-preco-categoria">
                                     <div className="prices-categoria">
-                                        <p className="last-price-categoria">{item.preco_antigo_produto}</p>
-                                        <p className="price-produto-categoria ">{item.preco_produto}</p>
+                                        <p className="last-price-categoria">{Number(item.preco_antigo_produto).toLocaleString("pt-BR", {
+                                            style: "currency",
+                                            currency: "BRL"
+                                        })}</p>
+                                        <p className="price-produto-categoria ">{Number(item.preco_produto).toLocaleString("pt-BR", {
+                                            style: 'currency',
+                                            currency: "BRL"
+                                        })}</p>
                                     </div>
                                     <button className="add-carrinho-card-categoria">
                                         <  TbShoppingCartUp className="icon-carrinh-categoria" />
@@ -139,8 +145,14 @@ export default function ProdutosCategoria() {
                                 <p className="nome-produto-categoria">{item.nome_produto}</p>
                                 <div className="div-preco-categoria">
                                     <div className="prices-categoria">
-                                        <p className="last-price-categoria">{item.preco_antigo_produto}</p>
-                                        <p className="price-produto-categoria ">{item.preco_produto}</p>
+                                        <p className="last-price-categoria">{Number(item.preco_antigo_produto).toLocaleString("pt-BR", {
+                                            style: "currency",
+                                            currency: "BRL"
+                                        })}</p>
+                                        <p className="price-produto-categoria ">{Number(item.preco_produto).toLocaleString("pt-BR", {
+                                            style: 'currency',
+                                            currency: "BRL"
+                                        })}</p>
                                     </div>
                                     <button className="add-carrinho-card-categoria">
                                         <  TbShoppingCartUp className="icon-carrinh-categoria" />

@@ -117,8 +117,16 @@ export default function Produto() {
                         </div>
 
                         <div className="prices">
-                            <p className="last-price">{`de R$${item.preco_antigo_produto}`}</p>
-                            <p className="price-produto">{`R$ ${item.preco_produto}`}</p>
+                            <p className="last-price">{Number(item.preco_antigo_produto).toLocaleString("pt-BR",{
+                                  style: "currency",
+                                  currency: "BRL",
+                            })}</p>
+                            <p className="price-produto">
+                                {Number(item.preco_produto).toLocaleString("pt-BR", {
+                                    style: "currency",
+                                    currency: "BRL",
+                                })}
+                            </p>
                         </div>
 
                         <div className="container-tamanho">
@@ -200,7 +208,10 @@ export default function Produto() {
 
                                     <div className="nomeEprecoCard">
                                         <p className="nome-card">{prod.nome_produto}</p>
-                                        <p className="preco-card">{prod.preco_produto}</p>
+                                        <p className="preco-card">{Number(prod.preco_produto).toLocaleString("pt-BR",{
+                                            style:"currency",
+                                            currency:"BRL"
+                                        })}</p>
                                     </div>
                                 </button>
                             </SwiperSlide>

@@ -20,7 +20,7 @@ export default function Destaque() {
 
 
     if (isLoading) {
-        return <Loading />; // Exibe um componente de loading enquanto os dados estão sendo carregados
+        return <Loading />; 
     }
 
 
@@ -67,7 +67,10 @@ export default function Destaque() {
                                             alt={item.nome_produto}
                                         />
                                         <p className="nome-roupa">{item.nome_produto}</p>
-                                        <p className="preco-roupa">{`R$${item.preco_produto}`}</p>
+                                        <p className="preco-roupa">{Number(item.preco_produto).toLocaleString("pt-BR",{
+                                            style:"currency",
+                                            currency:"BRL"
+                                        })}</p>
                                     </button>
                                 </SwiperSlide>
                             );

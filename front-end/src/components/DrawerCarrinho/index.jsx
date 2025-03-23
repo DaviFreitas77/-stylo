@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { Context } from "../../Contexto/provider";
 import { useNavigate } from "react-router-dom";
 import { decrementCarrinho, incrementCarrinhho } from "../../store/modules/carrinho/actions";
+import { current } from "immer";
 export default function DrawerCarrinho() {
     const dispatch = useDispatch();
     const produtos = useSelector(state => state.carrinho)
@@ -51,7 +52,7 @@ export default function DrawerCarrinho() {
 
     useEffect(() => {
 
-    if (!idUsuario) return; 
+        if (!idUsuario) return;
         const fetchCarrinho = async () => {
             try {
                 const response = await fetch(`http://127.0.0.1:8000/api/carrinho?id_usuario=${idUsuario}`, {
@@ -129,10 +130,17 @@ export default function DrawerCarrinho() {
                                     </button>
                                     <div className="container-precos">
                                         <span className="last-price">
-                                            R$ {produtos.preco_produto}
+                                            {Number(produtos.preco_produto).toLocaleString("pt-BR", {
+                                                style: "currency",
+                                                currency: "BRL"
+                                            })}
                                         </span>
                                         <span className="price-carrinho">
-                                            R$ {produtos.preco_produto}
+                                            {Number(produtos.preco_produto).toLocaleString("pt-BR", {
+                                                style: "currency",
+                                                currency: "BRL"
+                                            })}
+
                                         </span>
                                     </div>
                                 </div>
@@ -143,10 +151,13 @@ export default function DrawerCarrinho() {
                     <div className="containerBtnCheckOut">
                         {produtos.length > 0 ? (
                             <p className="totalCarrinho ">
-                                Total: R$
-                                {produtos.reduce((total, produto) => {
+                                Total: 
+                                 {produtos.reduce((total, produto) => {
                                     return total + (produto.preco_produto * produto.quantidade);
-                                }, 0).toFixed(2)}
+                                }, 0).toLocaleString("pt-BR",{
+                                    style:"currency",
+                                    currency:"BRL"
+                                })}
                                 <button
                                     className="botao  " data-bs-dismiss="offcanvas" aria-label="Close "
                                     onClick={() => navigation('/checkOut')}>

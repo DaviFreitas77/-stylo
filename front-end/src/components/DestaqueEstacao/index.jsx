@@ -99,7 +99,10 @@ export default function DestaqueEstacao() {
 
                                         <div className="nomeEprecoCard">
                                             <p className="nome-card">{item.nome_produto}</p>
-                                            <p className="preco-card">{item.preco_produto}</p>
+                                            <p className="preco-card">{Number(item.preco_produto).toLocaleString("pt-BR",{
+                                                style:"currency",
+                                                currency:"BRL"
+                                            })}</p>
                                         </div>
                                     </button>
                                 </SwiperSlide>
