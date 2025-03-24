@@ -31,8 +31,27 @@ Aqui estão algumas capturas de tela da aplicação:
 
 - **Backend**: Laravel
 - **Frontend**: React
-- **Gerenciamento de Estado**: Redux
-- **Context API**: Para gerenciamento de estados
+- **Gerenciamento de Estado**: Redux,Context API
 - **Pagamento**: Stripe API
 - **Armazenamento**: Firebase Storage
+
+
+Antes de rodar o projeto, certifique-se de ter as seguintes ferramentas instaladas:
+
+- **XAMPP**: [(PHP 8.2)](https://www.apachefriends.org/pt_br/index.html)
+- **Node.js**: [(versão 14.x ou superior)](https://nodejs.org/pt)
+- **Composer**: [(Download)](https://getcomposer.org/)
+
+### Clonar o Repositório
+
+1. Clone o repositório do projeto:
+   git clone https://github.com/DaviFreitas77/-stylo.git
+
+## instruções
+   abra o xamp e inicie o apache  eo mySql,clique em admin para abrir o phpmyadmin e importe o banco com o nome bd_stylo
+   após clonar o projeto  abra a pasta **api** no cmd e rode o comando composer install para instalar as dependencias
+   crie um aquivo **.env** na raiz da api e copie o **.env.exemple** ,logo a´pos rode o comando **php artisan serve** para iniciar o server local
+
+abra a pasta **front end** no cmd e rode o arquivo npm install para instalar as dependencias do front logo após rode o comando **npm run dev** para iniciar
+
 
