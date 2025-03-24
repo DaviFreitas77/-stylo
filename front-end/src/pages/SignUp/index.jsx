@@ -3,7 +3,7 @@ import { IMaskInput } from "react-imask";
 import './style.css'
 import { useNavigate } from "react-router-dom";
 import { Windmill } from "react-activity";
-import"react-activity/dist/Windmill.css" ;
+import "react-activity/dist/Windmill.css";
 import { useForm, Controller } from "react-hook-form";
 export default function SignUp() {
 

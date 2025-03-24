@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admController;
 use App\Http\Controllers\carrinhoController;
 use App\Http\Controllers\categoriaController;
 use App\Http\Controllers\corController;
@@ -20,6 +21,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/criarUsuario', [usuarioController::class, ('criarUsuario')]);
+Route::post('/criarAdm', [admController::class, ('criarAdm')]);
+
 Route::post('/criarCategoria', [categoriaController::class, ('criarCategoria')]);
 Route::post('/criarSubCategoria', [subCategoriaController::class, ('criarSubCategoria')]);
 

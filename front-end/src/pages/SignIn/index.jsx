@@ -82,7 +82,7 @@ export default function SignIn() {
                 <form onSubmit={handleSubmit(login)} className="containerInputLogin">
                     <div>
                         <p>Informe seu CPF</p>
-                        {/* useform não suporta diretamente o inputMask,por isso tem que usar o controller */}
+
                         <Controller
                             name="cpf"
                             control={control}

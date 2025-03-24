@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tb_verificar_email', function (Blueprint $table) {
             $table->increments('id_verificar_email');
-            $table->string('email_usaurio');
+            $table->string('email_usuario');
             $table->string('codigo');
         });
     }

@@ -135,12 +135,12 @@ class usuarioController extends Controller
             ], 200);
         }
 
-        if ($adm && $request->senha === $adm->senha_adm) {
+        if ($adm && Hash::check($request->senha, $adm->senha_adm)) {
             $token = $adm->createToken('admToken')->plainTextToken;
             return response()->json([
                 'message' => 'adm',
                 'nome' => $adm->nome_adm,
-                'id'=> $adm->id_adm,
+                'id' => $adm->id_adm,
                 'token' => $token
             ], 201);
         }
