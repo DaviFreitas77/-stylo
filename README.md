@@ -31,8 +31,7 @@ Aqui estão algumas capturas de tela da aplicação:
 
 - **Backend**: Laravel
 - **Frontend**: React
-- **Gerenciamento de Estado**: Redux
-- **Context API**: Para gerenciamento de estados
+- **Gerenciamento de Estado**: Redux,Context API
 - **Pagamento**: Stripe API
 - **Armazenamento**: Firebase Storage
 
