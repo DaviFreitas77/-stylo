@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './style.css';
 import { loadStripe } from "@stripe/stripe-js";
@@ -10,12 +10,13 @@ import Header from '../../components/Header';
 
 import Dots from "react-activity/dist/Dots";
 import "react-activity/dist/Dots.css";
+import { Context } from '../../Contexto/provider';
 
 
 export default function Checkout() {
-    const [nome, setNome] = useState();
     const produtos = useSelector(state => state.carrinho);
     const [payLoading, setPayLoading] = useState(false)
+    const {url} = useContext(Context)
 
     //modal
     const [isOpen, setIsOpen] = useState(false)
@@ -55,11 +56,10 @@ export default function Checkout() {
             setPayLoading(false)
             return;
         }
-
-
+        
         const total = calcularTotal();
 
-        const response = await fetch('http://127.0.0.1:8000/api/pagamento', {
+        const response = await fetch(`${url}/pagamento`, {
             method: 'POST',
             body: JSON.stringify({ token: token.id, valor: total * 100 }),
             headers: {

@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 
 export default function SignIn() {
     const { control, register, handleSubmit, formState: { errors } } = useForm();
-    const { setNomeUsuario } = useContext(Context);
+    const { setNomeUsuario,url } = useContext(Context);
     const [loadingBtn, setLoadingBtn] = useState(false);
     const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ export default function SignIn() {
         }
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/api/login", {
+            const response = await fetch(`${url}/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

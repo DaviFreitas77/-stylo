@@ -5,7 +5,7 @@
     flex-direction: column;
 }
 
-.containerInput {
+.form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,24 +15,25 @@
     width: 80%;
     padding: 20px;
 }
-.containerInput h1{
+
+.form h1 {
     font-size: 24px;
     font-weight: bold;
 }
 
+.containerInput {
+    width: 100%;
+
+}
+
 .inputProduto {
-    width: 90%;
+    width: 100%;
     background-color: transparent;
     border: 1px solid black;
     padding: 10px;
     border-radius: 7px;
 }
 
-.containerinputsPreco {
-    display: flex;
-    width: 90%;
-    gap: 10px;
-}
 
 .btnProximo {
     background-color: transparent;
@@ -43,8 +44,8 @@
     border-radius: 10px;
 
 }
-.containerImgCreate{
 
+.containerImgCreate {
     width: 90%;
     margin-bottom: 20px;
 }
@@ -113,5 +114,5 @@
         flex-wrap: wrap;
         gap: 40px;
     }
-    
+
 }

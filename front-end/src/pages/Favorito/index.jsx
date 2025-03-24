@@ -1,22 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import './style.css'
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Header from "../../components/Header";
+import { Context } from "../../Contexto/provider";
 export default function Favorito() {
-
     const produtos = useSelector(state => state.favorito)
     const navigate = useNavigate();
     const idUsuario = localStorage.getItem('id_usuario')
     const dispatch = useDispatch()
+    const { url } = useContext(Context)
 
 
     useEffect(() => {
-        if(!idUsuario) return;
+        if (!idUsuario) return;
         const fetchProduto = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/favoritos?id_usuario=${idUsuario}`)
+                const response = await fetch(`${url}/favoritos?id_usuario=${idUsuario}`)
 
                 const data = await response.json()
                 dispatch({
@@ -35,7 +36,7 @@ export default function Favorito() {
 
     return (
         <div className="container-favoritos">
-             <Header/>
+            <Header />
             <div className="headerFavoritos">
                 <h1>Sua lista de desejos...</h1>
                 <p>Seus produtos favoritos ficam aqui para você ver sempre que quiser.</p>
@@ -45,7 +46,7 @@ export default function Favorito() {
                 {produtos.length > 0 ? (
                     produtos.map((produto) => (
                         <button
-                        className="cardFavorito"
+                            className="cardFavorito"
                             onClick={() => navigate(`/produto/${produto.id_produto}`)}
                             key={produto.id_produto}>
                             <div className="containerImgFavorito">

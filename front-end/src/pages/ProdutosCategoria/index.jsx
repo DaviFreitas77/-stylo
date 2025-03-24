@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TbShoppingCartUp } from "react-icons/tb";
 import './style.css'
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Loading from "../../components/Loading/LoadingAnimation";
 import Header from "../../components/Header";
 import { loadCategory, loadColor, loadProductCategory, loadSize } from "../../Hooks/prouductCategory";
+import { Context } from "../../Contexto/provider";
 export default function ProdutosCategoria() {
 
     const { id_categoria } = useParams();
@@ -13,6 +14,7 @@ export default function ProdutosCategoria() {
     const { category, isLoadingCategory, erroCategory } = loadCategory(id_categoria)
     const { colors, isLoadingColor, errorColor } = loadColor()
     const { sizes, isLoadingSize, errorSize } = loadSize()
+    const {url} = useContext(Context)
 
 
 
@@ -43,7 +45,7 @@ export default function ProdutosCategoria() {
     const filtrarProduto = async () => {
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/filtro/${id_subCategoria}/${idCor}/${idTamanho}`, {
+            const response = await fetch(`${url}/filtro/${id_subCategoria}/${idCor}/${idTamanho}`, {
                 method: 'GET'
             })
             const data = await response.json()
