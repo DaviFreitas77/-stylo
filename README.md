@@ -52,6 +52,6 @@ Antes de rodar o projeto, certifique-se de ter as seguintes ferramentas instalad
    após clonar o projeto  abra a pasta **api** no cmd e rode o comando composer install para instalar as dependencias
    crie um aquivo **.env** na raiz da api e copie o **.env.exemple** ,logo a´pos rode o comando **php artisan serve** para iniciar o server local
 
-abra a pasta **front end** no cmd e rode o arquivo npm install para instalar as dependencias do front logo após rode o comando **npm run dev** para iniciar
+abra a pasta **front end** no cmd e rode o  comando npm install para instalar as dependencias do front logo após rode o comando **npm run dev** para iniciar
 
 
